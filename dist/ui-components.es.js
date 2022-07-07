@@ -6,7 +6,7 @@ import { vElementHover } from "@vueuse/components";
 const _hoisted_1$4 = { class: "w-full max-w-4xl space-y-1" };
 const _hoisted_2$3 = { class: "relative" };
 const _hoisted_3$2 = { class: "inline-block w-full rounded-md shadow-sm" };
-const _hoisted_4 = { class: "relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-2 pr-10 text-left transition duration-150 ease-in-out focus-within:border-blue-500 focus-within:outline-none focus-within:ring-1 focus-within:ring-blue-500 sm:text-sm sm:leading-5" };
+const _hoisted_4$1 = { class: "relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-2 pr-10 text-left transition duration-150 ease-in-out focus-within:border-blue-500 focus-within:outline-none focus-within:ring-1 focus-within:ring-blue-500 sm:text-sm sm:leading-5" };
 const _hoisted_5 = { class: "block flex flex-wrap gap-2" };
 const _hoisted_6 = { class: "flex items-center gap-1 rounded bg-blue-600 text-white px-2 py-0.5" };
 const _hoisted_7 = ["onClick"];
@@ -109,7 +109,7 @@ const _sfc_main$7 = {
             ]),
             createElementVNode("div", _hoisted_2$3, [
               createElementVNode("span", _hoisted_3$2, [
-                createElementVNode("div", _hoisted_4, [
+                createElementVNode("div", _hoisted_4$1, [
                   createElementVNode("span", _hoisted_5, [
                     selectedKeys.value.length === 0 ? (openBlock(), createElementBlock("span", {
                       key: 0,
@@ -601,11 +601,15 @@ const _sfc_main$3 = {
     };
   }
 };
-const _hoisted_1$1 = ["onSubmit"];
+const _hoisted_1$1 = ["onSubmit", "onReset"];
 const _hoisted_2 = { class: "mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense empty:hidden" };
 const _hoisted_3 = {
   type: "submit",
   class: "w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm"
+};
+const _hoisted_4 = {
+  type: "reset",
+  class: "mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:col-start-1 sm:text-sm"
 };
 const _sfc_main$2 = {
   __name: "Prompt",
@@ -672,23 +676,20 @@ const _sfc_main$2 = {
           createElementVNode("form", {
             ref_key: "FormHTMLElement",
             ref: FormHTMLElement,
-            onSubmit: withModifiers(submit, ["prevent"])
+            onSubmit: withModifiers(submit, ["prevent"]),
+            onReset: withModifiers(reset, ["prevent"])
           }, [
             createElementVNode("div", null, [
               renderSlot(_ctx.$slots, "default", { form: unref(FormHTMLElement) })
             ]),
-            !__props.noFooter ? renderSlot(_ctx.$slots, "footer", { key: 0 }, () => [
+            renderSlot(_ctx.$slots, "footer", {}, () => [
               createElementVNode("footer", _hoisted_2, [
                 renderSlot(_ctx.$slots, "buttons", {}, () => [
                   createElementVNode("button", _hoisted_3, toDisplayString(__props.submitButtonText), 1),
-                  createElementVNode("button", {
-                    type: "reset",
-                    class: "mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:col-start-1 sm:text-sm",
-                    onClick: reset
-                  }, toDisplayString(__props.resetButtonText), 1)
+                  createElementVNode("button", _hoisted_4, toDisplayString(__props.resetButtonText), 1)
                 ])
               ])
-            ]) : createCommentVNode("", true)
+            ])
           ], 40, _hoisted_1$1)
         ]),
         _: 3
