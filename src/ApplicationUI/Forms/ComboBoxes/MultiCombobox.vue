@@ -52,7 +52,7 @@
 
         <div class="absolute mt-1 w-full rounded-md bg-white shadow-lg z-10">
           <ComboboxOptions class="shadow-xs max-h-60 overflow-auto rounded-md py-1 text-base leading-6 focus:outline-none sm:text-sm sm:leading-5">
-            <ComboboxOption v-for="item in availableItems" :key="uniqueKey(item)" v-slot="{ active, selected }" :value="uniqueKey(item)">
+            <ComboboxOption v-for="item in availableItems" :key="uniqueKey(item)" v-slot="{ active, selected }" :value="uniqueKey(item)" :disabled="disabled.includes(uniqueKey(item))">
               <slot v-bind="{item, active, selected, stringify}">
                 <li class="relative cursor-default select-none py-2 pl-3 pr-9 focus:outline-none" :class="active ? 'bg-blue-600 text-white' : 'text-gray-900'">
                   <span class="block truncate" :class="{ 'font-semibold': selected, 'font-normal': !selected }">
@@ -82,7 +82,7 @@ import {
   ComboboxOptions,
 } from '@headlessui/vue';
 import { CheckIcon, SelectorIcon, XIcon } from '@heroicons/vue/solid';
-import { asyncComputed, get, set, syncRef, templateRef } from '@vueuse/core';
+import { asyncComputed, get, set, templateRef } from '@vueuse/core';
 
 // eslint-disable-next-line no-undef
 const emit = defineEmits(['update:modelValue']);
@@ -124,6 +124,10 @@ const props = defineProps({
   label: {
     type: String,
     default: undefined,
+  },
+  disabled: {
+    type: Array,
+    default: () => ([]),
   },
 });
 

@@ -50,6 +50,10 @@ const _sfc_main$7 = {
     label: {
       type: String,
       default: void 0
+    },
+    disabled: {
+      type: Array,
+      default: () => []
     }
   },
   emits: ["update:modelValue"],
@@ -180,7 +184,8 @@ const _sfc_main$7 = {
                     (openBlock(true), createElementBlock(Fragment, null, renderList(unref(availableItems), (item) => {
                       return openBlock(), createBlock(unref(ComboboxOption), {
                         key: unref(uniqueKey)(item),
-                        value: unref(uniqueKey)(item)
+                        value: unref(uniqueKey)(item),
+                        disabled: __props.disabled.includes(unref(uniqueKey)(item))
                       }, {
                         default: withCtx(({ active, selected }) => [
                           renderSlot(_ctx.$slots, "default", normalizeProps(guardReactiveProps({ item, active, selected, stringify: unref(stringify) })), () => [
@@ -200,7 +205,7 @@ const _sfc_main$7 = {
                           ])
                         ]),
                         _: 2
-                      }, 1032, ["value"]);
+                      }, 1032, ["value", "disabled"]);
                     }), 128))
                   ]),
                   _: 3
@@ -255,6 +260,10 @@ const _sfc_main$6 = {
     label: {
       type: String,
       default: void 0
+    },
+    disabled: {
+      type: Array,
+      default: () => []
     }
   },
   emits: ["update:modelValue"],
@@ -352,6 +361,7 @@ const _sfc_main$6 = {
                     return openBlock(), createBlock(unref(ComboboxOption), {
                       key: unref(uniqueKey)(item),
                       value: item,
+                      disabled: __props.disabled.includes(unref(uniqueKey)(item)),
                       onClick: blur
                     }, {
                       default: withCtx(({ active, selected }) => [
@@ -375,7 +385,7 @@ const _sfc_main$6 = {
                         ])
                       ]),
                       _: 2
-                    }, 1032, ["value"]);
+                    }, 1032, ["value", "disabled"]);
                   }), 128))
                 ]),
                 _: 3

@@ -35,6 +35,7 @@
               v-for="item in availableItems"
               :key="uniqueKey(item)"
               :value="item"
+              :disabled="disabled.includes(uniqueKey(item))"
               v-slot="{ active, selected }"
               @click="blur"
           >
@@ -107,6 +108,10 @@ const props = defineProps({
   label: {
     type: String,
     default: undefined,
+  },
+  disabled: {
+    type: Array,
+    default: () => ([]),
   },
 });
 
