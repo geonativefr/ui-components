@@ -63,7 +63,7 @@ const _sfc_main$7 = {
       default: false
     }
   },
-  emits: ["update:modelValue", "update:query"],
+  emits: ["update:modelValue", "update:query", "clear"],
   setup(__props, { emit }) {
     var _a, _b, _c;
     const props = __props;
@@ -98,6 +98,7 @@ const _sfc_main$7 = {
       set(query, "");
       await nextTick();
       focus();
+      emit("clear");
     }
     async function remove(itemToRemove) {
       set(selectedKeys, get(selectedKeys).filter((item) => uniqueKey(item) !== uniqueKey(itemToRemove)));
@@ -128,6 +129,7 @@ const _sfc_main$7 = {
         onKeyup: _cache[4] || (_cache[4] = ({ keyCode }) => [38, 40].includes(keyCode) && showOptions())
       }, [
         createVNode(unref(Combobox), {
+          as: "div",
           modelValue: selectedKeys.value,
           "onUpdate:modelValue": _cache[3] || (_cache[3] = ($event) => selectedKeys.value = $event),
           multiple: ""
@@ -307,7 +309,7 @@ const _sfc_main$6 = {
       default: false
     }
   },
-  emits: ["update:modelValue", "update:query"],
+  emits: ["update:modelValue", "update:query", "clear"],
   setup(__props, { emit }) {
     var _a, _b, _c;
     const props = __props;
@@ -357,6 +359,7 @@ const _sfc_main$6 = {
       set(query, "");
       await nextTick();
       focus();
+      emit("clear");
     }
     const container = templateRef("container");
     onClickOutside(container, () => hideOptions());

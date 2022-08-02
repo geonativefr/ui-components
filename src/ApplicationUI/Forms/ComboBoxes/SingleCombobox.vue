@@ -1,7 +1,6 @@
 <template>
   <div ref="container" @keydown.esc="hideOptions" @keyup="({keyCode}) => [38,40].includes(keyCode) && showOptions()">
     <Combobox as="div" v-model="selectedItem">
-
       <slot name="label">
         <ComboboxLabel class="block text-sm font-medium text-gray-700 mb-1 empty:hidden">{{ label }}</ComboboxLabel>
       </slot>
@@ -65,7 +64,7 @@ import { Combobox, ComboboxInput, ComboboxLabel, ComboboxOption, ComboboxOptions
 import { get, onClickOutside, set, syncRef, templateRef, whenever } from '@vueuse/core';
 
 // eslint-disable-next-line no-undef
-const emit = defineEmits(['update:modelValue', 'update:query']);
+const emit = defineEmits(['update:modelValue', 'update:query', 'clear']);
 
 // eslint-disable-next-line no-undef
 const props = defineProps({
@@ -169,6 +168,7 @@ async function clear() {
   set(query, '');
   await nextTick();
   focus();
+  emit('clear');
 }
 const container = templateRef('container');
 onClickOutside(container, () => hideOptions());

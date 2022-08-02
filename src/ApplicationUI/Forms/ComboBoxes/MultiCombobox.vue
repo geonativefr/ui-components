@@ -1,6 +1,6 @@
 <template>
   <div ref="container" @keydown.esc="hideOptions" @keyup="({keyCode}) => [38,40].includes(keyCode) && showOptions()">
-    <Combobox v-model="selectedKeys" multiple>
+    <Combobox as="div" v-model="selectedKeys" multiple>
       <slot name="label">
         <ComboboxLabel class="block text-sm font-medium leading-5 text-gray-700 empty:hidden">
           {{ label }}
@@ -94,7 +94,7 @@ import { CheckIcon, SelectorIcon, XIcon } from '@heroicons/vue/solid';
 import { get, onClickOutside, set, syncRef, templateRef } from '@vueuse/core';
 
 // eslint-disable-next-line no-undef
-const emit = defineEmits(['update:modelValue', 'update:query']);
+const emit = defineEmits(['update:modelValue', 'update:query', 'clear']);
 
 // eslint-disable-next-line no-undef
 const props = defineProps({
@@ -181,6 +181,7 @@ async function clear() {
   set(query, '');
   await nextTick();
   focus();
+  emit('clear');
 }
 
 async function remove(itemToRemove) {
