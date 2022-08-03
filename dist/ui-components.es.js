@@ -8,10 +8,11 @@ const _hoisted_2$3 = { class: "relative" };
 const _hoisted_3$2 = { class: "inline-block w-full rounded-md shadow-sm" };
 const _hoisted_4$2 = { class: "relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-2 pr-10 text-left transition duration-150 ease-in-out focus-within:border-blue-500 focus-within:outline-none focus-within:ring-1 focus-within:ring-blue-500 sm:text-sm sm:leading-5" };
 const _hoisted_5 = { class: "block flex flex-wrap gap-2" };
-const _hoisted_6 = { class: "flex items-center gap-1 rounded bg-blue-600 text-white px-2 py-0.5" };
-const _hoisted_7 = ["onClick"];
-const _hoisted_8 = { class: "absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none" };
-const _hoisted_9 = { class: "absolute mt-1 w-full rounded-md bg-white shadow-lg z-10" };
+const _hoisted_6 = { key: 1 };
+const _hoisted_7 = { class: "flex items-center gap-1 rounded bg-blue-600 text-white px-2 py-0.5" };
+const _hoisted_8 = ["onClick"];
+const _hoisted_9 = { class: "absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none" };
+const _hoisted_10 = { class: "absolute mt-1 w-full rounded-md bg-white shadow-lg z-10" };
 const _sfc_main$7 = {
   __name: "MultiCombobox",
   props: {
@@ -43,6 +44,10 @@ const _sfc_main$7 = {
       default: () => ({})
     },
     excludeSelected: {
+      type: Boolean,
+      default: false
+    },
+    noTags: {
       type: Boolean,
       default: false
     },
@@ -126,7 +131,7 @@ const _sfc_main$7 = {
         ref_key: "container",
         ref: container,
         onKeydown: withKeys(hideOptions, ["esc"]),
-        onKeyup: _cache[4] || (_cache[4] = ({ keyCode }) => [38, 40].includes(keyCode) && showOptions())
+        onKeyup: _cache[4] || (_cache[4] = ({ code }) => ["ArrowUp", "ArrowDown"].includes(code) && showOptions())
       }, [
         createVNode(unref(Combobox), {
           as: "div",
@@ -154,23 +159,25 @@ const _sfc_main$7 = {
                     }, [
                       renderSlot(_ctx.$slots, "empty-state")
                     ])) : createCommentVNode("", true),
-                    (openBlock(true), createElementBlock(Fragment, null, renderList(unref(selectedItems), (item) => {
-                      return openBlock(), createElementBlock("span", {
-                        key: unref(uniqueKey)(item)
-                      }, [
-                        renderSlot(_ctx.$slots, "selected-items", normalizeProps(guardReactiveProps({ item, stringify: unref(stringify), remove })), () => [
-                          createElementVNode("span", _hoisted_6, [
-                            createElementVNode("span", null, toDisplayString(unref(stringify)(item)), 1),
-                            createElementVNode("button", {
-                              role: "button",
-                              onClick: ($event) => remove(item)
-                            }, [
-                              createVNode(unref(XIcon), { class: "h-4 w-4" })
-                            ], 8, _hoisted_7)
+                    !__props.noTags ? (openBlock(), createElementBlock("span", _hoisted_6, [
+                      (openBlock(true), createElementBlock(Fragment, null, renderList(unref(selectedItems), (item) => {
+                        return openBlock(), createElementBlock("span", {
+                          key: unref(uniqueKey)(item)
+                        }, [
+                          renderSlot(_ctx.$slots, "selected-items", normalizeProps(guardReactiveProps({ item, stringify: unref(stringify), remove })), () => [
+                            createElementVNode("span", _hoisted_7, [
+                              createElementVNode("span", null, toDisplayString(unref(stringify)(item)), 1),
+                              createElementVNode("button", {
+                                role: "button",
+                                onClick: ($event) => remove(item)
+                              }, [
+                                createVNode(unref(XIcon), { class: "h-4 w-4" })
+                              ], 8, _hoisted_8)
+                            ])
                           ])
-                        ])
-                      ]);
-                    }), 128)),
+                        ]);
+                      }), 128))
+                    ])) : createCommentVNode("", true),
                     createVNode(unref(ComboboxInput), mergeProps({
                       ref_key: "input",
                       ref: input,
@@ -182,7 +189,7 @@ const _sfc_main$7 = {
                       onChange: _cache[1] || (_cache[1] = ($event) => query.value = $event.target.value)
                     }), null, 16)
                   ]),
-                  createElementVNode("div", _hoisted_8, [
+                  createElementVNode("div", _hoisted_9, [
                     __props.clearable ? (openBlock(), createElementBlock("button", {
                       key: 0,
                       type: "button",
@@ -206,7 +213,7 @@ const _sfc_main$7 = {
                   ])
                 ])
               ]),
-              withDirectives(createElementVNode("div", _hoisted_9, [
+              withDirectives(createElementVNode("div", _hoisted_10, [
                 availableItems.value.length > 0 ? (openBlock(), createBlock(unref(ComboboxOptions), {
                   key: 0,
                   static: "",
@@ -380,7 +387,7 @@ const _sfc_main$6 = {
         ref_key: "container",
         ref: container,
         onKeydown: withKeys(hideOptions, ["esc"]),
-        onKeyup: _cache[4] || (_cache[4] = ({ keyCode }) => [38, 40].includes(keyCode) && showOptions())
+        onKeyup: _cache[4] || (_cache[4] = ({ code }) => ["ArrowUp", "ArrowDown"].includes(code) && showOptions())
       }, [
         createVNode(unref(Combobox), {
           as: "div",

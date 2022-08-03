@@ -1,9 +1,7 @@
 <template>
   <div>
     <h1 class="text-blue-500">yop</h1>
-    <ComboBox v-slot="{item, stringify}" exclude-selected clearable v-model="selected" :items="items" class="w-96" :inputAttrs="inputAttrs">
-      <li class="flex p-2 items-center gap-2 cursor-pointer hover:bg-gray-100">{{ stringify(item) }}</li>
-    </ComboBox>
+    <ComboBox v-slot="{item, stringify}" exclude-selected clearable v-model="selected" :items="items" class="w-96" :inputAttrs="inputAttrs" />
 
     <pre class="text-xs">{{ {selected, selectedItem} }}</pre>
   </div>

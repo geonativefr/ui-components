@@ -1,5 +1,5 @@
 <template>
-  <div ref="container" @keydown.esc="hideOptions" @keyup="({keyCode}) => [38,40].includes(keyCode) && showOptions()">
+  <div ref="container" @keydown.esc="hideOptions" @keyup="({code}) => ['ArrowUp', 'ArrowDown'].includes(code) && showOptions()">
     <Combobox as="div" v-model="selectedItem">
       <slot name="label">
         <ComboboxLabel class="block text-sm font-medium text-gray-700 mb-1 empty:hidden">{{ label }}</ComboboxLabel>

@@ -1,5 +1,5 @@
 <template>
-  <div ref="container" @keydown.esc="hideOptions" @keyup="({keyCode}) => [38,40].includes(keyCode) && showOptions()">
+  <div ref="container" @keydown.esc="hideOptions" @keyup="({code}) => ['ArrowUp', 'ArrowDown'].includes(code) && showOptions()">
     <Combobox as="div" v-model="selectedKeys" multiple>
       <slot name="label">
         <ComboboxLabel class="block text-sm font-medium leading-5 text-gray-700 empty:hidden">
@@ -16,6 +16,7 @@
                 <slot name="empty-state" />
               </span>
 
+              <span v-if="!noTags">
                 <span v-for="item in selectedItems" :key="uniqueKey(item)">
                   <slot name="selected-items" v-bind="{item, stringify, remove}">
                     <span class="flex items-center gap-1 rounded bg-blue-600 text-white px-2 py-0.5">
@@ -26,6 +27,7 @@
                     </span>
                   </slot>
                 </span>
+              </span>
 
               <ComboboxInput
                 ref="input"
@@ -126,6 +128,10 @@ const props = defineProps({
     default: () => ({})
   },
   excludeSelected: {
+    type: Boolean,
+    default: false,
+  },
+  noTags: {
     type: Boolean,
     default: false,
   },
