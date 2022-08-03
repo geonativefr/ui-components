@@ -1,7 +1,6 @@
 <template>
-  <div class="w-full max-w-4xl space-y-1">
-    <Combobox v-model="selectedKeys" multiple>
-
+  <div ref="container" @keydown.esc="hideOptions" @keyup="({code}) => ['ArrowUp', 'ArrowDown'].includes(code) && showOptions()">
+    <Combobox as="div" v-model="selectedKeys" multiple>
       <slot name="label">
         <ComboboxLabel class="block text-sm font-medium leading-5 text-gray-700 empty:hidden">
           {{ label }}
@@ -17,6 +16,7 @@
                 <slot name="empty-state" />
               </span>
 
+              <span v-if="!noTags">
                 <span v-for="item in selectedItems" :key="uniqueKey(item)">
                   <slot name="selected-items" v-bind="{item, stringify, remove}">
                     <span class="flex items-center gap-1 rounded bg-blue-600 text-white px-2 py-0.5">
@@ -27,14 +27,16 @@
                     </span>
                   </slot>
                 </span>
+              </span>
 
               <ComboboxInput
                 ref="input"
                 autocomplete="off"
                 v-bind="inputAttrs"
                 class="reset border-none p-0 focus:ring-0 grow"
-                @change="query = $event.target.value"
                 @focus="showOptions"
+                @blur="onBlur($event.target)"
+                @change="query = $event.target.value"
               />
             </span>
 
@@ -42,17 +44,26 @@
               <button v-if="clearable" type="button" @click="clear">
                 <XIcon v-if="0 !== selectedKeys.length" class="h-5 w-5 text-gray-300" aria-hidden="true"/>
               </button>
-              <button type="button" @click="focus">
+              <button type="button" @click="toggle">
                 <SelectorIcon class="h-5 w-5 text-gray-400" aria-hidden="true"/>
               </button>
-              <ComboboxButton ref="button" class="hidden" />
             </div>
           </div>
         </span>
 
-        <div class="absolute mt-1 w-full rounded-md bg-white shadow-lg z-10">
-          <ComboboxOptions class="shadow-xs max-h-60 overflow-auto rounded-md py-1 text-base leading-6 focus:outline-none sm:text-sm sm:leading-5">
-            <ComboboxOption v-for="item in availableItems" :key="uniqueKey(item)" v-slot="{ active, selected }" :value="uniqueKey(item)" :disabled="disabled.includes(uniqueKey(item))">
+        <div v-show="open" class="absolute mt-1 w-full rounded-md bg-white shadow-lg z-10">
+          <ComboboxOptions
+              static
+              v-if="availableItems.length > 0"
+              class="shadow-xs max-h-60 overflow-auto rounded-md py-1 text-base leading-6 focus:outline-none sm:text-sm sm:leading-5">
+            <ComboboxOption
+                v-for="item of availableItems"
+                :key="uniqueKey(item)"
+                v-slot="{ active, selected }"
+                :value="uniqueKey(item)"
+                :disabled="disabled.includes(uniqueKey(item))"
+                @click="() => autoHide && hideOptions()"
+            >
               <slot v-bind="{item, active, selected, stringify}">
                 <li class="relative cursor-default select-none py-2 pl-3 pr-9 focus:outline-none" :class="active ? 'bg-blue-600 text-white' : 'text-gray-900'">
                   <span class="block truncate" :class="{ 'font-semibold': selected, 'font-normal': !selected }">
@@ -72,7 +83,7 @@
 </template>
 
 <script setup>
-import { computed, nextTick, ref, toRefs, watch } from 'vue';
+import { computed, nextTick, onMounted, ref, toRefs, watch } from 'vue';
 import {
   Combobox,
   ComboboxButton,
@@ -82,10 +93,10 @@ import {
   ComboboxOptions,
 } from '@headlessui/vue';
 import { CheckIcon, SelectorIcon, XIcon } from '@heroicons/vue/solid';
-import { asyncComputed, get, set, templateRef } from '@vueuse/core';
+import { get, onClickOutside, set, syncRef, templateRef } from '@vueuse/core';
 
 // eslint-disable-next-line no-undef
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue', 'update:query', 'clear']);
 
 // eslint-disable-next-line no-undef
 const props = defineProps({
@@ -96,6 +107,9 @@ const props = defineProps({
   modelValue: {
     type: Array,
     default: () => ([]),
+  },
+  query: {
+    default: '',
   },
   stringify: {
     type: Function,
@@ -117,6 +131,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  noTags: {
+    type: Boolean,
+    default: false,
+  },
   clearable: {
     type: Boolean,
     default: false,
@@ -129,9 +147,15 @@ const props = defineProps({
     type: Array,
     default: () => ([]),
   },
+  autoHide: {
+    type: Boolean,
+    default: false,
+  },
 });
 
-const {items, excludeSelected, modelValue} = toRefs(props);
+const open = ref(false);
+const toggle = () => set(open, !get(open));
+const {items, excludeSelected, modelValue, query: inputQuery} = toRefs(props);
 const stringify = props.stringify ?? ((item) => item?.name ?? item ?? '');
 const uniqueKey = props.uniqueKey ?? ((item) => item?.id ?? item);
 
@@ -139,23 +163,31 @@ function getItemByUniqueKey(id) {
   return props.items.find(item => uniqueKey(item) === id);
 }
 
-const query = ref('');
+const query = ref(get(inputQuery));
 const selectedKeys = ref([]);
 const selectedItems = computed(() => get(items).filter(item => get(selectedKeys).map(uniqueKey).includes(uniqueKey(item))));
 
-const filter = props.filter ?? (async (items, query) => get(items).filter((item) => stringify(item).toLowerCase().includes(query.toLowerCase())));
+const filter = props.filter ?? (async (query, items) => get(items).filter((item) => stringify(item).toLowerCase().includes(query.toLowerCase())));
 const filteredItems = computed(() => get(items).filter(item => !get(selectedKeys).map(uniqueKey).includes(uniqueKey(item))));
-const availableItems = asyncComputed(() => filter(get(excludeSelected) ? get(filteredItems) : get(items), get(query)), []);
+const availableItems = ref(get(items));
 
-const button = templateRef('button');
 const input = templateRef('input');
-const showOptions = () => get(button)?.$el?.click();
+const showOptions = () => set(open, true);
+const hideOptions = () => set(open, false);
 const focus = () => get(input).$el.focus();
+
+function onBlur(target) {
+  if ('' === target.value && '' !== get(query)) {
+    target.value = get(query);
+  }
+}
 
 async function clear() {
   set(selectedKeys, []);
+  set(query, '');
   await nextTick();
   focus();
+  emit('clear');
 }
 
 async function remove(itemToRemove) {
@@ -164,7 +196,18 @@ async function remove(itemToRemove) {
   focus();
 }
 
+const container = templateRef('container');
+onClickOutside(container, () => hideOptions());
+
 watch(modelValue, ids => set(selectedKeys, ids), {immediate: true});
 watch(selectedKeys, ids => emit('update:modelValue', ids));
 watch(selectedKeys, () => set(query, ''));
+watch(query, query => emit('update:query', query));
+watch(query, async (query) => set(availableItems, (await filter(get(query), get(excludeSelected) ? get(filteredItems) : get(items)) ?? [])));
+watch(inputQuery, (value) => set(query, null != value ? `${value}` : ''));
+syncRef(items, availableItems, {direction: 'ltr'});
+watch(query, (query) => get(input).$el.value = query);
+watch(selectedKeys, () => props.autoHide && hideOptions());
+watch(query, () => showOptions());
+onMounted(() => nextTick().then(() => get(input).$el.value = get(query)));
 </script>
