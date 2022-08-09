@@ -210,7 +210,10 @@ watch(modelValue, ids => set(selectedKeys, ids), {immediate: true});
 watch(selectedKeys, ids => emit('update:modelValue', ids));
 watch(selectedKeys, () => set(query, ''));
 watch(query, query => emit('update:query', query));
-watch(query, async (query) => set(availableItems, (await filter(get(query), get(excludeSelected) ? get(filteredItems) : get(items)) ?? [])));
+watch(query, async query => {
+  const results = await filter(get(query), get(excludeSelected) ? get(filteredItems) : get(items));
+  set(availableItems, get(results) ?? []);
+});
 watch(inputQuery, (value) => set(query, null != value ? `${value}` : ''));
 syncRef(items, availableItems, {direction: 'ltr'});
 watch(query, (query) => get(input).$el.value = query);

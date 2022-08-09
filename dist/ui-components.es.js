@@ -126,7 +126,8 @@ const _sfc_main$7 = {
     watch(query, (query2) => emit("update:query", query2));
     watch(query, async (query2) => {
       var _a2;
-      return set(availableItems, (_a2 = await filter(get(query2), get(excludeSelected) ? get(filteredItems) : get(items))) != null ? _a2 : []);
+      const results = await filter(get(query2), get(excludeSelected) ? get(filteredItems) : get(items));
+      set(availableItems, (_a2 = get(results)) != null ? _a2 : []);
     });
     watch(inputQuery, (value) => set(query, value != null ? `${value}` : ""));
     syncRef(items, availableItems, { direction: "ltr" });
@@ -385,7 +386,8 @@ const _sfc_main$6 = {
     watch(query, (query2) => emit("update:query", query2));
     watch(query, async (query2) => {
       var _a2;
-      return set(availableItems, (_a2 = await filter(get(query2), get(excludeSelected) ? get(filteredItems) : get(items))) != null ? _a2 : []);
+      const results = await filter(get(query2), get(excludeSelected) ? get(filteredItems) : get(items));
+      set(availableItems, (_a2 = get(results)) != null ? _a2 : []);
     });
     watch(inputQuery, (value) => set(query, value != null ? `${value}` : ""));
     watch(selectedItem, () => props.autoHide && hideOptions());
@@ -448,8 +450,7 @@ const _sfc_main$6 = {
                 ])
               ]),
               withDirectives(createElementVNode("div", _hoisted_4$1, [
-                availableItems.value.length > 0 ? (openBlock(), createBlock(unref(ComboboxOptions), {
-                  key: 0,
+                createVNode(unref(ComboboxOptions), {
                   static: !__props.autoHide,
                   class: "shadow-xs max-h-60 overflow-auto rounded-md py-1 text-base leading-6 focus:outline-none sm:text-sm sm:leading-5"
                 }, {
@@ -486,7 +487,7 @@ const _sfc_main$6 = {
                     }), 128))
                   ]),
                   _: 3
-                }, 8, ["static"])) : createCommentVNode("", true)
+                }, 8, ["static"])
               ], 512), [
                 [vShow, open.value]
               ])

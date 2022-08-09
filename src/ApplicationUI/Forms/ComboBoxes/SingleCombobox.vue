@@ -29,7 +29,6 @@
         <div v-show="open" class="absolute mt-1 w-full rounded-md bg-white shadow-lg z-10">
           <ComboboxOptions
               :static="!autoHide"
-              v-if="availableItems.length > 0"
               class="shadow-xs max-h-60 overflow-auto rounded-md py-1 text-base leading-6 focus:outline-none sm:text-sm sm:leading-5"
           >
             <ComboboxOption
@@ -173,7 +172,10 @@ watch(modelValue, id => set(selectedItem, getItemByUniqueKey(id)), {immediate: t
 watch(selectedItem, item => emit('update:modelValue', uniqueKey(item)));
 whenever(selectedItem, item => set(query, stringify(item)));
 watch(query, query => emit('update:query', query));
-watch(query, async query => set(availableItems, (await filter(get(query), get(excludeSelected) ? get(filteredItems) : get(items)) ?? [])));
+watch(query, async query => {
+  const results = await filter(get(query), get(excludeSelected) ? get(filteredItems) : get(items));
+  set(availableItems, get(results) ?? []);
+});
 watch(inputQuery, (value) => set(query, null != value ? `${value}` : ''));
 watch(selectedItem, () => props.autoHide && hideOptions());
 watch(query, () => showOptions());
