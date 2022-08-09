@@ -1,7 +1,7 @@
 import { ref, toRefs, reactive, computed, watch, onMounted, nextTick, openBlock, createElementBlock, withKeys, createVNode, unref, withCtx, renderSlot, createTextVNode, toDisplayString, createElementVNode, createCommentVNode, Fragment, renderList, normalizeProps, guardReactiveProps, mergeProps, createBlock, withDirectives, normalizeClass, vShow, resolveDynamicComponent, withModifiers } from "vue";
 import { Combobox, ComboboxLabel, ComboboxInput, ComboboxOptions, ComboboxOption, TransitionRoot, Dialog, TransitionChild, DialogPanel, DialogTitle } from "@headlessui/vue";
 import { XIcon, SelectorIcon, CheckIcon } from "@heroicons/vue/solid";
-import { get, templateRef, onClickOutside, set, syncRef, whenever } from "@vueuse/core";
+import { get, templateRef, onClickOutside, set, syncRef } from "@vueuse/core";
 import { vElementHover } from "@vueuse/components";
 const _hoisted_1$4 = ["onKeydown"];
 const _hoisted_2$3 = { class: "relative" };
@@ -382,7 +382,13 @@ const _sfc_main$6 = {
     onClickOutside(container, () => hideOptions());
     watch(modelValue, (id) => set(selectedItem, getItemByUniqueKey(id)), { immediate: true });
     watch(selectedItem, (item) => emit("update:modelValue", uniqueKey(item)));
-    whenever(selectedItem, (item) => set(query, stringify(item)));
+    watch(selectedItem, (item) => {
+      if (item == null) {
+        set(query, "");
+      } else {
+        set(query, stringify(item));
+      }
+    });
     watch(query, (query2) => emit("update:query", query2));
     watch(query, async (query2) => {
       var _a2;

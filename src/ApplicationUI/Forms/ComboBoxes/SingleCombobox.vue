@@ -170,7 +170,13 @@ onClickOutside(container, () => hideOptions());
 
 watch(modelValue, id => set(selectedItem, getItemByUniqueKey(id)), {immediate: true});
 watch(selectedItem, item => emit('update:modelValue', uniqueKey(item)));
-whenever(selectedItem, item => set(query, stringify(item)));
+watch(selectedItem, item => {
+  if (null == item) {
+    set(query, '');
+  } else {
+    set(query, stringify(item));
+  }
+});
 watch(query, query => emit('update:query', query));
 watch(query, async query => {
   const results = await filter(get(query), get(excludeSelected) ? get(filteredItems) : get(items));
