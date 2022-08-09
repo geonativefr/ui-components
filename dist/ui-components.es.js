@@ -47,7 +47,7 @@ const _sfc_main$7 = {
       type: Boolean,
       default: false
     },
-    hideSelected: {
+    hideTags: {
       type: Boolean,
       default: false
     },
@@ -167,7 +167,7 @@ const _sfc_main$7 = {
                     }, [
                       renderSlot(_ctx.$slots, "empty-state")
                     ])) : createCommentVNode("", true),
-                    !__props.hideSelected ? (openBlock(), createElementBlock("span", _hoisted_6, [
+                    !__props.hideTags ? (openBlock(), createElementBlock("span", _hoisted_6, [
                       (openBlock(true), createElementBlock(Fragment, null, renderList(unref(selectedItems), (item) => {
                         return openBlock(), createElementBlock("span", {
                           key: unref(uniqueKey)(item)
