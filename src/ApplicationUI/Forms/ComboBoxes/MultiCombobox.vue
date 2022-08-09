@@ -53,7 +53,7 @@
 
         <div v-show="open" class="absolute mt-1 w-full rounded-md bg-white shadow-lg z-10">
           <ComboboxOptions
-              static
+              :static="!autoHide"
               v-if="availableItems.length > 0"
               class="shadow-xs max-h-60 overflow-auto rounded-md py-1 text-base leading-6 focus:outline-none sm:text-sm sm:leading-5">
             <ComboboxOption

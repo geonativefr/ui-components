@@ -224,7 +224,7 @@ const _sfc_main$7 = {
               withDirectives(createElementVNode("div", _hoisted_10, [
                 availableItems.value.length > 0 ? (openBlock(), createBlock(unref(ComboboxOptions), {
                   key: 0,
-                  static: "",
+                  static: !__props.autoHide,
                   class: "shadow-xs max-h-60 overflow-auto rounded-md py-1 text-base leading-6 focus:outline-none sm:text-sm sm:leading-5"
                 }, {
                   default: withCtx(() => [
@@ -257,7 +257,7 @@ const _sfc_main$7 = {
                     }), 128))
                   ]),
                   _: 3
-                })) : createCommentVNode("", true)
+                }, 8, ["static"])) : createCommentVNode("", true)
               ], 512), [
                 [vShow, open.value]
               ])
@@ -376,6 +376,7 @@ const _sfc_main$6 = {
       focus();
       emit("clear");
     }
+    const isSelected = (item) => get(selectedItem) != null && uniqueKey(item) === uniqueKey(get(selectedItem));
     const container = templateRef("container");
     onClickOutside(container, () => hideOptions());
     watch(modelValue, (id) => set(selectedItem, getItemByUniqueKey(id)), { immediate: true });
@@ -449,7 +450,7 @@ const _sfc_main$6 = {
               withDirectives(createElementVNode("div", _hoisted_4$1, [
                 availableItems.value.length > 0 ? (openBlock(), createBlock(unref(ComboboxOptions), {
                   key: 0,
-                  static: "",
+                  static: !__props.autoHide,
                   class: "shadow-xs max-h-60 overflow-auto rounded-md py-1 text-base leading-6 focus:outline-none sm:text-sm sm:leading-5"
                 }, {
                   default: withCtx(() => [
@@ -460,15 +461,15 @@ const _sfc_main$6 = {
                         disabled: __props.disabled.includes(unref(uniqueKey)(item)),
                         onClick: _cache[2] || (_cache[2] = () => __props.autoHide && hideOptions())
                       }, {
-                        default: withCtx(({ active, selected }) => [
-                          renderSlot(_ctx.$slots, "default", normalizeProps(guardReactiveProps({ item, active, selected, stringify })), () => [
+                        default: withCtx(({ active }) => [
+                          renderSlot(_ctx.$slots, "default", normalizeProps(guardReactiveProps({ item, active, selected: isSelected(item), stringify })), () => [
                             createElementVNode("li", {
                               class: normalizeClass(["relative cursor-pointer select-none py-2 pl-3 pr-9", active ? "bg-indigo-600 text-white" : "text-gray-900"])
                             }, [
                               createElementVNode("span", {
-                                class: normalizeClass(["block truncate", selected && "font-semibold"])
+                                class: normalizeClass(["block truncate", isSelected(item) && "font-semibold"])
                               }, toDisplayString(stringify(item)), 3),
-                              selected ? (openBlock(), createElementBlock("span", {
+                              isSelected(item) ? (openBlock(), createElementBlock("span", {
                                 key: 0,
                                 class: normalizeClass(["absolute inset-y-0 right-0 flex items-center pr-4", active ? "text-white" : "text-indigo-600"])
                               }, [
@@ -485,7 +486,7 @@ const _sfc_main$6 = {
                     }), 128))
                   ]),
                   _: 3
-                })) : createCommentVNode("", true)
+                }, 8, ["static"])) : createCommentVNode("", true)
               ], 512), [
                 [vShow, open.value]
               ])

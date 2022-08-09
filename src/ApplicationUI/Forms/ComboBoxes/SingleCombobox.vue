@@ -28,7 +28,7 @@
 
         <div v-show="open" class="absolute mt-1 w-full rounded-md bg-white shadow-lg z-10">
           <ComboboxOptions
-              static
+              :static="!autoHide"
               v-if="availableItems.length > 0"
               class="shadow-xs max-h-60 overflow-auto rounded-md py-1 text-base leading-6 focus:outline-none sm:text-sm sm:leading-5"
           >
@@ -37,16 +37,16 @@
                 :key="uniqueKey(item)"
                 :value="item"
                 :disabled="disabled.includes(uniqueKey(item))"
-                v-slot="{ active, selected }"
+                v-slot="{ active }"
                 @click="() => autoHide && hideOptions()"
             >
-              <slot v-bind="{ item, active, selected, stringify }">
+              <slot v-bind="{ item, active, selected: isSelected(item), stringify }">
                 <li :class="['relative cursor-pointer select-none py-2 pl-3 pr-9', active ? 'bg-indigo-600 text-white' : 'text-gray-900']">
-                  <span :class="['block truncate', selected && 'font-semibold']">{{ stringify(item) }}</span>
-                  <span v-if="selected"
+                  <span :class="['block truncate', isSelected(item) && 'font-semibold']">{{ stringify(item) }}</span>
+                  <span v-if="isSelected(item)"
                         :class="['absolute inset-y-0 right-0 flex items-center pr-4', active ? 'text-white' : 'text-indigo-600']">
-                <CheckIcon class="h-5 w-5" aria-hidden="true"/>
-              </span>
+                    <CheckIcon class="h-5 w-5" aria-hidden="true"/>
+                  </span>
                 </li>
               </slot>
             </ComboboxOption>
@@ -150,13 +150,6 @@ const showOptions = () => set(open, true);
 const hideOptions = () => set(open, false);
 const focus = () => get(input).$el.focus();
 
-function hideIfNecessary() {
-  if (props.autoHide) {
-    get(input).$el.blur();
-    hideOptions();
-  }
-}
-
 function onBlur(target) {
   if ('' === target.value && '' !== get(query)) {
     target.value = get(query);
@@ -170,6 +163,9 @@ async function clear() {
   focus();
   emit('clear');
 }
+
+const isSelected = item => null != get(selectedItem) && uniqueKey(item) === uniqueKey(get(selectedItem));
+
 const container = templateRef('container');
 onClickOutside(container, () => hideOptions());
 
