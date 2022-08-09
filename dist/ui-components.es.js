@@ -1,4 +1,4 @@
-import { ref, toRefs, computed, watch, onMounted, nextTick, openBlock, createElementBlock, withKeys, createVNode, unref, withCtx, renderSlot, createTextVNode, toDisplayString, createElementVNode, createCommentVNode, Fragment, renderList, normalizeProps, guardReactiveProps, mergeProps, createBlock, withDirectives, normalizeClass, vShow, resolveDynamicComponent, withModifiers } from "vue";
+import { ref, toRefs, reactive, computed, watch, onMounted, nextTick, openBlock, createElementBlock, withKeys, createVNode, unref, withCtx, renderSlot, createTextVNode, toDisplayString, createElementVNode, createCommentVNode, Fragment, renderList, normalizeProps, guardReactiveProps, mergeProps, createBlock, withDirectives, normalizeClass, vShow, resolveDynamicComponent, withModifiers } from "vue";
 import { Combobox, ComboboxLabel, ComboboxInput, ComboboxOptions, ComboboxOption, TransitionRoot, Dialog, TransitionChild, DialogPanel, DialogTitle } from "@headlessui/vue";
 import { XIcon, SelectorIcon, CheckIcon } from "@heroicons/vue/solid";
 import { get, templateRef, onClickOutside, set, syncRef, whenever } from "@vueuse/core";
@@ -47,7 +47,7 @@ const _sfc_main$7 = {
       type: Boolean,
       default: false
     },
-    noTags: {
+    hideSelected: {
       type: Boolean,
       default: false
     },
@@ -83,9 +83,10 @@ const _sfc_main$7 = {
       var _a2;
       return (_a2 = item == null ? void 0 : item.id) != null ? _a2 : item;
     };
+    const cachedItems = reactive([]);
     const query = ref(get(inputQuery));
     const selectedKeys = ref([]);
-    const selectedItems = computed(() => get(items).filter((item) => get(selectedKeys).map(uniqueKey).includes(uniqueKey(item))));
+    const selectedItems = computed(() => cachedItems.filter((item) => get(selectedKeys).map(uniqueKey).includes(uniqueKey(item))));
     const filter = (_c = props.filter) != null ? _c : async (query2, items2) => get(items2).filter((item) => stringify(item).toLowerCase().includes(query2.toLowerCase()));
     const filteredItems = computed(() => get(items).filter((item) => !get(selectedKeys).map(uniqueKey).includes(uniqueKey(item))));
     const availableItems = ref(get(items));
@@ -112,6 +113,13 @@ const _sfc_main$7 = {
     }
     const container = templateRef("container");
     onClickOutside(container, () => hideOptions());
+    watch(items, (items2) => {
+      items2.forEach((item) => {
+        if (cachedItems.findIndex((cachedItem) => uniqueKey(cachedItem) === uniqueKey(item)) === -1) {
+          cachedItems.push(item);
+        }
+      });
+    }, { immediate: true });
     watch(modelValue, (ids) => set(selectedKeys, ids), { immediate: true });
     watch(selectedKeys, (ids) => emit("update:modelValue", ids));
     watch(selectedKeys, () => set(query, ""));
@@ -159,7 +167,7 @@ const _sfc_main$7 = {
                     }, [
                       renderSlot(_ctx.$slots, "empty-state")
                     ])) : createCommentVNode("", true),
-                    !__props.noTags ? (openBlock(), createElementBlock("span", _hoisted_6, [
+                    !__props.hideSelected ? (openBlock(), createElementBlock("span", _hoisted_6, [
                       (openBlock(true), createElementBlock(Fragment, null, renderList(unref(selectedItems), (item) => {
                         return openBlock(), createElementBlock("span", {
                           key: unref(uniqueKey)(item)

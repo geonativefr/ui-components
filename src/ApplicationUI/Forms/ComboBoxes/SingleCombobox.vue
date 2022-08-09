@@ -69,50 +69,50 @@ const emit = defineEmits(['update:modelValue', 'update:query', 'clear']);
 // eslint-disable-next-line no-undef
 const props = defineProps({
   items: {
-    type: Array,
+    type: Array, // Choices of the combobox.
     required: true,
   },
   modelValue: {
-    type: [String, Number, Object],
+    type: [String, Number, Object], // Selected choice of the combobox.
     default: null,
   },
   query: {
     default: '',
   },
   stringify: {
-    type: Function,
+    type: Function, // How to render a choice as a string.
     default: undefined,
   },
   uniqueKey: {
-    type: Function,
+    type: Function, // How to render a choice as a unique ID.
     default: undefined,
   },
   filter: {
-    type: Function,
+    type: Function, // How to filter choices based on query.
     default: undefined,
   },
   inputAttrs: {
-    type: Object,
+    type: Object, // Attributes to pass to the <input> tag.
     default: () => ({}),
   },
   excludeSelected: {
-    type: Boolean,
+    type: Boolean, // Exclude already selected choices from available items.
     default: false,
   },
   clearable: {
-    type: Boolean,
+    type: Boolean, // Display a clear button to remove all selected choices.
     default: false,
   },
   label: {
-    type: String,
+    type: String, // Label to display.
     default: undefined,
   },
   disabled: {
-    type: Array,
+    type: Array, // Choices that are not selectable.
     default: () => ([]),
   },
   autoHide: {
-    type: Boolean,
+    type: Boolean, // Hide choices after picking one.
     default: false,
   },
 });
