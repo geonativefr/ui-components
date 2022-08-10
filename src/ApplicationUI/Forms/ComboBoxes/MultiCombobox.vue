@@ -158,11 +158,6 @@ const {items, excludeSelected, modelValue, query: inputQuery} = toRefs(props);
 const stringify = props.stringify ?? ((item) => item?.name ?? item ?? '');
 const uniqueKey = props.uniqueKey ?? ((item) => item?.id ?? item);
 const cachedItems = reactive([]);
-
-function getItemByUniqueKey(id) {
-  return props.items.find(item => uniqueKey(item) === id);
-}
-
 const query = ref(get(inputQuery));
 const selectedKeys = ref([]);
 const selectedItems = computed(() => cachedItems.filter(item => get(selectedKeys).map(uniqueKey).includes(uniqueKey(item))));

@@ -352,8 +352,9 @@ const _sfc_main$6 = {
       var _a2;
       return (_a2 = item == null ? void 0 : item.id) != null ? _a2 : item;
     };
+    const cachedItems = reactive([]);
     function getItemByUniqueKey(id) {
-      return props.items.find((item) => uniqueKey(item) === id);
+      return cachedItems.find((item) => uniqueKey(item) === id);
     }
     const query = ref(get(inputQuery));
     const selectedItem = ref();
@@ -380,6 +381,13 @@ const _sfc_main$6 = {
     const isSelected = (item) => get(selectedItem) != null && uniqueKey(item) === uniqueKey(get(selectedItem));
     const container = templateRef("container");
     onClickOutside(container, () => hideOptions());
+    watch(items, (items2) => {
+      items2.forEach((item) => {
+        if (cachedItems.findIndex((cachedItem) => uniqueKey(cachedItem) === uniqueKey(item)) === -1) {
+          cachedItems.push(item);
+        }
+      });
+    }, { immediate: true });
     watch(modelValue, (id) => set(selectedItem, getItemByUniqueKey(id)), { immediate: true });
     watch(selectedItem, (item) => emit("update:modelValue", uniqueKey(item)));
     watch(selectedItem, (item) => {

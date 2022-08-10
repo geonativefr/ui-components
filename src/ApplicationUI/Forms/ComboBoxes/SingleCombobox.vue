@@ -57,10 +57,10 @@
 </template>
 
 <script setup>
-import { computed, nextTick, ref, toRefs, watch } from 'vue';
+import { computed, nextTick, reactive, ref, toRefs, watch } from 'vue';
 import { CheckIcon, SelectorIcon, XIcon } from '@heroicons/vue/solid';
 import { Combobox, ComboboxInput, ComboboxLabel, ComboboxOption, ComboboxOptions } from '@headlessui/vue';
-import { get, onClickOutside, set, syncRef, templateRef, whenever } from '@vueuse/core';
+import { get, onClickOutside, set, syncRef, templateRef } from '@vueuse/core';
 
 // eslint-disable-next-line no-undef
 const emit = defineEmits(['update:modelValue', 'update:query', 'clear']);
@@ -132,9 +132,9 @@ const stringify = (item) => {
   }
 };
 const uniqueKey = props.uniqueKey ?? ((item) => item?.id ?? item);
-
+const cachedItems = reactive([]);
 function getItemByUniqueKey(id) {
-  return props.items.find(item => uniqueKey(item) === id);
+  return cachedItems.find(item => uniqueKey(item) === id);
 }
 
 const query = ref(get(inputQuery));
@@ -168,6 +168,13 @@ const isSelected = item => null != get(selectedItem) && uniqueKey(item) === uniq
 const container = templateRef('container');
 onClickOutside(container, () => hideOptions());
 
+watch(items, (items) => {
+  items.forEach(item => {
+    if (-1 === cachedItems.findIndex(cachedItem => uniqueKey(cachedItem) === uniqueKey(item))) {
+      cachedItems.push(item);
+    }
+  });
+}, {immediate: true});
 watch(modelValue, id => set(selectedItem, getItemByUniqueKey(id)), {immediate: true});
 watch(selectedItem, item => emit('update:modelValue', uniqueKey(item)));
 watch(selectedItem, item => {
