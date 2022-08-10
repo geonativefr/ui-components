@@ -1,7 +1,7 @@
-import { ref, toRefs, computed, watch, onMounted, nextTick, openBlock, createElementBlock, withKeys, createVNode, unref, withCtx, renderSlot, createTextVNode, toDisplayString, createElementVNode, createCommentVNode, Fragment, renderList, normalizeProps, guardReactiveProps, mergeProps, createBlock, withDirectives, normalizeClass, vShow, resolveDynamicComponent, withModifiers } from "vue";
+import { ref, toRefs, reactive, computed, watch, onMounted, nextTick, openBlock, createElementBlock, withKeys, createVNode, unref, withCtx, renderSlot, createTextVNode, toDisplayString, createElementVNode, createCommentVNode, Fragment, renderList, normalizeProps, guardReactiveProps, mergeProps, createBlock, withDirectives, normalizeClass, vShow, resolveDynamicComponent, withModifiers } from "vue";
 import { Combobox, ComboboxLabel, ComboboxInput, ComboboxOptions, ComboboxOption, TransitionRoot, Dialog, TransitionChild, DialogPanel, DialogTitle } from "@headlessui/vue";
 import { XIcon, SelectorIcon, CheckIcon } from "@heroicons/vue/solid";
-import { get, templateRef, onClickOutside, set, syncRef, whenever } from "@vueuse/core";
+import { get, templateRef, onClickOutside, set, syncRef } from "@vueuse/core";
 import { vElementHover } from "@vueuse/components";
 const _hoisted_1$4 = ["onKeydown"];
 const _hoisted_2$3 = { class: "relative" };
@@ -47,7 +47,7 @@ const _sfc_main$7 = {
       type: Boolean,
       default: false
     },
-    noTags: {
+    hideTags: {
       type: Boolean,
       default: false
     },
@@ -83,9 +83,10 @@ const _sfc_main$7 = {
       var _a2;
       return (_a2 = item == null ? void 0 : item.id) != null ? _a2 : item;
     };
+    const cachedItems = reactive([]);
     const query = ref(get(inputQuery));
     const selectedKeys = ref([]);
-    const selectedItems = computed(() => get(items).filter((item) => get(selectedKeys).map(uniqueKey).includes(uniqueKey(item))));
+    const selectedItems = computed(() => cachedItems.filter((item) => get(selectedKeys).map(uniqueKey).includes(uniqueKey(item))));
     const filter = (_c = props.filter) != null ? _c : async (query2, items2) => get(items2).filter((item) => stringify(item).toLowerCase().includes(query2.toLowerCase()));
     const filteredItems = computed(() => get(items).filter((item) => !get(selectedKeys).map(uniqueKey).includes(uniqueKey(item))));
     const availableItems = ref(get(items));
@@ -112,13 +113,21 @@ const _sfc_main$7 = {
     }
     const container = templateRef("container");
     onClickOutside(container, () => hideOptions());
+    watch(items, (items2) => {
+      items2.forEach((item) => {
+        if (cachedItems.findIndex((cachedItem) => uniqueKey(cachedItem) === uniqueKey(item)) === -1) {
+          cachedItems.push(item);
+        }
+      });
+    }, { immediate: true });
     watch(modelValue, (ids) => set(selectedKeys, ids), { immediate: true });
     watch(selectedKeys, (ids) => emit("update:modelValue", ids));
     watch(selectedKeys, () => set(query, ""));
     watch(query, (query2) => emit("update:query", query2));
     watch(query, async (query2) => {
       var _a2;
-      return set(availableItems, (_a2 = await filter(get(query2), get(excludeSelected) ? get(filteredItems) : get(items))) != null ? _a2 : []);
+      const results = await filter(get(query2), get(excludeSelected) ? get(filteredItems) : get(items));
+      set(availableItems, (_a2 = get(results)) != null ? _a2 : []);
     });
     watch(inputQuery, (value) => set(query, value != null ? `${value}` : ""));
     syncRef(items, availableItems, { direction: "ltr" });
@@ -159,7 +168,7 @@ const _sfc_main$7 = {
                     }, [
                       renderSlot(_ctx.$slots, "empty-state")
                     ])) : createCommentVNode("", true),
-                    !__props.noTags ? (openBlock(), createElementBlock("span", _hoisted_6, [
+                    !__props.hideTags ? (openBlock(), createElementBlock("span", _hoisted_6, [
                       (openBlock(true), createElementBlock(Fragment, null, renderList(unref(selectedItems), (item) => {
                         return openBlock(), createElementBlock("span", {
                           key: unref(uniqueKey)(item)
@@ -216,7 +225,7 @@ const _sfc_main$7 = {
               withDirectives(createElementVNode("div", _hoisted_10, [
                 availableItems.value.length > 0 ? (openBlock(), createBlock(unref(ComboboxOptions), {
                   key: 0,
-                  static: "",
+                  static: !__props.autoHide,
                   class: "shadow-xs max-h-60 overflow-auto rounded-md py-1 text-base leading-6 focus:outline-none sm:text-sm sm:leading-5"
                 }, {
                   default: withCtx(() => [
@@ -249,7 +258,7 @@ const _sfc_main$7 = {
                     }), 128))
                   ]),
                   _: 3
-                })) : createCommentVNode("", true)
+                }, 8, ["static"])) : createCommentVNode("", true)
               ], 512), [
                 [vShow, open.value]
               ])
@@ -343,8 +352,9 @@ const _sfc_main$6 = {
       var _a2;
       return (_a2 = item == null ? void 0 : item.id) != null ? _a2 : item;
     };
+    const cachedItems = reactive([]);
     function getItemByUniqueKey(id) {
-      return props.items.find((item) => uniqueKey(item) === id);
+      return cachedItems.find((item) => uniqueKey(item) === id);
     }
     const query = ref(get(inputQuery));
     const selectedItem = ref();
@@ -368,15 +378,30 @@ const _sfc_main$6 = {
       focus();
       emit("clear");
     }
+    const isSelected = (item) => get(selectedItem) != null && uniqueKey(item) === uniqueKey(get(selectedItem));
     const container = templateRef("container");
     onClickOutside(container, () => hideOptions());
+    watch(items, (items2) => {
+      items2.forEach((item) => {
+        if (cachedItems.findIndex((cachedItem) => uniqueKey(cachedItem) === uniqueKey(item)) === -1) {
+          cachedItems.push(item);
+        }
+      });
+    }, { immediate: true });
     watch(modelValue, (id) => set(selectedItem, getItemByUniqueKey(id)), { immediate: true });
     watch(selectedItem, (item) => emit("update:modelValue", uniqueKey(item)));
-    whenever(selectedItem, (item) => set(query, stringify(item)));
+    watch(selectedItem, (item) => {
+      if (item == null) {
+        set(query, "");
+      } else {
+        set(query, stringify(item));
+      }
+    });
     watch(query, (query2) => emit("update:query", query2));
     watch(query, async (query2) => {
       var _a2;
-      return set(availableItems, (_a2 = await filter(get(query2), get(excludeSelected) ? get(filteredItems) : get(items))) != null ? _a2 : []);
+      const results = await filter(get(query2), get(excludeSelected) ? get(filteredItems) : get(items));
+      set(availableItems, (_a2 = get(results)) != null ? _a2 : []);
     });
     watch(inputQuery, (value) => set(query, value != null ? `${value}` : ""));
     watch(selectedItem, () => props.autoHide && hideOptions());
@@ -439,9 +464,8 @@ const _sfc_main$6 = {
                 ])
               ]),
               withDirectives(createElementVNode("div", _hoisted_4$1, [
-                availableItems.value.length > 0 ? (openBlock(), createBlock(unref(ComboboxOptions), {
-                  key: 0,
-                  static: "",
+                createVNode(unref(ComboboxOptions), {
+                  static: !__props.autoHide,
                   class: "shadow-xs max-h-60 overflow-auto rounded-md py-1 text-base leading-6 focus:outline-none sm:text-sm sm:leading-5"
                 }, {
                   default: withCtx(() => [
@@ -452,15 +476,15 @@ const _sfc_main$6 = {
                         disabled: __props.disabled.includes(unref(uniqueKey)(item)),
                         onClick: _cache[2] || (_cache[2] = () => __props.autoHide && hideOptions())
                       }, {
-                        default: withCtx(({ active, selected }) => [
-                          renderSlot(_ctx.$slots, "default", normalizeProps(guardReactiveProps({ item, active, selected, stringify })), () => [
+                        default: withCtx(({ active }) => [
+                          renderSlot(_ctx.$slots, "default", normalizeProps(guardReactiveProps({ item, active, selected: isSelected(item), stringify })), () => [
                             createElementVNode("li", {
                               class: normalizeClass(["relative cursor-pointer select-none py-2 pl-3 pr-9", active ? "bg-indigo-600 text-white" : "text-gray-900"])
                             }, [
                               createElementVNode("span", {
-                                class: normalizeClass(["block truncate", selected && "font-semibold"])
+                                class: normalizeClass(["block truncate", isSelected(item) && "font-semibold"])
                               }, toDisplayString(stringify(item)), 3),
-                              selected ? (openBlock(), createElementBlock("span", {
+                              isSelected(item) ? (openBlock(), createElementBlock("span", {
                                 key: 0,
                                 class: normalizeClass(["absolute inset-y-0 right-0 flex items-center pr-4", active ? "text-white" : "text-indigo-600"])
                               }, [
@@ -477,7 +501,7 @@ const _sfc_main$6 = {
                     }), 128))
                   ]),
                   _: 3
-                })) : createCommentVNode("", true)
+                }, 8, ["static"])
               ], 512), [
                 [vShow, open.value]
               ])

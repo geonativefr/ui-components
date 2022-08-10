@@ -16,7 +16,7 @@
                 <slot name="empty-state" />
               </span>
 
-              <span v-if="!noTags">
+              <span v-if="!hideTags">
                 <span v-for="item in selectedItems" :key="uniqueKey(item)">
                   <slot name="selected-items" v-bind="{item, stringify, remove}">
                     <span class="flex items-center gap-1 rounded bg-blue-600 text-white px-2 py-0.5">
@@ -53,7 +53,7 @@
 
         <div v-show="open" class="absolute mt-1 w-full rounded-md bg-white shadow-lg z-10">
           <ComboboxOptions
-              static
+              :static="!autoHide"
               v-if="availableItems.length > 0"
               class="shadow-xs max-h-60 overflow-auto rounded-md py-1 text-base leading-6 focus:outline-none sm:text-sm sm:leading-5">
             <ComboboxOption
@@ -83,10 +83,9 @@
 </template>
 
 <script setup>
-import { computed, nextTick, onMounted, ref, toRefs, watch } from 'vue';
+import { computed, nextTick, onMounted, reactive, ref, toRefs, watch } from 'vue';
 import {
   Combobox,
-  ComboboxButton,
   ComboboxInput,
   ComboboxLabel,
   ComboboxOption,
@@ -101,54 +100,54 @@ const emit = defineEmits(['update:modelValue', 'update:query', 'clear']);
 // eslint-disable-next-line no-undef
 const props = defineProps({
   items: {
-    type: Array,
+    type: Array, // Choices of the combobox.
     required: true,
   },
   modelValue: {
-    type: Array,
+    type: Array, // Selected choices of the combobox.
     default: () => ([]),
   },
   query: {
     default: '',
   },
   stringify: {
-    type: Function,
+    type: Function, // How to render a choice as a string.
     default: undefined,
   },
   uniqueKey: {
-    type: Function,
+    type: Function, // How to render a choice as a unique ID.
     default: undefined,
   },
   filter: {
-    type: Function,
+    type: Function, // How to filter choices based on query.
     default: undefined,
   },
   inputAttrs: {
-    type: Object,
+    type: Object, // Attributes to pass to the <input> tag.
     default: () => ({})
   },
   excludeSelected: {
-    type: Boolean,
+    type: Boolean, // Exclude already selected choices from available items.
     default: false,
   },
-  noTags: {
-    type: Boolean,
+  hideTags: {
+    type: Boolean, // Hide selected choices as "tags".
     default: false,
   },
   clearable: {
-    type: Boolean,
+    type: Boolean, // Display a clear button to remove all selected choices.
     default: false,
   },
   label: {
-    type: String,
+    type: String, // Label to display.
     default: undefined,
   },
   disabled: {
-    type: Array,
+    type: Array, // Choices that are not selectable.
     default: () => ([]),
   },
   autoHide: {
-    type: Boolean,
+    type: Boolean, // Hide choices after picking one.
     default: false,
   },
 });
@@ -158,14 +157,10 @@ const toggle = () => set(open, !get(open));
 const {items, excludeSelected, modelValue, query: inputQuery} = toRefs(props);
 const stringify = props.stringify ?? ((item) => item?.name ?? item ?? '');
 const uniqueKey = props.uniqueKey ?? ((item) => item?.id ?? item);
-
-function getItemByUniqueKey(id) {
-  return props.items.find(item => uniqueKey(item) === id);
-}
-
+const cachedItems = reactive([]);
 const query = ref(get(inputQuery));
 const selectedKeys = ref([]);
-const selectedItems = computed(() => get(items).filter(item => get(selectedKeys).map(uniqueKey).includes(uniqueKey(item))));
+const selectedItems = computed(() => cachedItems.filter(item => get(selectedKeys).map(uniqueKey).includes(uniqueKey(item))));
 
 const filter = props.filter ?? (async (query, items) => get(items).filter((item) => stringify(item).toLowerCase().includes(query.toLowerCase())));
 const filteredItems = computed(() => get(items).filter(item => !get(selectedKeys).map(uniqueKey).includes(uniqueKey(item))));
@@ -199,11 +194,21 @@ async function remove(itemToRemove) {
 const container = templateRef('container');
 onClickOutside(container, () => hideOptions());
 
+watch(items, (items) => {
+  items.forEach(item => {
+    if (-1 === cachedItems.findIndex(cachedItem => uniqueKey(cachedItem) === uniqueKey(item))) {
+      cachedItems.push(item);
+    }
+  });
+}, {immediate: true});
 watch(modelValue, ids => set(selectedKeys, ids), {immediate: true});
 watch(selectedKeys, ids => emit('update:modelValue', ids));
 watch(selectedKeys, () => set(query, ''));
 watch(query, query => emit('update:query', query));
-watch(query, async (query) => set(availableItems, (await filter(get(query), get(excludeSelected) ? get(filteredItems) : get(items)) ?? [])));
+watch(query, async query => {
+  const results = await filter(get(query), get(excludeSelected) ? get(filteredItems) : get(items));
+  set(availableItems, get(results) ?? []);
+});
 watch(inputQuery, (value) => set(query, null != value ? `${value}` : ''));
 syncRef(items, availableItems, {direction: 'ltr'});
 watch(query, (query) => get(input).$el.value = query);
