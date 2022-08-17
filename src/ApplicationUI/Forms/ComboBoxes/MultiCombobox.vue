@@ -16,7 +16,7 @@
                 <slot name="empty-state" />
               </span>
 
-              <span v-if="!hideTags">
+              <template v-if="!hideTags">
                 <span v-for="item in selectedItems" :key="uniqueKey(item)">
                   <slot name="selected-items" v-bind="{item, stringify, remove}">
                     <span class="flex items-center gap-1 rounded bg-blue-600 text-white px-2 py-0.5">
@@ -27,7 +27,7 @@
                     </span>
                   </slot>
                 </span>
-              </span>
+              </template>
 
               <ComboboxInput
                 ref="input"

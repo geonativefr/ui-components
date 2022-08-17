@@ -8,11 +8,10 @@ const _hoisted_2$3 = { class: "relative" };
 const _hoisted_3$2 = { class: "inline-block w-full rounded-md shadow-sm" };
 const _hoisted_4$2 = { class: "relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-2 pr-10 text-left transition duration-150 ease-in-out focus-within:border-blue-500 focus-within:outline-none focus-within:ring-1 focus-within:ring-blue-500 sm:text-sm sm:leading-5" };
 const _hoisted_5 = { class: "block flex flex-wrap gap-2" };
-const _hoisted_6 = { key: 1 };
-const _hoisted_7 = { class: "flex items-center gap-1 rounded bg-blue-600 text-white px-2 py-0.5" };
-const _hoisted_8 = ["onClick"];
-const _hoisted_9 = { class: "absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none" };
-const _hoisted_10 = { class: "absolute mt-1 w-full rounded-md bg-white shadow-lg z-10" };
+const _hoisted_6 = { class: "flex items-center gap-1 rounded bg-blue-600 text-white px-2 py-0.5" };
+const _hoisted_7 = ["onClick"];
+const _hoisted_8 = { class: "absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none" };
+const _hoisted_9 = { class: "absolute mt-1 w-full rounded-md bg-white shadow-lg z-10" };
 const _sfc_main$7 = {
   __name: "MultiCombobox",
   props: {
@@ -95,7 +94,7 @@ const _sfc_main$7 = {
     const hideOptions = () => set(open, false);
     const focus = () => get(input).$el.focus();
     function onBlur(target) {
-      if (target.value === "" && get(query) !== "") {
+      if ("" === target.value && "" !== get(query)) {
         target.value = get(query);
       }
     }
@@ -115,7 +114,7 @@ const _sfc_main$7 = {
     onClickOutside(container, () => hideOptions());
     watch(items, (items2) => {
       items2.forEach((item) => {
-        if (cachedItems.findIndex((cachedItem) => uniqueKey(cachedItem) === uniqueKey(item)) === -1) {
+        if (-1 === cachedItems.findIndex((cachedItem) => uniqueKey(cachedItem) === uniqueKey(item))) {
           cachedItems.push(item);
         }
       });
@@ -129,7 +128,7 @@ const _sfc_main$7 = {
       const results = await filter(get(query2), get(excludeSelected) ? get(filteredItems) : get(items));
       set(availableItems, (_a2 = get(results)) != null ? _a2 : []);
     });
-    watch(inputQuery, (value) => set(query, value != null ? `${value}` : ""));
+    watch(inputQuery, (value) => set(query, null != value ? `${value}` : ""));
     syncRef(items, availableItems, { direction: "ltr" });
     watch(query, (query2) => get(input).$el.value = query2);
     watch(selectedKeys, () => props.autoHide && hideOptions());
@@ -168,25 +167,23 @@ const _sfc_main$7 = {
                     }, [
                       renderSlot(_ctx.$slots, "empty-state")
                     ])) : createCommentVNode("", true),
-                    !__props.hideTags ? (openBlock(), createElementBlock("span", _hoisted_6, [
-                      (openBlock(true), createElementBlock(Fragment, null, renderList(unref(selectedItems), (item) => {
-                        return openBlock(), createElementBlock("span", {
-                          key: unref(uniqueKey)(item)
-                        }, [
-                          renderSlot(_ctx.$slots, "selected-items", normalizeProps(guardReactiveProps({ item, stringify: unref(stringify), remove })), () => [
-                            createElementVNode("span", _hoisted_7, [
-                              createElementVNode("span", null, toDisplayString(unref(stringify)(item)), 1),
-                              createElementVNode("button", {
-                                role: "button",
-                                onClick: ($event) => remove(item)
-                              }, [
-                                createVNode(unref(XIcon), { class: "h-4 w-4" })
-                              ], 8, _hoisted_8)
-                            ])
+                    !__props.hideTags ? (openBlock(true), createElementBlock(Fragment, { key: 1 }, renderList(unref(selectedItems), (item) => {
+                      return openBlock(), createElementBlock("span", {
+                        key: unref(uniqueKey)(item)
+                      }, [
+                        renderSlot(_ctx.$slots, "selected-items", normalizeProps(guardReactiveProps({ item, stringify: unref(stringify), remove })), () => [
+                          createElementVNode("span", _hoisted_6, [
+                            createElementVNode("span", null, toDisplayString(unref(stringify)(item)), 1),
+                            createElementVNode("button", {
+                              role: "button",
+                              onClick: ($event) => remove(item)
+                            }, [
+                              createVNode(unref(XIcon), { class: "h-4 w-4" })
+                            ], 8, _hoisted_7)
                           ])
-                        ]);
-                      }), 128))
-                    ])) : createCommentVNode("", true),
+                        ])
+                      ]);
+                    }), 128)) : createCommentVNode("", true),
                     createVNode(unref(ComboboxInput), mergeProps({
                       ref_key: "input",
                       ref: input,
@@ -198,13 +195,13 @@ const _sfc_main$7 = {
                       onChange: _cache[1] || (_cache[1] = ($event) => query.value = $event.target.value)
                     }), null, 16)
                   ]),
-                  createElementVNode("div", _hoisted_9, [
+                  createElementVNode("div", _hoisted_8, [
                     __props.clearable ? (openBlock(), createElementBlock("button", {
                       key: 0,
                       type: "button",
                       onClick: clear
                     }, [
-                      selectedKeys.value.length !== 0 ? (openBlock(), createBlock(unref(XIcon), {
+                      0 !== selectedKeys.value.length ? (openBlock(), createBlock(unref(XIcon), {
                         key: 0,
                         class: "h-5 w-5 text-gray-300",
                         "aria-hidden": "true"
@@ -222,7 +219,7 @@ const _sfc_main$7 = {
                   ])
                 ])
               ]),
-              withDirectives(createElementVNode("div", _hoisted_10, [
+              withDirectives(createElementVNode("div", _hoisted_9, [
                 availableItems.value.length > 0 ? (openBlock(), createBlock(unref(ComboboxOptions), {
                   key: 0,
                   static: !__props.autoHide,
@@ -339,7 +336,7 @@ const _sfc_main$6 = {
     const stringify = (item) => {
       try {
         const stringified = stringifyFn(item);
-        if (stringified == null) {
+        if (null == stringified) {
           throw Error("Cannot stringify nullish value");
         }
         return `${stringified}`;
@@ -361,13 +358,13 @@ const _sfc_main$6 = {
     const filter = (_c = props.filter) != null ? _c : async (query2, items2) => get(items2).filter((item) => stringify(item).toLowerCase().includes(query2.toLowerCase()));
     const filteredItems = computed(() => get(items).filter((item) => uniqueKey(item) !== uniqueKey(get(modelValue))));
     const availableItems = ref(get(items));
-    const displayValueFn = (item) => item != null ? stringify(item) : get(query);
+    const displayValueFn = (item) => null != item ? stringify(item) : get(query);
     const input = templateRef("input");
     const showOptions = () => set(open, true);
     const hideOptions = () => set(open, false);
     const focus = () => get(input).$el.focus();
     function onBlur(target) {
-      if (target.value === "" && get(query) !== "") {
+      if ("" === target.value && "" !== get(query)) {
         target.value = get(query);
       }
     }
@@ -378,12 +375,12 @@ const _sfc_main$6 = {
       focus();
       emit("clear");
     }
-    const isSelected = (item) => get(selectedItem) != null && uniqueKey(item) === uniqueKey(get(selectedItem));
+    const isSelected = (item) => null != get(selectedItem) && uniqueKey(item) === uniqueKey(get(selectedItem));
     const container = templateRef("container");
     onClickOutside(container, () => hideOptions());
     watch(items, (items2) => {
       items2.forEach((item) => {
-        if (cachedItems.findIndex((cachedItem) => uniqueKey(cachedItem) === uniqueKey(item)) === -1) {
+        if (-1 === cachedItems.findIndex((cachedItem) => uniqueKey(cachedItem) === uniqueKey(item))) {
           cachedItems.push(item);
         }
       });
@@ -391,7 +388,7 @@ const _sfc_main$6 = {
     watch(modelValue, (id) => set(selectedItem, getItemByUniqueKey(id)), { immediate: true });
     watch(selectedItem, (item) => emit("update:modelValue", uniqueKey(item)));
     watch(selectedItem, (item) => {
-      if (item == null) {
+      if (null == item) {
         set(query, "");
       } else {
         set(query, stringify(item));
@@ -403,7 +400,7 @@ const _sfc_main$6 = {
       const results = await filter(get(query2), get(excludeSelected) ? get(filteredItems) : get(items));
       set(availableItems, (_a2 = get(results)) != null ? _a2 : []);
     });
-    watch(inputQuery, (value) => set(query, value != null ? `${value}` : ""));
+    watch(inputQuery, (value) => set(query, null != value ? `${value}` : ""));
     watch(selectedItem, () => props.autoHide && hideOptions());
     watch(query, () => showOptions());
     syncRef(items, availableItems, { direction: "ltr" });
@@ -446,7 +443,7 @@ const _sfc_main$6 = {
                   type: "button",
                   onClick: clear
                 }, [
-                  unref(modelValue) != null ? (openBlock(), createBlock(unref(XIcon), {
+                  null != unref(modelValue) ? (openBlock(), createBlock(unref(XIcon), {
                     key: 0,
                     name: "x",
                     class: "h-5 w-5 text-gray-300",
