@@ -84,13 +84,7 @@
 
 <script setup>
 import { computed, nextTick, onMounted, reactive, ref, toRefs, watch } from 'vue';
-import {
-  Combobox,
-  ComboboxInput,
-  ComboboxLabel,
-  ComboboxOption,
-  ComboboxOptions,
-} from '@headlessui/vue';
+import { Combobox, ComboboxInput, ComboboxLabel, ComboboxOption, ComboboxOptions } from '@headlessui/vue';
 import { CheckIcon, SelectorIcon, XIcon } from '@heroicons/vue/solid';
 import { get, onClickOutside, set, syncRef, templateRef } from '@vueuse/core';
 
@@ -148,6 +142,10 @@ const props = defineProps({
   },
   autoHide: {
     type: Boolean, // Hide choices after picking one.
+    default: false,
+  },
+  autofocus: {
+    type: Boolean,
     default: false,
   },
 });
@@ -215,4 +213,5 @@ watch(query, (query) => get(input).$el.value = query);
 watch(selectedKeys, () => props.autoHide && hideOptions());
 watch(query, () => showOptions());
 onMounted(() => nextTick().then(() => get(input).$el.value = get(query)));
+onMounted(() => props.autofocus && focus());
 </script>

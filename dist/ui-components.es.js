@@ -65,6 +65,10 @@ const _sfc_main$7 = {
     autoHide: {
       type: Boolean,
       default: false
+    },
+    autofocus: {
+      type: Boolean,
+      default: false
     }
   },
   emits: ["update:modelValue", "update:query", "clear"],
@@ -134,6 +138,7 @@ const _sfc_main$7 = {
     watch(selectedKeys, () => props.autoHide && hideOptions());
     watch(query, () => showOptions());
     onMounted(() => nextTick().then(() => get(input).$el.value = get(query)));
+    onMounted(() => props.autofocus && focus());
     return (_ctx, _cache) => {
       return openBlock(), createElementBlock("div", {
         ref_key: "container",
@@ -320,6 +325,10 @@ const _sfc_main$6 = {
     autoHide: {
       type: Boolean,
       default: false
+    },
+    autofocus: {
+      type: Boolean,
+      default: false
     }
   },
   emits: ["update:modelValue", "update:query", "clear"],
@@ -404,6 +413,7 @@ const _sfc_main$6 = {
     watch(selectedItem, () => props.autoHide && hideOptions());
     watch(query, () => showOptions());
     syncRef(items, availableItems, { direction: "ltr" });
+    onMounted(() => props.autofocus && focus());
     return (_ctx, _cache) => {
       return openBlock(), createElementBlock("div", {
         ref_key: "container",

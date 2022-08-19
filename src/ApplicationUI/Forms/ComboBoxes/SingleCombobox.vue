@@ -57,7 +57,7 @@
 </template>
 
 <script setup>
-import { computed, nextTick, reactive, ref, toRefs, watch } from 'vue';
+import { computed, nextTick, onMounted, reactive, ref, toRefs, watch } from 'vue';
 import { CheckIcon, SelectorIcon, XIcon } from '@heroicons/vue/solid';
 import { Combobox, ComboboxInput, ComboboxLabel, ComboboxOption, ComboboxOptions } from '@headlessui/vue';
 import { get, onClickOutside, set, syncRef, templateRef } from '@vueuse/core';
@@ -112,6 +112,10 @@ const props = defineProps({
   },
   autoHide: {
     type: Boolean, // Hide choices after picking one.
+    default: false,
+  },
+  autofocus: {
+    type: Boolean,
     default: false,
   },
 });
@@ -193,4 +197,5 @@ watch(inputQuery, (value) => set(query, null != value ? `${value}` : ''));
 watch(selectedItem, () => props.autoHide && hideOptions());
 watch(query, () => showOptions());
 syncRef(items, availableItems, {direction: 'ltr'});
+onMounted(() => props.autofocus && focus());
 </script>
