@@ -394,8 +394,19 @@ const _sfc_main$6 = {
         }
       });
     }, { immediate: true });
+    watch(cachedItems, async () => {
+      if (null == get(selectedItem) && null != props.modelValue) {
+        set(selectedItem, getItemByUniqueKey(uniqueKey(props.modelValue)));
+        await nextTick();
+        hideOptions();
+      }
+    }, { immediate: true });
     watch(modelValue, (id) => set(selectedItem, getItemByUniqueKey(id)), { immediate: true });
-    watch(selectedItem, (item) => emit("update:modelValue", uniqueKey(item)));
+    watch(selectedItem, (item) => {
+      if (uniqueKey(item) !== uniqueKey(props.modelValue)) {
+        emit("update:modelValue", uniqueKey(item));
+      }
+    });
     watch(selectedItem, (item) => {
       if (null == item) {
         set(query, "");
