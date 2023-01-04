@@ -57,10 +57,10 @@
 </template>
 
 <script setup>
-import { computed, nextTick, onMounted, reactive, ref, toRefs, watch } from 'vue';
-import { CheckIcon, SelectorIcon, XIcon } from '@heroicons/vue/solid';
 import { Combobox, ComboboxInput, ComboboxLabel, ComboboxOption, ComboboxOptions } from '@headlessui/vue';
+import { CheckIcon, SelectorIcon, XIcon } from '@heroicons/vue/solid';
 import { get, onClickOutside, set, syncRef, templateRef } from '@vueuse/core';
+import { computed, nextTick, onMounted, reactive, ref, toRefs, watch } from 'vue';
 
 // eslint-disable-next-line no-undef
 const emit = defineEmits(['update:modelValue', 'update:query', 'clear']);
@@ -147,7 +147,6 @@ const filter = props.filter ?? (async (query, items) => get(items).filter((item)
 const filteredItems = computed(() => get(items).filter(item => uniqueKey(item) !== uniqueKey(get(modelValue))));
 const availableItems = ref(get(items));
 const displayValueFn = (item) => null != item ? stringify(item) : get(query);
-
 const input = templateRef('input');
 const showOptions = () => set(open, true);
 const hideOptions = () => set(open, false);
@@ -179,8 +178,19 @@ watch(items, (items) => {
     }
   });
 }, {immediate: true});
+watch(cachedItems, async () => {
+  if (null == get(selectedItem) && null != props.modelValue) {
+    set(selectedItem, getItemByUniqueKey(uniqueKey(props.modelValue)));
+    await nextTick();
+    hideOptions();
+  }
+}, {immediate: true});
 watch(modelValue, id => set(selectedItem, getItemByUniqueKey(id)), {immediate: true});
-watch(selectedItem, item => emit('update:modelValue', uniqueKey(item)));
+watch(selectedItem, item => {
+  if (uniqueKey(item) !== uniqueKey(props.modelValue)) {
+    emit('update:modelValue', uniqueKey(item));
+  }
+});
 watch(selectedItem, item => {
   if (null == item) {
     set(query, '');
