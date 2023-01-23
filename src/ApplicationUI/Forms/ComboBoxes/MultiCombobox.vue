@@ -66,7 +66,7 @@
             >
               <slot v-bind="{item, active, selected, stringify}">
                 <li class="relative cursor-default select-none py-2 pl-3 pr-9 focus:outline-none" :class="active ? 'bg-blue-600 text-white' : 'text-gray-900'">
-                  <span class="block truncate" :class="{ 'font-semibold': selected, 'font-normal': !selected }">
+                  <span class="block" :class="{ 'truncate': !active, 'font-semibold': selected, 'font-normal': !selected }">
                     {{ stringify(item) }}
                   </span>
                   <span v-if="selected" class="absolute inset-y-0 right-0 flex items-center pr-4" :class="{ 'text-white': active, 'text-blue-600': !active }">

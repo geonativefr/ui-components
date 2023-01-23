@@ -1,17 +1,19 @@
-import { ref as F, toRefs as W, reactive as ie, computed as te, watch as g, onMounted as ne, nextTick as N, openBlock as m, createElementBlock as V, withKeys as re, createVNode as x, unref as o, withCtx as b, renderSlot as v, createTextVNode as de, toDisplayString as j, createElementVNode as r, createCommentVNode as H, Fragment as le, renderList as oe, normalizeProps as D, guardReactiveProps as M, mergeProps as G, createBlock as I, withDirectives as ae, normalizeClass as L, vShow as ce, resolveDynamicComponent as we, withModifiers as se } from "vue";
+import { ref as F, toRefs as Y, reactive as ie, computed as te, watch as g, onMounted as ne, nextTick as N, openBlock as m, createElementBlock as V, withKeys as re, createVNode as x, unref as o, withCtx as b, renderSlot as v, createTextVNode as de, toDisplayString as j, createElementVNode as r, createCommentVNode as H, Fragment as le, renderList as oe, normalizeProps as D, guardReactiveProps as M, mergeProps as J, createBlock as I, withDirectives as ae, normalizeClass as L, vShow as ce, resolveDynamicComponent as we, withModifiers as se } from "vue";
 import { Combobox as fe, ComboboxLabel as me, ComboboxInput as ye, ComboboxOptions as pe, ComboboxOption as be, TransitionRoot as xe, Dialog as ke, TransitionChild as ue, DialogPanel as $e, DialogTitle as Ce } from "@headlessui/vue";
-import { XIcon as J, SelectorIcon as ge, CheckIcon as he } from "@heroicons/vue/solid";
-import { get as l, templateRef as U, onClickOutside as ve, set as y, syncRef as Y } from "@vueuse/core";
+import { XIcon as W, SelectorIcon as ge, CheckIcon as he } from "@heroicons/vue/solid";
+import { get as l, templateRef as U, onClickOutside as ve, set as y, syncRef as Z } from "@vueuse/core";
 import { vElementHover as Se } from "@vueuse/components";
 const Be = ["onKeydown"], qe = { class: "relative" }, Ve = { class: "inline-block w-full rounded-md shadow-sm" }, Ae = { class: "relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-2 pr-10 text-left transition duration-150 ease-in-out focus-within:border-blue-500 focus-within:outline-none focus-within:ring-1 focus-within:ring-blue-500 sm:text-sm sm:leading-5" }, Fe = { class: "block flex flex-wrap gap-2" }, Ie = { class: "flex items-center gap-1 rounded bg-blue-600 text-white px-2 py-0.5" }, Ke = ["onClick"], He = { class: "absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none" }, Oe = { class: "absolute mt-1 w-full rounded-md bg-white shadow-lg z-10" }, Te = {
   __name: "MultiCombobox",
   props: {
     items: {
       type: Array,
+      // Choices of the combobox.
       required: !0
     },
     modelValue: {
       type: Array,
+      // Selected choices of the combobox.
       default: () => []
     },
     query: {
@@ -19,42 +21,52 @@ const Be = ["onKeydown"], qe = { class: "relative" }, Ve = { class: "inline-bloc
     },
     stringify: {
       type: Function,
+      // How to render a choice as a string.
       default: void 0
     },
     uniqueKey: {
       type: Function,
+      // How to render a choice as a unique ID.
       default: void 0
     },
     filter: {
       type: Function,
+      // How to filter choices based on query.
       default: void 0
     },
     inputAttrs: {
       type: Object,
+      // Attributes to pass to the <input> tag.
       default: () => ({})
     },
     excludeSelected: {
       type: Boolean,
+      // Exclude already selected choices from available items.
       default: !1
     },
     hideTags: {
       type: Boolean,
+      // Hide selected choices as "tags".
       default: !1
     },
     clearable: {
       type: Boolean,
+      // Display a clear button to remove all selected choices.
       default: !1
     },
     label: {
       type: String,
+      // Label to display.
       default: void 0
     },
     disabled: {
       type: Array,
+      // Choices that are not selectable.
       default: () => []
     },
     autoHide: {
       type: Boolean,
+      // Hide choices after picking one.
       default: !1
     },
     autofocus: {
@@ -64,7 +76,7 @@ const Be = ["onKeydown"], qe = { class: "relative" }, Ve = { class: "inline-bloc
   },
   emits: ["update:modelValue", "update:query", "clear"],
   setup(t, { emit: u }) {
-    const s = t, i = F(!1), f = () => y(i, !l(i)), { items: d, excludeSelected: C, modelValue: K, query: S } = W(s), A = s.stringify ?? ((n) => (n == null ? void 0 : n.name) ?? n ?? ""), h = s.uniqueKey ?? ((n) => (n == null ? void 0 : n.id) ?? n), w = ie([]), k = F(l(S)), $ = F([]), B = te(() => w.filter((n) => l($).map(h).includes(h(n)))), q = s.filter ?? (async (n, p) => l(p).filter((e) => A(e).toLowerCase().includes(n.toLowerCase()))), Z = te(() => l(d).filter((n) => !l($).map(h).includes(h(n)))), P = F(l(d)), O = U("input"), z = () => y(i, !0), R = () => y(i, !1), T = () => l(O).$el.focus();
+    const s = t, i = F(!1), f = () => y(i, !l(i)), { items: d, excludeSelected: C, modelValue: K, query: S } = Y(s), A = s.stringify ?? ((n) => (n == null ? void 0 : n.name) ?? n ?? ""), h = s.uniqueKey ?? ((n) => (n == null ? void 0 : n.id) ?? n), w = ie([]), k = F(l(S)), $ = F([]), B = te(() => w.filter((n) => l($).map(h).includes(h(n)))), q = s.filter ?? (async (n, p) => l(p).filter((e) => A(e).toLowerCase().includes(n.toLowerCase()))), ee = te(() => l(d).filter((n) => !l($).map(h).includes(h(n)))), P = F(l(d)), O = U("input"), z = () => y(i, !0), R = () => y(i, !1), T = () => l(O).$el.focus();
     function E(n) {
       n.value === "" && l(k) !== "" && (n.value = l(k));
     }
@@ -80,9 +92,9 @@ const Be = ["onKeydown"], qe = { class: "relative" }, Ve = { class: "inline-bloc
         w.findIndex((e) => h(e) === h(p)) === -1 && w.push(p);
       });
     }, { immediate: !0 }), g(K, (n) => y($, n), { immediate: !0 }), g($, (n) => u("update:modelValue", n)), g($, () => y(k, "")), g(k, (n) => u("update:query", n)), g(k, async (n) => {
-      const p = await q(l(n), l(C) ? l(Z) : l(d));
+      const p = await q(l(n), l(C) ? l(ee) : l(d));
       y(P, l(p) ?? []);
-    }), g(S, (n) => y(k, n != null ? `${n}` : "")), Y(d, P, { direction: "ltr" }), g(k, (n) => l(O).$el.value = n), g($, () => s.autoHide && R()), g(k, () => z()), ne(() => N().then(() => l(O).$el.value = l(k))), ne(() => s.autofocus && T()), (n, p) => (m(), V("div", {
+    }), g(S, (n) => y(k, n != null ? `${n}` : "")), Z(d, P, { direction: "ltr" }), g(k, (n) => l(O).$el.value = n), g($, () => s.autoHide && R()), g(k, () => z()), ne(() => N().then(() => l(O).$el.value = l(k))), ne(() => s.autofocus && T()), (n, p) => (m(), V("div", {
       ref_key: "container",
       ref: _,
       onKeydown: re(R, ["esc"]),
@@ -124,12 +136,12 @@ const Be = ["onKeydown"], qe = { class: "relative" }, Ve = { class: "inline-bloc
                           role: "button",
                           onClick: (a) => X(e)
                         }, [
-                          x(o(J), { class: "h-4 w-4" })
+                          x(o(W), { class: "h-4 w-4" })
                         ], 8, Ke)
                       ])
                     ])
                   ]))), 128)),
-                  x(o(ye), G({
+                  x(o(ye), J({
                     ref_key: "input",
                     ref: O,
                     autocomplete: "off"
@@ -146,7 +158,7 @@ const Be = ["onKeydown"], qe = { class: "relative" }, Ve = { class: "inline-bloc
                     type: "button",
                     onClick: Q
                   }, [
-                    $.value.length !== 0 ? (m(), I(o(J), {
+                    $.value.length !== 0 ? (m(), I(o(W), {
                       key: 0,
                       class: "h-5 w-5 text-gray-300",
                       "aria-hidden": "true"
@@ -183,7 +195,7 @@ const Be = ["onKeydown"], qe = { class: "relative" }, Ve = { class: "inline-bloc
                           class: L(["relative cursor-default select-none py-2 pl-3 pr-9 focus:outline-none", a ? "bg-blue-600 text-white" : "text-gray-900"])
                         }, [
                           r("span", {
-                            class: L(["block truncate", { "font-semibold": c, "font-normal": !c }])
+                            class: L(["block", { truncate: !a, "font-semibold": c, "font-normal": !c }])
                           }, j(o(A)(e)), 3),
                           c ? (m(), V("span", {
                             key: 0,
@@ -213,10 +225,12 @@ const Be = ["onKeydown"], qe = { class: "relative" }, Ve = { class: "inline-bloc
   props: {
     items: {
       type: Array,
+      // Choices of the combobox.
       required: !0
     },
     modelValue: {
       type: [String, Number, Object],
+      // Selected choice of the combobox.
       default: null
     },
     query: {
@@ -224,38 +238,47 @@ const Be = ["onKeydown"], qe = { class: "relative" }, Ve = { class: "inline-bloc
     },
     stringify: {
       type: Function,
+      // How to render a choice as a string.
       default: void 0
     },
     uniqueKey: {
       type: Function,
+      // How to render a choice as a unique ID.
       default: void 0
     },
     filter: {
       type: Function,
+      // How to filter choices based on query.
       default: void 0
     },
     inputAttrs: {
       type: Object,
+      // Attributes to pass to the <input> tag.
       default: () => ({})
     },
     excludeSelected: {
       type: Boolean,
+      // Exclude already selected choices from available items.
       default: !1
     },
     clearable: {
       type: Boolean,
+      // Display a clear button to remove all selected choices.
       default: !1
     },
     label: {
       type: String,
+      // Label to display.
       default: void 0
     },
     disabled: {
       type: Array,
+      // Choices that are not selectable.
       default: () => []
     },
     autoHide: {
       type: Boolean,
+      // Hide choices after picking one.
       default: !1
     },
     autofocus: {
@@ -265,7 +288,7 @@ const Be = ["onKeydown"], qe = { class: "relative" }, Ve = { class: "inline-bloc
   },
   emits: ["update:modelValue", "update:query", "clear"],
   setup(t, { emit: u }) {
-    const s = t, i = F(!1), f = () => y(i, !l(i)), { items: d, excludeSelected: C, modelValue: K, query: S } = W(s), A = s.stringify ?? ((e) => (e == null ? void 0 : e.name) ?? e ?? void 0), h = (e) => {
+    const s = t, i = F(!1), f = () => y(i, !l(i)), { items: d, excludeSelected: C, modelValue: K, query: S } = Y(s), A = s.stringify ?? ((e) => (e == null ? void 0 : e.name) ?? e ?? void 0), h = (e) => {
       try {
         const a = A(e);
         if (a == null)
@@ -278,7 +301,7 @@ const Be = ["onKeydown"], qe = { class: "relative" }, Ve = { class: "inline-bloc
     function $(e) {
       return k.find((a) => w(a) === e);
     }
-    const B = F(l(S)), q = F(), Z = s.filter ?? (async (e, a) => l(a).filter((c) => h(c).toLowerCase().includes(e.toLowerCase()))), P = te(() => l(d).filter((e) => w(e) !== w(l(K)))), O = F(l(d)), z = (e) => e != null ? h(e) : l(B), R = U("input"), T = () => y(i, !0), E = () => y(i, !1), Q = () => l(R).$el.focus();
+    const B = F(l(S)), q = F(), ee = s.filter ?? (async (e, a) => l(a).filter((c) => h(c).toLowerCase().includes(e.toLowerCase()))), P = te(() => l(d).filter((e) => w(e) !== w(l(K)))), O = F(l(d)), z = (e) => e != null ? h(e) : l(B), R = U("input"), T = () => y(i, !0), E = () => y(i, !1), Q = () => l(R).$el.focus();
     function X(e) {
       e.value === "" && l(B) !== "" && (e.value = l(B));
     }
@@ -297,9 +320,9 @@ const Be = ["onKeydown"], qe = { class: "relative" }, Ve = { class: "inline-bloc
     }), g(q, (e) => {
       e == null ? y(B, "") : y(B, h(e));
     }), g(B, (e) => u("update:query", e)), g(B, async (e) => {
-      const a = await Z(l(e), l(C) ? l(P) : l(d));
+      const a = await ee(l(e), l(C) ? l(P) : l(d));
       y(O, l(a) ?? []);
-    }), g(S, (e) => y(B, e != null ? `${e}` : "")), g(q, () => s.autoHide && E()), g(B, () => T()), Y(d, O, { direction: "ltr" }), ne(() => s.autofocus && Q()), (e, a) => (m(), V("div", {
+    }), g(S, (e) => y(B, e != null ? `${e}` : "")), g(q, () => s.autoHide && E()), g(B, () => T()), Z(d, O, { direction: "ltr" }), ne(() => s.autofocus && Q()), (e, a) => (m(), V("div", {
       ref_key: "container",
       ref: p,
       onKeydown: re(E, ["esc"]),
@@ -320,7 +343,7 @@ const Be = ["onKeydown"], qe = { class: "relative" }, Ve = { class: "inline-bloc
             })
           ]),
           r("div", Ee, [
-            x(o(ye), G({
+            x(o(ye), J({
               ref_key: "input",
               ref: R,
               "display-value": z,
@@ -337,7 +360,7 @@ const Be = ["onKeydown"], qe = { class: "relative" }, Ve = { class: "inline-bloc
                 type: "button",
                 onClick: _
               }, [
-                o(K) != null ? (m(), I(o(J), {
+                o(K) != null ? (m(), I(o(W), {
                   key: 0,
                   name: "x",
                   class: "h-5 w-5 text-gray-300",
@@ -366,17 +389,17 @@ const Be = ["onKeydown"], qe = { class: "relative" }, Ve = { class: "inline-bloc
                     disabled: t.disabled.includes(o(w)(c)),
                     onClick: a[2] || (a[2] = () => t.autoHide && E())
                   }, {
-                    default: b(({ active: ee }) => [
-                      v(e.$slots, "default", D(M({ item: c, active: ee, selected: n(c), stringify: h })), () => [
+                    default: b(({ active: G }) => [
+                      v(e.$slots, "default", D(M({ item: c, active: G, selected: n(c), stringify: h })), () => [
                         r("li", {
-                          class: L(["relative cursor-pointer select-none py-2 pl-3 pr-9", ee ? "bg-indigo-600 text-white" : "text-gray-900"])
+                          class: L(["relative cursor-pointer select-none py-2 pl-3 pr-9", G ? "bg-indigo-600 text-white" : "text-gray-900"])
                         }, [
                           r("span", {
-                            class: L(["block truncate", n(c) && "font-semibold"])
+                            class: L(["block", !G && "truncate", n(c) && "font-semibold"])
                           }, j(h(c)), 3),
                           n(c) ? (m(), V("span", {
                             key: 0,
-                            class: L(["absolute inset-y-0 right-0 flex items-center pr-4", ee ? "text-white" : "text-indigo-600"])
+                            class: L(["absolute inset-y-0 right-0 flex items-center pr-4", G ? "text-white" : "text-indigo-600"])
                           }, [
                             x(o(he), {
                               class: "h-5 w-5",
@@ -441,7 +464,7 @@ const Be = ["onKeydown"], qe = { class: "relative" }, Ve = { class: "inline-bloc
     }
   },
   setup(t) {
-    return (u, s) => Array.isArray(t.modelValue) ? (m(), I(Te, G({
+    return (u, s) => Array.isArray(t.modelValue) ? (m(), I(Te, J({
       key: 0,
       items: t.items,
       "model-value": t.modelValue,
@@ -463,7 +486,7 @@ const Be = ["onKeydown"], qe = { class: "relative" }, Ve = { class: "inline-bloc
         v(u.$slots, "default", D(M({ item: i, active: f, selected: d, stringify: C })))
       ]),
       _: 3
-    }, 16, ["items", "model-value", "stringify", "unique-key", "filter", "input-attrs", "exclude-selected", "clearable", "label"])) : (m(), I(Pe, G({
+    }, 16, ["items", "model-value", "stringify", "unique-key", "filter", "input-attrs", "exclude-selected", "clearable", "label"])) : (m(), I(Pe, J({
       key: 1,
       items: t.items,
       "model-value": t.modelValue,
@@ -520,11 +543,11 @@ const Be = ["onKeydown"], qe = { class: "relative" }, Ve = { class: "inline-bloc
   },
   emits: ["submit", "reset", "close"],
   setup(t, { emit: u }) {
-    const s = t, { open: i } = W(s), f = F(s.open);
+    const s = t, { open: i } = Y(s), f = F(s.open);
     function d() {
       u("close");
     }
-    return Y(i, f, { direction: "ltr" }), (C, K) => (m(), I(o(xe), {
+    return Z(i, f, { direction: "ltr" }), (C, K) => (m(), I(o(xe), {
       as: "template",
       show: f.value
     }, {
@@ -581,7 +604,7 @@ const Be = ["onKeydown"], qe = { class: "relative" }, Ve = { class: "inline-bloc
                           class: "absolute top-0 right-0 p-3 focus:outline-none",
                           onClick: d
                         }, [
-                          x(o(J), { class: "h-5 w-5 text-gray-800 hover:text-black" })
+                          x(o(W), { class: "h-5 w-5 text-gray-800 hover:text-black" })
                         ])),
                         v(C.$slots, "default")
                       ]),
@@ -643,14 +666,14 @@ const Be = ["onKeydown"], qe = { class: "relative" }, Ve = { class: "inline-bloc
   },
   emits: ["submit", "reset"],
   setup(t, { emit: u }) {
-    const s = t, { open: i } = W(s), f = F(s.open), d = U("FormHTMLElement");
+    const s = t, { open: i } = Y(s), f = F(s.open), d = U("FormHTMLElement");
     async function C() {
       await (s.onSubmit ?? ((A) => u("submit", { form: l(A), visible: f })))({ form: l(d), visible: f }), s.hideOnSubmit && y(f, !1);
     }
     async function K() {
       await (s.onReset ?? ((A) => u("reset", { form: l(A), visible: f })))({ form: l(d), visible: f }), s.hideOnReset && y(f, !1);
     }
-    return Y(i, f, { direction: "ltr" }), (S, A) => (m(), I(ze, { open: f.value }, {
+    return Z(i, f, { direction: "ltr" }), (S, A) => (m(), I(ze, { open: f.value }, {
       default: b(() => [
         r("form", {
           ref_key: "FormHTMLElement",
