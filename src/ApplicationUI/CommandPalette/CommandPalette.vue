@@ -83,11 +83,15 @@ import {
   TransitionRoot,
 } from '@headlessui/vue';
 
-const emit = defineEmits(['close', 'update:open', 'pick']);
+const emit = defineEmits(['close', 'update:open', 'update:query', 'pick']);
 const props = defineProps({
   open: {
     type: Boolean,
     default: false,
+  },
+  query: {
+    type: String,
+    default: '',
   },
   items: {
     type: Array,
@@ -115,10 +119,11 @@ const props = defineProps({
   },
 });
 
-const query = ref('');
-const {open} = toRefs(props);
+const {open, query: theirQuery} = toRefs(props);
+const query = ref(get(theirQuery));
 const shown = ref(true);
 syncRef(open, shown, {direction: 'ltr'});
+syncRef(theirQuery, query, {direction: 'ltr'});
 
 const defaultFilter = async (query, items, stringify) => {
   if (query === '' && props.prompt) {
@@ -139,6 +144,7 @@ const groups = computed(() =>
 
 function onInput(value) {
   set(query, value);
+  emit('update:query', value);
 }
 
 function onSelect(item) {
