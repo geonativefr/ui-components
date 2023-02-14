@@ -839,7 +839,7 @@ const gt = /* @__PURE__ */ We(Xe, [["render", Ye]]), ht = {
                           ]) : !t.prompt || n(F).length > 0 ? (d(), O(n(de), {
                             key: 1,
                             static: "",
-                            class: "max-h-80 scroll-pt-11 scroll-pb-2 space-y-2 overflow-y-auto pb-2"
+                            class: "max-h-80 scroll-pt-11 scroll-pb-2 space-y-2 overflow-y-auto pb-2 empty:hidden"
                           }, {
                             default: f(() => [
                               (d(!0), V(G, null, Q(Object.entries(n(C)), ([h, L]) => (d(), V("li", { key: h }, [

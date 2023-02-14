@@ -31,7 +31,7 @@
                 </slot>
               </template>
 
-              <ComboboxOptions v-else-if="!prompt || (filteredItems.length > 0)" static class="max-h-80 scroll-pt-11 scroll-pb-2 space-y-2 overflow-y-auto pb-2">
+              <ComboboxOptions v-else-if="!prompt || (filteredItems.length > 0)" static class="max-h-80 scroll-pt-11 scroll-pb-2 space-y-2 overflow-y-auto pb-2 empty:hidden">
                 <li v-for="[group, items] in Object.entries(groups)" :key="group">
                   <slot name="group" v-bind="{group, items}">
                     <h2 v-if="'undefined' !== group" class="bg-gray-100 py-2.5 px-4 text-xs font-semibold text-gray-900">
