@@ -1,9 +1,9 @@
-import { ref as T, toRefs as X, reactive as fe, computed as te, watch as $, onMounted as se, nextTick as U, openBlock as d, createElementBlock as V, withKeys as ye, createVNode as v, unref as n, withCtx as f, renderSlot as m, createTextVNode as pe, toDisplayString as j, createElementVNode as a, createCommentVNode as H, Fragment as G, renderList as Q, normalizeProps as z, guardReactiveProps as M, mergeProps as ne, createBlock as O, withDirectives as ue, normalizeClass as D, vShow as me, resolveDynamicComponent as ke, withModifiers as ae } from "vue";
-import { Combobox as re, ComboboxLabel as be, ComboboxInput as ie, ComboboxOptions as de, ComboboxOption as ce, TransitionRoot as ge, Dialog as he, TransitionChild as le, DialogPanel as ve, DialogTitle as Ce } from "@headlessui/vue";
-import { XIcon as oe, SelectorIcon as xe, CheckIcon as we } from "@heroicons/vue/solid";
-import { get as o, templateRef as W, onClickOutside as $e, set as g, syncRef as N, asyncComputed as Se } from "@vueuse/core";
-import { vElementHover as Be } from "@vueuse/components";
-const qe = ["onKeydown"], Ve = { class: "relative" }, Fe = { class: "inline-block w-full rounded-md shadow-sm" }, Ae = { class: "relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-2 pr-10 text-left transition duration-150 ease-in-out focus-within:border-blue-500 focus-within:outline-none focus-within:ring-1 focus-within:ring-blue-500 sm:text-sm sm:leading-5" }, Ie = { class: "block flex flex-wrap gap-2" }, Ke = { class: "flex items-center gap-1 rounded bg-blue-600 text-white px-2 py-0.5" }, Oe = ["onClick"], He = { class: "absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none" }, Te = { class: "absolute mt-1 w-full rounded-md bg-white shadow-lg z-10" }, _e = {
+import { ref as O, toRefs as ee, reactive as ye, computed as ne, watch as $, onMounted as se, nextTick as X, openBlock as c, createElementBlock as V, withKeys as pe, createVNode as v, unref as n, withCtx as y, renderSlot as p, createTextVNode as ue, toDisplayString as j, createElementVNode as u, createCommentVNode as R, Fragment as J, renderList as Y, normalizeProps as _, guardReactiveProps as z, mergeProps as U, createBlock as H, withDirectives as re, normalizeClass as D, vShow as me, resolveDynamicComponent as ke, withModifiers as ae } from "vue";
+import { Combobox as ie, ComboboxLabel as be, ComboboxInput as de, ComboboxOptions as ce, ComboboxOption as fe, TransitionRoot as ge, Dialog as he, TransitionChild as le, DialogPanel as ve, DialogTitle as Ce } from "@headlessui/vue";
+import { XIcon as oe, SelectorIcon as we, CheckIcon as xe } from "@heroicons/vue/solid";
+import { get as o, templateRef as Z, onClickOutside as $e, set as b, syncRef as G, refThrottled as qe, asyncComputed as Be } from "@vueuse/core";
+import { vElementHover as Se } from "@vueuse/components";
+const Ve = ["onKeydown"], Fe = { class: "relative" }, Ae = { class: "inline-block w-full rounded-md shadow-sm" }, Ie = { class: "relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-2 pr-10 text-left transition duration-150 ease-in-out focus-within:border-blue-500 focus-within:outline-none focus-within:ring-1 focus-within:ring-blue-500 sm:text-sm sm:leading-5" }, Le = { class: "block flex flex-wrap gap-2" }, Ke = { class: "flex items-center gap-1 rounded bg-blue-600 text-white px-2 py-0.5" }, Oe = ["onClick"], He = { class: "absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none" }, Te = { class: "absolute mt-1 w-full rounded-md bg-white shadow-lg z-10" }, Re = {
   __name: "MultiCombobox",
   props: {
     items: {
@@ -63,100 +63,100 @@ const qe = ["onKeydown"], Ve = { class: "relative" }, Fe = { class: "inline-bloc
     }
   },
   emits: ["update:modelValue", "update:query", "clear"],
-  setup(t, { emit: u }) {
-    const s = t, c = T(!1), y = () => g(c, !o(c)), { items: r, excludeSelected: q, modelValue: _, query: I } = X(s), F = s.stringify ?? ((l) => (l == null ? void 0 : l.name) ?? l ?? ""), x = s.uniqueKey ?? ((l) => (l == null ? void 0 : l.id) ?? l), k = fe([]), C = T(o(I)), S = T([]), K = te(() => k.filter((l) => o(S).map(x).includes(x(l)))), A = s.filter ?? (async (l, w) => o(w).filter((e) => F(e).toLowerCase().includes(l.toLowerCase()))), p = te(() => o(r).filter((l) => !o(S).map(x).includes(x(l)))), B = T(o(r)), h = W("input"), L = () => g(c, !0), R = () => g(c, !1), P = () => o(h).$el.focus();
-    function E(l) {
-      l.value === "" && o(C) !== "" && (l.value = o(C));
+  setup(t, { emit: i }) {
+    const s = t, f = O(!1), m = () => b(f, !o(f)), { items: a, excludeSelected: F, modelValue: L, query: k } = ee(s), K = s.stringify ?? ((l) => (l == null ? void 0 : l.name) ?? l ?? ""), C = s.uniqueKey ?? ((l) => (l == null ? void 0 : l.id) ?? l), S = ye([]), q = O(o(k)), B = O([]), A = ne(() => S.filter((l) => o(B).map(C).includes(C(l)))), I = s.filter ?? (async (l, w) => o(w).filter((e) => K(e).toLowerCase().includes(l.toLowerCase()))), W = ne(() => o(a).filter((l) => !o(B).map(C).includes(C(l)))), M = O(o(a)), P = Z("input"), r = () => b(f, !0), x = () => b(f, !1), g = () => o(P).$el.focus();
+    function T(l) {
+      l.value === "" && o(q) !== "" && (l.value = o(q));
     }
-    async function J() {
-      g(S, []), g(C, ""), await U(), P(), u("clear");
+    async function E() {
+      b(B, []), b(q, ""), await X(), g(), i("clear");
     }
-    async function Y(l) {
-      g(S, o(S).filter((w) => x(w) !== x(l))), await U(), P();
+    async function Q(l) {
+      b(B, o(B).filter((w) => C(w) !== C(l))), await X(), g();
     }
-    const Z = W("container");
-    return $e(Z, () => R()), $(r, (l) => {
+    const N = Z("container");
+    return $e(N, () => x()), $(a, (l) => {
       l.forEach((w) => {
-        k.findIndex((e) => x(e) === x(w)) === -1 && k.push(w);
+        S.findIndex((e) => C(e) === C(w)) === -1 && S.push(w);
       });
-    }, { immediate: !0 }), $(_, (l) => g(S, l), { immediate: !0 }), $(S, (l) => u("update:modelValue", l)), $(S, () => g(C, "")), $(C, (l) => u("update:query", l)), $(C, async (l) => {
-      const w = await A(o(l), o(q) ? o(p) : o(r));
-      g(B, o(w) ?? []);
-    }), $(I, (l) => g(C, l != null ? `${l}` : "")), N(r, B, { direction: "ltr" }), $(C, (l) => o(h).$el.value = l), $(S, () => s.autoHide && R()), $(C, () => L()), se(() => U().then(() => o(h).$el.value = o(C))), se(() => s.autofocus && P()), (l, w) => (d(), V("div", {
+    }, { immediate: !0 }), $(L, (l) => b(B, l), { immediate: !0 }), $(B, (l) => i("update:modelValue", l)), $(B, () => b(q, "")), $(q, (l) => i("update:query", l)), $(q, async (l) => {
+      const w = await I(o(l), o(F) ? o(W) : o(a));
+      b(M, o(w) ?? []);
+    }), $(k, (l) => b(q, l != null ? `${l}` : "")), G(a, M, { direction: "ltr" }), $(q, (l) => o(P).$el.value = l), $(B, () => s.autoHide && x()), $(q, () => r()), se(() => X().then(() => o(P).$el.value = o(q))), se(() => s.autofocus && g()), (l, w) => (c(), V("div", {
       ref_key: "container",
-      ref: Z,
-      onKeydown: ye(R, ["esc"]),
-      onKeyup: w[4] || (w[4] = ({ code: e }) => ["ArrowUp", "ArrowDown"].includes(e) && L())
+      ref: N,
+      onKeydown: pe(x, ["esc"]),
+      onKeyup: w[4] || (w[4] = ({ code: e }) => ["ArrowUp", "ArrowDown"].includes(e) && r())
     }, [
-      v(n(re), {
+      v(n(ie), {
         as: "div",
-        modelValue: S.value,
-        "onUpdate:modelValue": w[3] || (w[3] = (e) => S.value = e),
+        modelValue: B.value,
+        "onUpdate:modelValue": w[3] || (w[3] = (e) => B.value = e),
         multiple: ""
       }, {
-        default: f(() => [
-          m(l.$slots, "label", {}, () => [
+        default: y(() => [
+          p(l.$slots, "label", {}, () => [
             v(n(be), { class: "block text-sm font-medium leading-5 text-gray-700 empty:hidden" }, {
-              default: f(() => [
-                pe(j(t.label), 1)
+              default: y(() => [
+                ue(j(t.label), 1)
               ]),
               _: 1
             })
           ]),
-          a("div", Ve, [
-            a("span", Fe, [
-              a("div", Ae, [
-                a("span", Ie, [
-                  S.value.length === 0 ? (d(), V("span", {
+          u("div", Fe, [
+            u("span", Ae, [
+              u("div", Ie, [
+                u("span", Le, [
+                  B.value.length === 0 ? (c(), V("span", {
                     key: 0,
                     class: "p-0.5 cursor-pointer empty:hidden",
-                    onClick: P
+                    onClick: g
                   }, [
-                    m(l.$slots, "empty-state")
-                  ])) : H("", !0),
-                  t.hideTags ? H("", !0) : (d(!0), V(G, { key: 1 }, Q(n(K), (e) => (d(), V("span", {
-                    key: n(x)(e)
+                    p(l.$slots, "empty-state")
+                  ])) : R("", !0),
+                  t.hideTags ? R("", !0) : (c(!0), V(J, { key: 1 }, Y(n(A), (e) => (c(), V("span", {
+                    key: n(C)(e)
                   }, [
-                    m(l.$slots, "selected-items", z(M({ item: e, stringify: n(F), remove: Y })), () => [
-                      a("span", Ke, [
-                        a("span", null, j(n(F)(e)), 1),
-                        a("button", {
+                    p(l.$slots, "selected-items", _(z({ item: e, stringify: n(K), remove: Q })), () => [
+                      u("span", Ke, [
+                        u("span", null, j(n(K)(e)), 1),
+                        u("button", {
                           role: "button",
-                          onClick: (i) => Y(e)
+                          onClick: (d) => Q(e)
                         }, [
                           v(n(oe), { class: "h-4 w-4" })
                         ], 8, Oe)
                       ])
                     ])
                   ]))), 128)),
-                  v(n(ie), ne({
+                  v(n(de), U({
                     ref_key: "input",
-                    ref: h,
+                    ref: P,
                     autocomplete: "off"
                   }, t.inputAttrs, {
                     class: "reset border-none p-0 focus:ring-0 grow",
-                    onFocus: L,
-                    onBlur: w[0] || (w[0] = (e) => E(e.target)),
-                    onChange: w[1] || (w[1] = (e) => C.value = e.target.value)
+                    onFocus: r,
+                    onBlur: w[0] || (w[0] = (e) => T(e.target)),
+                    onChange: w[1] || (w[1] = (e) => q.value = e.target.value)
                   }), null, 16)
                 ]),
-                a("div", He, [
-                  t.clearable ? (d(), V("button", {
+                u("div", He, [
+                  t.clearable ? (c(), V("button", {
                     key: 0,
                     type: "button",
-                    onClick: J
+                    onClick: E
                   }, [
-                    S.value.length !== 0 ? (d(), O(n(oe), {
+                    B.value.length !== 0 ? (c(), H(n(oe), {
                       key: 0,
                       class: "h-5 w-5 text-gray-300",
                       "aria-hidden": "true"
-                    })) : H("", !0)
-                  ])) : H("", !0),
-                  a("button", {
+                    })) : R("", !0)
+                  ])) : R("", !0),
+                  u("button", {
                     type: "button",
-                    onClick: y
+                    onClick: m
                   }, [
-                    v(n(xe), {
+                    v(n(we), {
                       class: "h-5 w-5 text-gray-400",
                       "aria-hidden": "true"
                     })
@@ -164,33 +164,33 @@ const qe = ["onKeydown"], Ve = { class: "relative" }, Fe = { class: "inline-bloc
                 ])
               ])
             ]),
-            ue(a("div", Te, [
-              B.value.length > 0 ? (d(), O(n(de), {
+            re(u("div", Te, [
+              M.value.length > 0 ? (c(), H(n(ce), {
                 key: 0,
                 static: !t.autoHide,
                 class: "shadow-xs max-h-60 overflow-auto rounded-md py-1 text-base leading-6 focus:outline-none sm:text-sm sm:leading-5"
               }, {
-                default: f(() => [
-                  (d(!0), V(G, null, Q(B.value, (e) => (d(), O(n(ce), {
-                    key: n(x)(e),
-                    value: n(x)(e),
-                    disabled: t.disabled.includes(n(x)(e)),
-                    onClick: w[2] || (w[2] = () => t.autoHide && R())
+                default: y(() => [
+                  (c(!0), V(J, null, Y(M.value, (e) => (c(), H(n(fe), {
+                    key: n(C)(e),
+                    value: n(C)(e),
+                    disabled: t.disabled.includes(n(C)(e)),
+                    onClick: w[2] || (w[2] = () => t.autoHide && x())
                   }, {
-                    default: f(({ active: i, selected: b }) => [
-                      m(l.$slots, "default", z(M({ item: e, active: i, selected: b, stringify: n(F) })), () => [
-                        a("li", {
-                          class: D(["relative cursor-default select-none py-2 pl-3 pr-9 focus:outline-none", i ? "bg-blue-600 text-white" : "text-gray-900"])
+                    default: y(({ active: d, selected: h }) => [
+                      p(l.$slots, "default", _(z({ item: e, active: d, selected: h, stringify: n(K) })), () => [
+                        u("li", {
+                          class: D(["relative cursor-default select-none py-2 pl-3 pr-9 focus:outline-none", d ? "bg-blue-600 text-white" : "text-gray-900"])
                         }, [
-                          a("span", {
-                            class: D(["block", { truncate: !i, "font-semibold": b, "font-normal": !b }])
-                          }, j(n(F)(e)), 3),
-                          b ? (d(), V("span", {
+                          u("span", {
+                            class: D(["block", { truncate: !d, "font-semibold": h, "font-normal": !h }])
+                          }, j(n(K)(e)), 3),
+                          h ? (c(), V("span", {
                             key: 0,
-                            class: D(["absolute inset-y-0 right-0 flex items-center pr-4", { "text-white": i, "text-blue-600": !i }])
+                            class: D(["absolute inset-y-0 right-0 flex items-center pr-4", { "text-white": d, "text-blue-600": !d }])
                           }, [
-                            v(n(we), { class: "h-5 w-5" })
-                          ], 2)) : H("", !0)
+                            v(n(xe), { class: "h-5 w-5" })
+                          ], 2)) : R("", !0)
                         ], 2)
                       ])
                     ]),
@@ -198,17 +198,17 @@ const qe = ["onKeydown"], Ve = { class: "relative" }, Fe = { class: "inline-bloc
                   }, 1032, ["value", "disabled"]))), 128))
                 ]),
                 _: 3
-              }, 8, ["static"])) : H("", !0)
+              }, 8, ["static"])) : R("", !0)
             ], 512), [
-              [me, c.value]
+              [me, f.value]
             ])
           ])
         ]),
         _: 3
       }, 8, ["modelValue"])
-    ], 40, qe));
+    ], 40, Ve));
   }
-}, Re = ["onKeydown"], Le = { class: "relative" }, Pe = { class: "absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none" }, Ee = { class: "absolute mt-1 w-full rounded-md bg-white shadow-lg z-10" }, je = {
+}, _e = ["onKeydown"], Pe = { class: "relative" }, Ee = { class: "absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none" }, je = { class: "absolute mt-1 w-full rounded-md bg-white shadow-lg z-10" }, ze = {
   __name: "SingleCombobox",
   props: {
     items: {
@@ -264,125 +264,125 @@ const qe = ["onKeydown"], Ve = { class: "relative" }, Fe = { class: "inline-bloc
     }
   },
   emits: ["update:modelValue", "update:query", "clear"],
-  setup(t, { emit: u }) {
-    const s = t, c = T(!1), y = () => g(c, !o(c)), { items: r, excludeSelected: q, modelValue: _, query: I } = X(s), F = s.stringify ?? ((e) => (e == null ? void 0 : e.name) ?? e ?? void 0), x = (e) => {
+  setup(t, { emit: i }) {
+    const s = t, f = O(!1), m = () => b(f, !o(f)), { items: a, excludeSelected: F, modelValue: L, query: k } = ee(s), K = s.stringify ?? ((e) => (e == null ? void 0 : e.name) ?? e ?? void 0), C = (e) => {
       try {
-        const i = F(e);
-        if (i == null)
+        const d = K(e);
+        if (d == null)
           throw Error("Cannot stringify nullish value");
-        return `${i}`;
-      } catch (i) {
-        return console.debug("Unable to stringify item", e, i), "";
+        return `${d}`;
+      } catch (d) {
+        return console.debug("Unable to stringify item", e, d), "";
       }
-    }, k = s.uniqueKey ?? ((e) => (e == null ? void 0 : e.id) ?? e), C = fe([]);
-    function S(e) {
-      return C.find((i) => k(i) === e);
+    }, S = s.uniqueKey ?? ((e) => (e == null ? void 0 : e.id) ?? e), q = ye([]);
+    function B(e) {
+      return q.find((d) => S(d) === e);
     }
-    const K = T(o(I)), A = T(), p = s.filter ?? (async (e, i) => o(i).filter((b) => x(b).toLowerCase().includes(e.toLowerCase()))), B = te(() => o(r).filter((e) => k(e) !== k(o(_)))), h = T(o(r)), L = (e) => e != null ? x(e) : o(K), R = W("input"), P = () => g(c, !0), E = () => g(c, !1), J = () => o(R).$el.focus();
-    function Y(e) {
-      e.value === "" && o(K) !== "" && (e.value = o(K));
+    const A = O(o(k)), I = O(), W = s.filter ?? (async (e, d) => o(d).filter((h) => C(h).toLowerCase().includes(e.toLowerCase()))), M = ne(() => o(a).filter((e) => S(e) !== S(o(L)))), P = O(o(a)), r = (e) => e != null ? C(e) : o(A), x = Z("input"), g = () => b(f, !0), T = () => b(f, !1), E = () => o(x).$el.focus();
+    function Q(e) {
+      e.value === "" && o(A) !== "" && (e.value = o(A));
     }
-    async function Z() {
-      g(A, void 0), g(K, ""), await U(), J(), u("clear");
+    async function N() {
+      b(I, void 0), b(A, ""), await X(), E(), i("clear");
     }
-    const l = (e) => o(A) != null && k(e) === k(o(A)), w = W("container");
-    return $e(w, () => E()), $(r, (e) => {
-      e.forEach((i) => {
-        C.findIndex((b) => k(b) === k(i)) === -1 && C.push(i);
+    const l = (e) => o(I) != null && S(e) === S(o(I)), w = Z("container");
+    return $e(w, () => T()), $(a, (e) => {
+      e.forEach((d) => {
+        q.findIndex((h) => S(h) === S(d)) === -1 && q.push(d);
       });
-    }, { immediate: !0 }), $(C, async () => {
-      o(A) == null && s.modelValue != null && (g(A, S(k(s.modelValue))), await U(), E());
-    }, { immediate: !0 }), $(_, (e) => g(A, S(e)), { immediate: !0 }), $(A, (e) => {
-      k(e) !== k(s.modelValue) && u("update:modelValue", k(e));
-    }), $(A, (e) => {
-      e == null ? g(K, "") : g(K, x(e));
-    }), $(K, (e) => u("update:query", e)), $(K, async (e) => {
-      const i = await p(o(e), o(q) ? o(B) : o(r));
-      g(h, o(i) ?? []);
-    }), $(I, (e) => g(K, e != null ? `${e}` : "")), $(A, () => s.autoHide && E()), $(K, () => P()), N(r, h, { direction: "ltr" }), se(() => s.autofocus && J()), (e, i) => (d(), V("div", {
+    }, { immediate: !0 }), $(q, async () => {
+      o(I) == null && s.modelValue != null && (b(I, B(S(s.modelValue))), await X(), T());
+    }, { immediate: !0 }), $(L, (e) => b(I, B(e)), { immediate: !0 }), $(I, (e) => {
+      S(e) !== S(s.modelValue) && i("update:modelValue", S(e));
+    }), $(I, (e) => {
+      e == null ? b(A, "") : b(A, C(e));
+    }), $(A, (e) => i("update:query", e)), $(A, async (e) => {
+      const d = await W(o(e), o(F) ? o(M) : o(a));
+      b(P, o(d) ?? []);
+    }), $(k, (e) => b(A, e != null ? `${e}` : "")), $(I, () => s.autoHide && T()), $(A, () => g()), G(a, P, { direction: "ltr" }), se(() => s.autofocus && E()), (e, d) => (c(), V("div", {
       ref_key: "container",
       ref: w,
-      onKeydown: ye(E, ["esc"]),
-      onKeyup: i[4] || (i[4] = ({ code: b }) => ["ArrowUp", "ArrowDown"].includes(b) && P())
+      onKeydown: pe(T, ["esc"]),
+      onKeyup: d[4] || (d[4] = ({ code: h }) => ["ArrowUp", "ArrowDown"].includes(h) && g())
     }, [
-      v(n(re), {
+      v(n(ie), {
         as: "div",
-        modelValue: A.value,
-        "onUpdate:modelValue": i[3] || (i[3] = (b) => A.value = b)
+        modelValue: I.value,
+        "onUpdate:modelValue": d[3] || (d[3] = (h) => I.value = h)
       }, {
-        default: f(() => [
-          m(e.$slots, "label", {}, () => [
+        default: y(() => [
+          p(e.$slots, "label", {}, () => [
             v(n(be), { class: "block text-sm font-medium text-gray-700 mb-1 empty:hidden" }, {
-              default: f(() => [
-                pe(j(t.label), 1)
+              default: y(() => [
+                ue(j(t.label), 1)
               ]),
               _: 1
             })
           ]),
-          a("div", Le, [
-            v(n(ie), ne({
+          u("div", Pe, [
+            v(n(de), U({
               ref_key: "input",
-              ref: R,
-              "display-value": L,
+              ref: x,
+              "display-value": r,
               autocomplete: "off"
             }, t.inputAttrs, {
               class: "w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 shadow-sm focus:outline-none focus:ring-1 sm:text-sm",
-              onFocus: P,
-              onBlur: i[0] || (i[0] = (b) => Y(b.target)),
-              onChange: i[1] || (i[1] = (b) => K.value = b.target.value)
+              onFocus: g,
+              onBlur: d[0] || (d[0] = (h) => Q(h.target)),
+              onChange: d[1] || (d[1] = (h) => A.value = h.target.value)
             }), null, 16),
-            a("div", Pe, [
-              t.clearable ? (d(), V("button", {
+            u("div", Ee, [
+              t.clearable ? (c(), V("button", {
                 key: 0,
                 type: "button",
-                onClick: Z
+                onClick: N
               }, [
-                n(_) != null ? (d(), O(n(oe), {
+                n(L) != null ? (c(), H(n(oe), {
                   key: 0,
                   name: "x",
                   class: "h-5 w-5 text-gray-300",
                   "aria-hidden": "true"
-                })) : H("", !0)
-              ])) : H("", !0),
-              a("button", {
+                })) : R("", !0)
+              ])) : R("", !0),
+              u("button", {
                 type: "button",
-                onClick: y
+                onClick: m
               }, [
-                v(n(xe), {
+                v(n(we), {
                   class: "h-5 w-5 text-gray-400",
                   "aria-hidden": "true"
                 })
               ])
             ]),
-            ue(a("div", Ee, [
-              v(n(de), {
+            re(u("div", je, [
+              v(n(ce), {
                 static: !t.autoHide,
                 class: "shadow-xs max-h-60 overflow-auto rounded-md py-1 text-base leading-6 focus:outline-none sm:text-sm sm:leading-5"
               }, {
-                default: f(() => [
-                  (d(!0), V(G, null, Q(h.value, (b) => (d(), O(n(ce), {
-                    key: n(k)(b),
-                    value: b,
-                    disabled: t.disabled.includes(n(k)(b)),
-                    onClick: i[2] || (i[2] = () => t.autoHide && E())
+                default: y(() => [
+                  (c(!0), V(J, null, Y(P.value, (h) => (c(), H(n(fe), {
+                    key: n(S)(h),
+                    value: h,
+                    disabled: t.disabled.includes(n(S)(h)),
+                    onClick: d[2] || (d[2] = () => t.autoHide && T())
                   }, {
-                    default: f(({ active: ee }) => [
-                      m(e.$slots, "default", z(M({ item: b, active: ee, selected: l(b), stringify: x })), () => [
-                        a("li", {
-                          class: D(["relative cursor-pointer select-none py-2 pl-3 pr-9", ee ? "bg-indigo-600 text-white" : "text-gray-900"])
+                    default: y(({ active: te }) => [
+                      p(e.$slots, "default", _(z({ item: h, active: te, selected: l(h), stringify: C })), () => [
+                        u("li", {
+                          class: D(["relative cursor-pointer select-none py-2 pl-3 pr-9", te ? "bg-indigo-600 text-white" : "text-gray-900"])
                         }, [
-                          a("span", {
-                            class: D(["block", !ee && "truncate", l(b) && "font-semibold"])
-                          }, j(x(b)), 3),
-                          l(b) ? (d(), V("span", {
+                          u("span", {
+                            class: D(["block", !te && "truncate", l(h) && "font-semibold"])
+                          }, j(C(h)), 3),
+                          l(h) ? (c(), V("span", {
                             key: 0,
-                            class: D(["absolute inset-y-0 right-0 flex items-center pr-4", ee ? "text-white" : "text-indigo-600"])
+                            class: D(["absolute inset-y-0 right-0 flex items-center pr-4", te ? "text-white" : "text-indigo-600"])
                           }, [
-                            v(n(we), {
+                            v(n(xe), {
                               class: "h-5 w-5",
                               "aria-hidden": "true"
                             })
-                          ], 2)) : H("", !0)
+                          ], 2)) : R("", !0)
                         ], 2)
                       ])
                     ]),
@@ -392,15 +392,15 @@ const qe = ["onKeydown"], Ve = { class: "relative" }, Fe = { class: "inline-bloc
                 _: 3
               }, 8, ["static"])
             ], 512), [
-              [me, c.value]
+              [me, f.value]
             ])
           ])
         ]),
         _: 3
       }, 8, ["modelValue"])
-    ], 40, Re));
+    ], 40, _e));
   }
-}, pt = {
+}, bt = {
   __name: "ComboBox",
   props: {
     items: {
@@ -441,7 +441,7 @@ const qe = ["onKeydown"], Ve = { class: "relative" }, Fe = { class: "inline-bloc
     }
   },
   setup(t) {
-    return (u, s) => Array.isArray(t.modelValue) ? (d(), O(_e, ne({
+    return (i, s) => Array.isArray(t.modelValue) ? (c(), H(Re, U({
       key: 0,
       items: t.items,
       "model-value": t.modelValue,
@@ -452,18 +452,18 @@ const qe = ["onKeydown"], Ve = { class: "relative" }, Fe = { class: "inline-bloc
       "exclude-selected": t.excludeSelected,
       clearable: t.clearable,
       label: t.label
-    }, u.$attrs), {
-      label: f(() => [
-        m(u.$slots, "label")
+    }, i.$attrs), {
+      label: y(() => [
+        p(i.$slots, "label")
       ]),
-      "selected-items": f(({ item: c, stringify: y, remove: r }) => [
-        m(u.$slots, "selected-items", z(M({ item: c, stringify: y, remove: r })))
+      "selected-items": y(({ item: f, stringify: m, remove: a }) => [
+        p(i.$slots, "selected-items", _(z({ item: f, stringify: m, remove: a })))
       ]),
-      default: f(({ item: c, active: y, selected: r, stringify: q }) => [
-        m(u.$slots, "default", z(M({ item: c, active: y, selected: r, stringify: q })))
+      default: y(({ item: f, active: m, selected: a, stringify: F }) => [
+        p(i.$slots, "default", _(z({ item: f, active: m, selected: a, stringify: F })))
       ]),
       _: 3
-    }, 16, ["items", "model-value", "stringify", "unique-key", "filter", "input-attrs", "exclude-selected", "clearable", "label"])) : (d(), O(je, ne({
+    }, 16, ["items", "model-value", "stringify", "unique-key", "filter", "input-attrs", "exclude-selected", "clearable", "label"])) : (c(), H(ze, U({
       key: 1,
       items: t.items,
       "model-value": t.modelValue,
@@ -474,17 +474,17 @@ const qe = ["onKeydown"], Ve = { class: "relative" }, Fe = { class: "inline-bloc
       "exclude-selected": t.excludeSelected,
       clearable: t.clearable,
       label: t.label
-    }, u.$attrs), {
-      label: f(() => [
-        m(u.$slots, "label")
+    }, i.$attrs), {
+      label: y(() => [
+        p(i.$slots, "label")
       ]),
-      default: f(({ item: c, active: y, selected: r, stringify: q }) => [
-        m(u.$slots, "default", z(M({ item: c, active: y, selected: r, stringify: q })))
+      default: y(({ item: f, active: m, selected: a, stringify: F }) => [
+        p(i.$slots, "default", _(z({ item: f, active: m, selected: a, stringify: F })))
       ]),
       _: 3
     }, 16, ["items", "model-value", "stringify", "unique-key", "filter", "input-attrs", "exclude-selected", "clearable", "label"]));
   }
-}, mt = {
+}, gt = {
   __name: "HoverableElement",
   props: {
     as: {
@@ -493,20 +493,20 @@ const qe = ["onKeydown"], Ve = { class: "relative" }, Fe = { class: "inline-bloc
     }
   },
   setup(t) {
-    const u = T(!1);
-    function s(c) {
-      u.value = c;
+    const i = O(!1);
+    function s(f) {
+      i.value = f;
     }
-    return (c, y) => ue((d(), O(ke(t.as), null, {
-      default: f(() => [
-        m(c.$slots, "default", { isHovered: u.value })
+    return (f, m) => re((c(), H(ke(t.as), null, {
+      default: y(() => [
+        p(f.$slots, "default", { isHovered: i.value })
       ]),
       _: 3
     })), [
-      [n(Be), s]
+      [n(Se), s]
     ]);
   }
-}, ze = /* @__PURE__ */ a("div", { class: "fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" }, null, -1), Me = { class: "flex items-end sm:items-center justify-center min-h-full p-4 text-center sm:p-0" }, De = {
+}, Me = /* @__PURE__ */ u("div", { class: "fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" }, null, -1), De = { class: "flex items-end sm:items-center justify-center min-h-full p-4 text-center sm:p-0" }, Ne = {
   __name: "Modal",
   props: {
     open: {
@@ -519,22 +519,22 @@ const qe = ["onKeydown"], Ve = { class: "relative" }, Fe = { class: "inline-bloc
     }
   },
   emits: ["submit", "reset", "close"],
-  setup(t, { emit: u }) {
-    const s = t, { open: c } = X(s), y = T(s.open);
-    function r() {
-      u("close");
+  setup(t, { emit: i }) {
+    const s = t, { open: f } = ee(s), m = O(s.open);
+    function a() {
+      i("close");
     }
-    return N(c, y, { direction: "ltr" }), (q, _) => (d(), O(n(ge), {
+    return G(f, m, { direction: "ltr" }), (F, L) => (c(), H(n(ge), {
       as: "template",
-      show: y.value
+      show: m.value
     }, {
-      default: f(() => [
+      default: y(() => [
         v(n(he), {
           as: "div",
           class: "relative z-10",
-          onClose: r
+          onClose: a
         }, {
-          default: f(() => [
+          default: y(() => [
             v(n(le), {
               as: "template",
               enter: "ease-out duration-300",
@@ -544,16 +544,16 @@ const qe = ["onKeydown"], Ve = { class: "relative" }, Fe = { class: "inline-bloc
               "leave-from": "opacity-100",
               "leave-to": "opacity-0"
             }, {
-              default: f(() => [
-                ze
+              default: y(() => [
+                Me
               ]),
               _: 1
             }),
-            a("div", {
+            u("div", {
               class: "fixed z-10 inset-0 overflow-y-auto",
-              onSubmit: _[0] || (_[0] = ae((...I) => q.submit && q.submit(...I), ["prevent"]))
+              onSubmit: L[0] || (L[0] = ae((...k) => F.submit && F.submit(...k), ["prevent"]))
             }, [
-              a("div", Me, [
+              u("div", De, [
                 v(n(le), {
                   as: "template",
                   enter: "ease-out duration-300",
@@ -563,7 +563,7 @@ const qe = ["onKeydown"], Ve = { class: "relative" }, Fe = { class: "inline-bloc
                   "leave-from": "opacity-100 translate-y-0 sm:scale-100",
                   "leave-to": "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                 }, {
-                  default: f(() => [
+                  default: y(() => [
                     v(n(ve), {
                       class: D([
                         t.hideCloseIcon ? "pt-5" : "pt-8",
@@ -574,16 +574,16 @@ const qe = ["onKeydown"], Ve = { class: "relative" }, Fe = { class: "inline-bloc
                         "sm:max-w-lg sm:w-full"
                       ])
                     }, {
-                      default: f(() => [
-                        t.hideCloseIcon ? H("", !0) : (d(), V("button", {
+                      default: y(() => [
+                        t.hideCloseIcon ? R("", !0) : (c(), V("button", {
                           key: 0,
                           type: "button",
                           class: "absolute top-0 right-0 p-3 focus:outline-none",
-                          onClick: r
+                          onClick: a
                         }, [
                           v(n(oe), { class: "h-5 w-5 text-gray-800 hover:text-black" })
                         ])),
-                        m(q.$slots, "default")
+                        p(F.$slots, "default")
                       ]),
                       _: 3
                     }, 8, ["class"])
@@ -599,13 +599,13 @@ const qe = ["onKeydown"], Ve = { class: "relative" }, Fe = { class: "inline-bloc
       _: 3
     }, 8, ["show"]));
   }
-}, Ne = ["onSubmit", "onReset"], Ue = { class: "mt-5 sm:mt-6 grid sm:grid-cols-2 gap-3 sm:grid-flow-row-dense empty:hidden" }, Ge = {
+}, Ue = ["onSubmit", "onReset"], Qe = { class: "mt-5 sm:mt-6 grid sm:grid-cols-2 gap-3 sm:grid-flow-row-dense empty:hidden" }, Ge = {
   type: "submit",
   class: "w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm"
-}, Qe = {
+}, We = {
   type: "reset",
   class: "w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:col-start-1 sm:text-sm"
-}, bt = {
+}, ht = {
   __name: "Prompt",
   props: {
     open: {
@@ -642,53 +642,53 @@ const qe = ["onKeydown"], Ve = { class: "relative" }, Fe = { class: "inline-bloc
     }
   },
   emits: ["submit", "reset"],
-  setup(t, { emit: u }) {
-    const s = t, { open: c } = X(s), y = T(s.open), r = W("FormHTMLElement");
-    async function q() {
-      await (s.onSubmit ?? ((F) => u("submit", { form: o(F), visible: y })))({ form: o(r), visible: y }), s.hideOnSubmit && g(y, !1);
+  setup(t, { emit: i }) {
+    const s = t, { open: f } = ee(s), m = O(s.open), a = Z("FormHTMLElement");
+    async function F() {
+      await (s.onSubmit ?? ((K) => i("submit", { form: o(K), visible: m })))({ form: o(a), visible: m }), s.hideOnSubmit && b(m, !1);
     }
-    async function _() {
-      await (s.onReset ?? ((F) => u("reset", { form: o(F), visible: y })))({ form: o(r), visible: y }), s.hideOnReset && g(y, !1);
+    async function L() {
+      await (s.onReset ?? ((K) => i("reset", { form: o(K), visible: m })))({ form: o(a), visible: m }), s.hideOnReset && b(m, !1);
     }
-    return N(c, y, { direction: "ltr" }), (I, F) => (d(), O(De, { open: y.value }, {
-      default: f(() => [
-        a("form", {
+    return G(f, m, { direction: "ltr" }), (k, K) => (c(), H(Ne, { open: m.value }, {
+      default: y(() => [
+        u("form", {
           ref_key: "FormHTMLElement",
-          ref: r,
-          onSubmit: ae(q, ["prevent"]),
-          onReset: ae(_, ["prevent"])
+          ref: a,
+          onSubmit: ae(F, ["prevent"]),
+          onReset: ae(L, ["prevent"])
         }, [
-          a("div", null, [
-            m(I.$slots, "default", { form: n(r) })
+          u("div", null, [
+            p(k.$slots, "default", { form: n(a) })
           ]),
-          m(I.$slots, "footer", {}, () => [
-            a("footer", Ue, [
-              m(I.$slots, "buttons", {}, () => [
-                a("button", Ge, j(t.submitButtonText), 1),
-                a("button", Qe, j(t.resetButtonText), 1)
+          p(k.$slots, "footer", {}, () => [
+            u("footer", Qe, [
+              p(k.$slots, "buttons", {}, () => [
+                u("button", Ge, j(t.submitButtonText), 1),
+                u("button", We, j(t.resetButtonText), 1)
               ])
             ])
           ])
-        ], 40, Ne)
+        ], 40, Ue)
       ]),
       _: 3
     }, 8, ["open"]));
   }
-}, We = (t, u) => {
+}, Xe = (t, i) => {
   const s = t.__vccOpts || t;
-  for (const [c, y] of u)
-    s[c] = y;
+  for (const [f, m] of i)
+    s[f] = m;
   return s;
-}, Xe = {}, Je = {
+}, Je = {}, Ye = {
   class: "mx-auto flex items-center justify-center h-12 w-12 mb-3 sm:mb-5",
   "aria-hidden": "true"
 };
-function Ye(t, u) {
-  return d(), V("div", Je, [
-    m(t.$slots, "default")
+function Ze(t, i) {
+  return c(), V("div", Ye, [
+    p(t.$slots, "default")
   ]);
 }
-const gt = /* @__PURE__ */ We(Xe, [["render", Ye]]), ht = {
+const vt = /* @__PURE__ */ Xe(Je, [["render", Ze]]), wt = {
   __name: "PromptTitle",
   props: {
     tag: {
@@ -697,32 +697,32 @@ const gt = /* @__PURE__ */ We(Xe, [["render", Ye]]), ht = {
     }
   },
   setup(t) {
-    return (u, s) => (d(), O(n(Ce), {
+    return (i, s) => (c(), H(n(Ce), {
       as: t.tag,
       class: "mb-2 text-center text-lg leading-6 font-medium text-gray-900"
     }, {
-      default: f(() => [
-        m(u.$slots, "default")
+      default: y(() => [
+        p(i.$slots, "default")
       ]),
       _: 3
     }, 8, ["as"]));
   }
-}, Ze = /* @__PURE__ */ a("div", { class: "fixed inset-0 bg-gray-500 bg-opacity-25 transition-opacity" }, null, -1), et = { class: "fixed inset-0 z-10 overflow-y-auto p-4 sm:p-6 md:p-20" }, tt = { class: "relative" }, nt = /* @__PURE__ */ a("svg", {
+}, et = /* @__PURE__ */ u("div", { class: "fixed inset-0 bg-gray-500 bg-opacity-25 transition-opacity" }, null, -1), tt = { class: "fixed inset-0 z-10 overflow-y-auto p-4 sm:p-6 md:p-20" }, nt = { class: "relative" }, lt = /* @__PURE__ */ u("svg", {
   xmlns: "http://www.w3.org/2000/svg",
   viewBox: "0 0 20 20",
   fill: "currentColor",
   "aria-hidden": "true",
   class: "pointer-events-none absolute top-3.5 left-4 h-5 w-5 text-gray-400"
 }, [
-  /* @__PURE__ */ a("path", {
+  /* @__PURE__ */ u("path", {
     "fill-rule": "evenodd",
     d: "M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z",
     "clip-rule": "evenodd"
   })
-], -1), lt = { class: "border-t border-gray-100 py-14 px-6 text-center text-sm sm:px-14" }, ot = {
+], -1), ot = { class: "border-t border-gray-100 py-4 px-6 text-center text-sm italic text-gray-500 sm:px-14" }, st = { class: "border-t border-gray-100 py-14 px-6 text-center text-sm sm:px-14" }, at = {
   key: 0,
   class: "bg-gray-100 py-2.5 px-4 text-xs font-semibold text-gray-900"
-}, st = { class: "mt-2 text-sm text-gray-800" }, at = { class: "border-t border-gray-100 py-14 px-6 text-center text-sm sm:px-14" }, ut = /* @__PURE__ */ a("p", { class: "mt-4 font-semibold text-gray-900" }, "No results found", -1), rt = /* @__PURE__ */ a("p", { class: "mt-2 text-gray-500" }, "We couldn’t find anything with that term. Please try again.", -1), vt = {
+}, ut = { class: "mt-2 text-sm text-gray-800" }, rt = { class: "border-t border-gray-100 py-14 px-6 text-center text-sm sm:px-14" }, it = /* @__PURE__ */ u("p", { class: "mt-4 font-semibold text-gray-900" }, "No results found", -1), dt = /* @__PURE__ */ u("p", { class: "mt-2 text-gray-500" }, "We couldn’t find anything with that term. Please try again.", -1), xt = {
   __name: "CommandPalette",
   props: {
     open: {
@@ -753,44 +753,60 @@ const gt = /* @__PURE__ */ We(Xe, [["render", Ye]]), ht = {
       type: Boolean,
       default: !1
     },
+    enableLoader: {
+      type: Boolean,
+      default: !1
+    },
     placeholder: {
       type: String,
       default: "Search..."
+    },
+    delayBetweenRequests: {
+      type: Number,
+      default: 0
     }
   },
   emits: ["close", "update:open", "update:query", "pick"],
-  setup(t, { emit: u }) {
-    const s = t, { open: c, query: y } = X(s), r = T(o(y)), q = T(!0);
-    N(c, q, { direction: "ltr" }), N(y, r, { direction: "ltr" });
-    const _ = async (p, B, h) => p === "" && s.prompt ? [] : B.filter((L) => h(L).toLowerCase().includes(p.toLowerCase())), I = s.filter ?? _, F = Se(() => I(o(r), s.items, x), s.items), x = s.stringify ?? ((p) => p == null ? void 0 : p.name), k = s.groupGetter ?? (() => {
-    }), C = te(
-      () => F.value.reduce((p, B) => {
-        let h = k(B);
-        return { ...p, [h]: [...p[h] || [], B] };
+  setup(t, { emit: i }) {
+    const s = t, { open: f, query: m } = ee(s), a = O(o(m)), F = qe(a, s.delayBetweenRequests), L = O(!0), k = O(!1);
+    G(f, L, { direction: "ltr" }), G(m, a, { direction: "ltr" });
+    const K = async (r, x, g) => r === "" && s.prompt ? [] : x.filter((T) => g(T).toLowerCase().includes(r.toLowerCase())), C = s.filter ?? K, S = async function(r, x, g) {
+      b(k, !0);
+      try {
+        return await C(r, x, g);
+      } finally {
+        b(k, !1);
+      }
+    }, q = Be(() => S(o(F), s.items, B), s.items), B = s.stringify ?? ((r) => r == null ? void 0 : r.name), A = s.groupGetter ?? (() => {
+    }), I = ne(
+      () => q.value.reduce((r, x) => {
+        let g = A(x);
+        return { ...r, [g]: [...r[g] || [], x] };
       }, {})
     );
-    function S(p) {
-      g(r, p), u("update:query", p);
+    function W(r) {
+      b(a, r);
     }
-    function K(p) {
-      u("pick", p), A();
+    $(F, (r) => i("update:query", r));
+    function M(r) {
+      i("pick", r), P();
     }
-    function A() {
-      u("close"), u("update:open", !1), g(q, !1);
+    function P() {
+      i("close"), i("update:open", !1), b(L, !1);
     }
-    return (p, B) => (d(), O(n(ge), {
-      show: q.value,
+    return (r, x) => (c(), H(n(ge), {
+      show: L.value,
       as: "template",
-      onAfterLeave: B[2] || (B[2] = (h) => r.value = ""),
+      onAfterLeave: x[2] || (x[2] = (g) => a.value = ""),
       appear: ""
     }, {
-      default: f(() => [
+      default: y(() => [
         v(n(he), {
           as: "div",
           class: "relative z-10",
-          onClose: B[1] || (B[1] = (h) => A())
+          onClose: x[1] || (x[1] = (g) => P())
         }, {
-          default: f(() => [
+          default: y(() => [
             v(n(le), {
               as: "template",
               enter: "ease-out duration-300",
@@ -800,12 +816,12 @@ const gt = /* @__PURE__ */ We(Xe, [["render", Ye]]), ht = {
               "leave-from": "opacity-100",
               "leave-to": "opacity-0"
             }, {
-              default: f(() => [
-                Ze
+              default: y(() => [
+                et
               ]),
               _: 1
             }),
-            a("div", et, [
+            u("div", tt, [
               v(n(le), {
                 as: "template",
                 enter: "ease-out duration-300",
@@ -815,48 +831,54 @@ const gt = /* @__PURE__ */ We(Xe, [["render", Ye]]), ht = {
                 "leave-from": "opacity-100 scale-100",
                 "leave-to": "opacity-0 scale-95"
               }, {
-                default: f(() => [
+                default: y(() => [
                   v(n(ve), { class: "mx-auto max-w-xl transform overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black ring-opacity-5 transition-all" }, {
-                    default: f(() => [
-                      v(n(re), { "onUpdate:modelValue": K }, {
-                        default: f(() => [
-                          a("div", tt, [
-                            m(p.$slots, "search-icon", {}, () => [
-                              nt
+                    default: y(() => [
+                      v(n(ie), { "onUpdate:modelValue": M }, {
+                        default: y(() => [
+                          u("div", nt, [
+                            p(r.$slots, "search-icon", {}, () => [
+                              lt
                             ]),
-                            m(p.$slots, "input", { query: r.value }, () => [
-                              v(n(ie), {
+                            p(r.$slots, "input", _(z({ query: a.value })), () => [
+                              v(n(de), {
                                 class: "h-12 w-full border-0 bg-transparent pl-11 pr-4 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm",
                                 placeholder: t.placeholder,
-                                onChange: B[0] || (B[0] = (h) => S(h.target.value))
+                                onChange: x[0] || (x[0] = (g) => W(g.target.value))
                               }, null, 8, ["placeholder"])
                             ])
                           ]),
-                          t.prompt && r.value === "" ? m(p.$slots, "prompt", { key: 0 }, () => [
-                            a("div", lt, [
-                              m(p.$slots, "prompt-inner")
+                          t.enableLoader && k.value ? p(r.$slots, "loader", _(U({ key: 0 }, { query: a.value, isLoading: k.value })), () => [
+                            u("div", ot, [
+                              p(r.$slots, "loader-inner", {}, () => [
+                                ue("Loading, please wait...")
+                              ])
                             ])
-                          ]) : !t.prompt || n(F).length > 0 ? (d(), O(n(de), {
-                            key: 1,
+                          ]) : t.prompt && a.value === "" ? p(r.$slots, "prompt", _(U({ key: 1 }, { query: a.value, isLoading: k.value })), () => [
+                            u("div", st, [
+                              p(r.$slots, "prompt-inner")
+                            ])
+                          ]) : !t.prompt || n(q).length > 0 ? (c(), H(n(ce), {
+                            key: 2,
                             static: "",
                             class: "max-h-80 scroll-pt-11 scroll-pb-2 space-y-2 overflow-y-auto pb-2 empty:hidden"
                           }, {
-                            default: f(() => [
-                              (d(!0), V(G, null, Q(Object.entries(n(C)), ([h, L]) => (d(), V("li", { key: h }, [
-                                m(p.$slots, "group", z(M({ group: h, items: L })), () => [
-                                  h !== "undefined" ? (d(), V("h2", ot, j(h), 1)) : H("", !0)
+                            default: y(() => [
+                              (c(!0), V(J, null, Y(Object.entries(n(I)), ([g, T]) => (c(), V("li", { key: g }, [
+                                p(r.$slots, "group", _(z({ group: g, items: T, query: a.value })), () => [
+                                  g !== "undefined" ? (c(), V("h2", at, j(g), 1)) : R("", !0)
                                 ]),
-                                a("ul", st, [
-                                  (d(!0), V(G, null, Q(L, (R, P) => (d(), O(n(ce), {
-                                    key: R.id,
-                                    value: R,
+                                u("ul", ut, [
+                                  (c(!0), V(J, null, Y(T, (E, Q) => (c(), H(n(fe), {
+                                    key: E.id,
+                                    value: E,
                                     as: "template"
                                   }, {
-                                    default: f(({ active: E }) => [
-                                      m(p.$slots, "default", z(M({ group: h, item: R, items: L, index: P, active: E, stringify: n(x) })), () => [
-                                        a("li", {
-                                          class: D(["cursor-pointer select-none px-4 py-2", E && "bg-indigo-600 text-white"])
-                                        }, j(n(x)(R)), 3)
+                                    default: y(({ active: N }) => [
+                                      p(r.$slots, "default", _(z({ group: g, item: E, items: T, index: Q, active: N, stringify: n(B), query: a.value })), () => [
+                                        u("li", {
+                                          class: D(["cursor-pointer select-none px-4 py-2", N && "bg-indigo-600 text-white"])
+                                        }, j(n(B)(E)), 3)
                                       ])
                                     ]),
                                     _: 2
@@ -865,15 +887,14 @@ const gt = /* @__PURE__ */ We(Xe, [["render", Ye]]), ht = {
                               ]))), 128))
                             ]),
                             _: 3
-                          })) : H("", !0),
-                          r.value !== "" && n(F).length === 0 ? m(p.$slots, "empty-state", { key: 2 }, () => [
-                            a("div", at, [
-                              m(p.$slots, "empty-state-inner", {}, () => [
-                                ut,
-                                rt
+                          })) : a.value !== "" && n(q).length === 0 ? p(r.$slots, "empty-state", _(U({ key: 3 }, { query: a.value, isLoading: k.value })), () => [
+                            u("div", rt, [
+                              p(r.$slots, "empty-state-inner", {}, () => [
+                                it,
+                                dt
                               ])
                             ])
-                          ]) : H("", !0)
+                          ]) : R("", !0)
                         ]),
                         _: 3
                       })
@@ -893,11 +914,11 @@ const gt = /* @__PURE__ */ We(Xe, [["render", Ye]]), ht = {
   }
 };
 export {
-  pt as ComboBox,
-  vt as CommandPalette,
-  mt as HoverableElement,
-  De as Modal,
-  bt as Prompt,
-  gt as PromptIcon,
-  ht as PromptTitle
+  bt as ComboBox,
+  xt as CommandPalette,
+  gt as HoverableElement,
+  Ne as Modal,
+  ht as Prompt,
+  vt as PromptIcon,
+  wt as PromptTitle
 };

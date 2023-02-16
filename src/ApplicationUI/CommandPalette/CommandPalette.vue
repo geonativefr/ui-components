@@ -18,13 +18,21 @@
                           clip-rule="evenodd"></path>
                   </svg>
                 </slot>
-                <slot name="input" :query="query">
+                <slot name="input" v-bind="{query}">
                   <ComboboxInput class="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm" :placeholder="placeholder" @change="onInput($event.target.value)" />
                 </slot>
               </div>
 
-              <template v-if="prompt && (query === '')">
-                <slot name="prompt">
+              <template v-if="enableLoader && isLoading">
+                <slot name="loader" v-bind="{query, isLoading}">
+                  <div class="border-t border-gray-100 py-4 px-6 text-center text-sm italic text-gray-500 sm:px-14">
+                    <slot name="loader-inner">Loading, please wait...</slot>
+                  </div>
+                </slot>
+              </template>
+
+              <template v-else-if="prompt && (query === '')">
+                <slot name="prompt" v-bind="{query, isLoading}">
                   <div class="border-t border-gray-100 py-14 px-6 text-center text-sm sm:px-14">
                     <slot name="prompt-inner" />
                   </div>
@@ -33,14 +41,14 @@
 
               <ComboboxOptions v-else-if="!prompt || (filteredItems.length > 0)" static class="max-h-80 scroll-pt-11 scroll-pb-2 space-y-2 overflow-y-auto pb-2 empty:hidden">
                 <li v-for="[group, items] in Object.entries(groups)" :key="group">
-                  <slot name="group" v-bind="{group, items}">
+                  <slot name="group" v-bind="{group, items, query}">
                     <h2 v-if="'undefined' !== group" class="bg-gray-100 py-2.5 px-4 text-xs font-semibold text-gray-900">
                       {{ group }}
                     </h2>
                   </slot>
                   <ul class="mt-2 text-sm text-gray-800">
                     <ComboboxOption v-for="(item, index) in items" :key="item.id" :value="item" as="template" v-slot="{ active }">
-                      <slot v-bind="{group, item, items, index, active, stringify}">
+                      <slot v-bind="{group, item, items, index, active, stringify, query}">
                         <li :class="['cursor-pointer select-none px-4 py-2', active && 'bg-indigo-600 text-white']">
                           {{ stringify(item) }}
                         </li>
@@ -50,8 +58,8 @@
                 </li>
               </ComboboxOptions>
 
-              <template v-if="query !== '' && filteredItems.length === 0">
-                <slot name="empty-state">
+              <template v-else-if="query !== '' && filteredItems.length === 0">
+                <slot name="empty-state" v-bind="{query, isLoading}">
                   <div class="border-t border-gray-100 py-14 px-6 text-center text-sm sm:px-14">
                     <slot name="empty-state-inner">
                       <p class="mt-4 font-semibold text-gray-900">No results found</p>
@@ -70,18 +78,18 @@
 </template>
 
 <script setup>
-import { asyncComputed, get, set, syncRef } from '@vueuse/core';
-import { computed, ref, toRefs } from 'vue';
 import {
   Combobox,
   ComboboxInput,
-  ComboboxOptions,
   ComboboxOption,
+  ComboboxOptions,
   Dialog,
   DialogPanel,
   TransitionChild,
   TransitionRoot,
 } from '@headlessui/vue';
+import { asyncComputed, get, refDebounced, refThrottled, set, syncRef } from '@vueuse/core';
+import { computed, ref, toRefs, watch } from 'vue';
 
 const emit = defineEmits(['close', 'update:open', 'update:query', 'pick']);
 const props = defineProps({
@@ -113,15 +121,25 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  enableLoader: {
+    type: Boolean,
+    default: false,
+  },
   placeholder: {
     type: String,
     default: 'Search...',
+  },
+  delayBetweenRequests: {
+    type: Number,
+    default: 0,
   },
 });
 
 const {open, query: theirQuery} = toRefs(props);
 const query = ref(get(theirQuery));
+const debouncedQuery = refThrottled(query, props.delayBetweenRequests);
 const shown = ref(true);
+const isLoading = ref(false);
 syncRef(open, shown, {direction: 'ltr'});
 syncRef(theirQuery, query, {direction: 'ltr'});
 
@@ -132,7 +150,15 @@ const defaultFilter = async (query, items, stringify) => {
   return items.filter((item) => stringify(item).toLowerCase().includes(query.toLowerCase()));
 };
 const filter = props.filter ?? defaultFilter;
-const filteredItems = asyncComputed(() => filter(get(query), props.items, stringify), props.items);
+const filterWrapper = async function (query, items, stringify) {
+  set(isLoading, true);
+  try {
+    return await filter(query, items, stringify);
+  } finally {
+    set(isLoading, false);
+  }
+};
+const filteredItems = asyncComputed(() => filterWrapper(get(debouncedQuery), props.items, stringify), props.items);
 const stringify = props.stringify ?? ((item) => item?.name);
 const groupGetter = props.groupGetter ?? (() => undefined);
 const groups = computed(() =>
@@ -144,8 +170,9 @@ const groups = computed(() =>
 
 function onInput(value) {
   set(query, value);
-  emit('update:query', value);
 }
+
+watch(debouncedQuery, (value) => emit('update:query', value));
 
 function onSelect(item) {
   emit('pick', item);
