@@ -8,10 +8,12 @@ const Ve = ["onKeydown"], Fe = { class: "relative" }, Ae = { class: "inline-bloc
   props: {
     items: {
       type: Array,
+      // Choices of the combobox.
       required: !0
     },
     modelValue: {
       type: Array,
+      // Selected choices of the combobox.
       default: () => []
     },
     query: {
@@ -19,42 +21,52 @@ const Ve = ["onKeydown"], Fe = { class: "relative" }, Ae = { class: "inline-bloc
     },
     stringify: {
       type: Function,
+      // How to render a choice as a string.
       default: void 0
     },
     uniqueKey: {
       type: Function,
+      // How to render a choice as a unique ID.
       default: void 0
     },
     filter: {
       type: Function,
+      // How to filter choices based on query.
       default: void 0
     },
     inputAttrs: {
       type: Object,
+      // Attributes to pass to the <input> tag.
       default: () => ({})
     },
     excludeSelected: {
       type: Boolean,
+      // Exclude already selected choices from available items.
       default: !1
     },
     hideTags: {
       type: Boolean,
+      // Hide selected choices as "tags".
       default: !1
     },
     clearable: {
       type: Boolean,
+      // Display a clear button to remove all selected choices.
       default: !1
     },
     label: {
       type: String,
+      // Label to display.
       default: void 0
     },
     disabled: {
       type: Array,
+      // Choices that are not selectable.
       default: () => []
     },
     autoHide: {
       type: Boolean,
+      // Hide choices after picking one.
       default: !1
     },
     autofocus: {
@@ -213,10 +225,12 @@ const Ve = ["onKeydown"], Fe = { class: "relative" }, Ae = { class: "inline-bloc
   props: {
     items: {
       type: Array,
+      // Choices of the combobox.
       required: !0
     },
     modelValue: {
       type: [String, Number, Object],
+      // Selected choice of the combobox.
       default: null
     },
     query: {
@@ -224,38 +238,47 @@ const Ve = ["onKeydown"], Fe = { class: "relative" }, Ae = { class: "inline-bloc
     },
     stringify: {
       type: Function,
+      // How to render a choice as a string.
       default: void 0
     },
     uniqueKey: {
       type: Function,
+      // How to render a choice as a unique ID.
       default: void 0
     },
     filter: {
       type: Function,
+      // How to filter choices based on query.
       default: void 0
     },
     inputAttrs: {
       type: Object,
+      // Attributes to pass to the <input> tag.
       default: () => ({})
     },
     excludeSelected: {
       type: Boolean,
+      // Exclude already selected choices from available items.
       default: !1
     },
     clearable: {
       type: Boolean,
+      // Display a clear button to remove all selected choices.
       default: !1
     },
     label: {
       type: String,
+      // Label to display.
       default: void 0
     },
     disabled: {
       type: Array,
+      // Choices that are not selectable.
       default: () => []
     },
     autoHide: {
       type: Boolean,
+      // Hide choices after picking one.
       default: !1
     },
     autofocus: {
@@ -707,7 +730,7 @@ const vt = /* @__PURE__ */ Xe(Je, [["render", Ze]]), wt = {
       _: 3
     }, 8, ["as"]));
   }
-}, et = /* @__PURE__ */ u("div", { class: "fixed inset-0 bg-gray-500 bg-opacity-25 transition-opacity" }, null, -1), tt = { class: "fixed inset-0 z-10 overflow-y-auto p-4 sm:p-6 md:p-20" }, nt = { class: "relative" }, lt = /* @__PURE__ */ u("svg", {
+}, et = /* @__PURE__ */ u("div", { class: "fixed inset-0 bg-gray-500 bg-opacity-25 transition-opacity" }, null, -1), tt = { class: "fixed inset-0 z-10 overflow-y-auto p-12 sm:p-6 md:p-20" }, nt = { class: "relative" }, lt = /* @__PURE__ */ u("svg", {
   xmlns: "http://www.w3.org/2000/svg",
   viewBox: "0 0 20 20",
   fill: "currentColor",
