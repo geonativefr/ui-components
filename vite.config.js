@@ -19,6 +19,8 @@ export default defineConfig({
         '@heroicons/vue/solid',
         '@vueuse/components',
         '@vueuse/core',
+        'md5',
+        'uuid',
         'vue',
       ],
       output: {
@@ -28,6 +30,11 @@ export default defineConfig({
           vue: 'Vue',
         },
       },
+    },
+  },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
     },
   },
 });
