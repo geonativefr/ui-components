@@ -1,4 +1,5 @@
 export { default as Alert } from './ApplicationUI/Alert/Alert.vue';
+export { default as Button } from './ApplicationUI/Forms/Buttons/Button.vue';
 export { default as ComboBox } from './ApplicationUI/Forms/ComboBoxes/ComboBox.vue';
 export { default as Toggle } from './ApplicationUI/Forms/Toggle.vue';
 export { default as HoverableElement } from './ApplicationUI/Misc/HoverableElement.vue';
