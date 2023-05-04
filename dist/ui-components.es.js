@@ -85,10 +85,12 @@ const We = { class: "flex" }, Je = {
   props: {
     items: {
       type: Array,
+      // Choices of the combobox.
       required: !0
     },
     modelValue: {
       type: Array,
+      // Selected choices of the combobox.
       default: () => []
     },
     query: {
@@ -96,42 +98,52 @@ const We = { class: "flex" }, Je = {
     },
     stringify: {
       type: Function,
+      // How to render a choice as a string.
       default: void 0
     },
     uniqueKey: {
       type: Function,
+      // How to render a choice as a unique ID.
       default: void 0
     },
     filter: {
       type: Function,
+      // How to filter choices based on query.
       default: void 0
     },
     inputAttrs: {
       type: Object,
+      // Attributes to pass to the <input> tag.
       default: () => ({})
     },
     excludeSelected: {
       type: Boolean,
+      // Exclude already selected choices from available items.
       default: !1
     },
     hideTags: {
       type: Boolean,
+      // Hide selected choices as "tags".
       default: !1
     },
     clearable: {
       type: Boolean,
+      // Display a clear button to remove all selected choices.
       default: !1
     },
     label: {
       type: String,
+      // Label to display.
       default: void 0
     },
     disabled: {
       type: Array,
+      // Choices that are not selectable.
       default: () => []
     },
     autoHide: {
       type: Boolean,
+      // Hide choices after picking one.
       default: !1
     },
     autofocus: {
@@ -290,10 +302,12 @@ const We = { class: "flex" }, Je = {
   props: {
     items: {
       type: Array,
+      // Choices of the combobox.
       required: !0
     },
     modelValue: {
       type: [String, Number, Object],
+      // Selected choice of the combobox.
       default: null
     },
     query: {
@@ -301,38 +315,47 @@ const We = { class: "flex" }, Je = {
     },
     stringify: {
       type: Function,
+      // How to render a choice as a string.
       default: void 0
     },
     uniqueKey: {
       type: Function,
+      // How to render a choice as a unique ID.
       default: void 0
     },
     filter: {
       type: Function,
+      // How to filter choices based on query.
       default: void 0
     },
     inputAttrs: {
       type: Object,
+      // Attributes to pass to the <input> tag.
       default: () => ({})
     },
     excludeSelected: {
       type: Boolean,
+      // Exclude already selected choices from available items.
       default: !1
     },
     clearable: {
       type: Boolean,
+      // Display a clear button to remove all selected choices.
       default: !1
     },
     label: {
       type: String,
+      // Label to display.
       default: void 0
     },
     disabled: {
       type: Array,
+      // Choices that are not selectable.
       default: () => []
     },
     autoHide: {
       type: Boolean,
+      // Hide choices after picking one.
       default: !1
     },
     autofocus: {
