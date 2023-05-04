@@ -32,7 +32,7 @@ const We = { class: "flex" }, Je = {
   setup(e, { emit: s }) {
     const o = e, n = (r) => r === o.type;
     return (r, u) => (i(), h("div", {
-      class: I(["rounded-md p-4", { "bg-gray-50": n("default"), "bg-green-50": n("success"), "bg-red-50": n("danger"), "bg-yellow-50": n("warning"), "bg-blue-50": n("info") }])
+      class: I(["rounded-md p-4", { "bg-gray-50": n("default"), "bg-green-50": n("success"), "bg-red-50": n("danger"), "bg-yellow-50": n("warning"), "bg-primary-50": n("info") }])
     }, [
       a("div", We, [
         a("div", Je, [
@@ -50,7 +50,7 @@ const We = { class: "flex" }, Je = {
             "aria-hidden": "true"
           })) : (i(), B(t(Le), {
             key: 3,
-            class: I(["h-5 w-5", { "text-gray-400": n("default"), "text-blue-400": n("info") }]),
+            class: I(["h-5 w-5", { "text-gray-400": n("default"), "text-primary-400": n("info") }]),
             "aria-hidden": "true"
           }, null, 8, ["class"]))
         ]),
@@ -66,7 +66,7 @@ const We = { class: "flex" }, Je = {
           a("div", et, [
             a("button", {
               type: "button",
-              class: I(["inline-flex rounded-md p-1.5 focus:outline-none focus:ring-2 focus:ring-offset-2", { "bg-gray-50": n("default"), "bg-green-50": n("success"), "bg-red-50": n("danger"), "bg-yellow-50": n("warning"), "bg-blue-50": n("info") }, { "text-gray-400": n("default"), "text-green-400": n("success"), "text-red-400": n("danger"), "text-yellow-400": n("warning"), "text-blue-400": n("info") }]),
+              class: I(["inline-flex rounded-md p-1.5 focus:outline-none focus:ring-2 focus:ring-offset-2", { "bg-gray-50": n("default"), "bg-green-50": n("success"), "bg-red-50": n("danger"), "bg-yellow-50": n("warning"), "bg-primary-50": n("info") }, { "text-gray-400": n("default"), "text-green-400": n("success"), "text-red-400": n("danger"), "text-yellow-400": n("warning"), "text-primary-400": n("info") }]),
               onClick: u[0] || (u[0] = (_) => r.$emit("close"))
             }, [
               tt,
@@ -80,7 +80,7 @@ const We = { class: "flex" }, Je = {
       ])
     ], 2));
   }
-}, nt = ["onKeydown"], st = { class: "relative" }, ot = { class: "inline-block w-full rounded-md shadow-sm" }, lt = { class: "relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-2 pr-10 text-left transition duration-150 ease-in-out focus-within:border-blue-500 focus-within:outline-none focus-within:ring-1 focus-within:ring-blue-500 sm:text-sm sm:leading-5" }, at = { class: "block flex flex-wrap gap-2" }, rt = { class: "flex items-center gap-1 rounded bg-blue-600 text-white px-2 py-0.5" }, it = ["onClick"], ut = { class: "absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none" }, dt = { class: "absolute mt-1 w-full rounded-md bg-white shadow-lg z-10" }, ct = {
+}, nt = ["onKeydown"], st = { class: "relative" }, ot = { class: "inline-block w-full rounded-md shadow-sm" }, lt = { class: "relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-2 pr-10 text-left transition duration-150 ease-in-out focus-within:border-primary-500 focus-within:outline-none focus-within:ring-1 focus-within:ring-primary-500 sm:text-sm sm:leading-5" }, at = { class: "block flex flex-wrap gap-2" }, rt = { class: "flex items-center gap-1 rounded bg-primary-600 text-white px-2 py-0.5" }, it = ["onClick"], ut = { class: "absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none" }, dt = { class: "absolute mt-1 w-full rounded-md bg-white shadow-lg z-10" }, ct = {
   __name: "MultiCombobox",
   props: {
     items: {
@@ -269,14 +269,14 @@ const We = { class: "flex" }, Je = {
                     default: p(({ active: m, selected: w }) => [
                       f(c.$slots, "default", K(E({ item: l, active: m, selected: w, stringify: t(A) })), () => [
                         a("li", {
-                          class: I(["relative cursor-default select-none py-2 pl-3 pr-9 focus:outline-none", m ? "bg-blue-600 text-white" : "text-gray-900"])
+                          class: I(["relative cursor-default select-none py-2 pl-3 pr-9 focus:outline-none", m ? "bg-primary-600 text-white" : "text-gray-900"])
                         }, [
                           a("span", {
                             class: I(["block", { truncate: !m, "font-semibold": w, "font-normal": !w }])
                           }, H(t(A)(l)), 3),
                           w ? (i(), h("span", {
                             key: 0,
-                            class: I(["absolute inset-y-0 right-0 flex items-center pr-4", { "text-white": m, "text-blue-600": !m }])
+                            class: I(["absolute inset-y-0 right-0 flex items-center pr-4", { "text-white": m, "text-primary-600": !m }])
                           }, [
                             v(t(we), { class: "h-5 w-5" })
                           ], 2)) : F("", !0)
@@ -1122,7 +1122,7 @@ const Mn = /* @__PURE__ */ Se(Ut, [["render", Jt]]), Xt = { class: "sr-only" }, 
       class: "relative flex justify-end items-center"
     }, {
       default: p(() => [
-        v(t(je), { class: "w-8 h-8 inline-flex items-center justify-center text-gray-400 rounded-full hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" }, {
+        v(t(je), { class: "w-8 h-8 inline-flex items-center justify-center text-gray-400 rounded-full hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500" }, {
           default: p(() => [
             a("span", Xt, H(e.srOnly), 1),
             (i(), h("svg", {

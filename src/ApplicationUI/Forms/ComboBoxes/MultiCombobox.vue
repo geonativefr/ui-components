@@ -9,7 +9,7 @@
 
       <div class="relative">
         <span class="inline-block w-full rounded-md shadow-sm">
-          <div class="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-2 pr-10 text-left transition duration-150 ease-in-out focus-within:border-blue-500 focus-within:outline-none focus-within:ring-1 focus-within:ring-blue-500 sm:text-sm sm:leading-5">
+          <div class="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-2 pr-10 text-left transition duration-150 ease-in-out focus-within:border-primary-500 focus-within:outline-none focus-within:ring-1 focus-within:ring-primary-500 sm:text-sm sm:leading-5">
 
             <span class="block flex flex-wrap gap-2">
               <span v-if="selectedKeys.length === 0" class="p-0.5 cursor-pointer empty:hidden" @click="focus">
@@ -19,7 +19,7 @@
               <template v-if="!hideTags">
                 <span v-for="item in selectedItems" :key="uniqueKey(item)">
                   <slot name="selected-items" v-bind="{item, stringify, remove}">
-                    <span class="flex items-center gap-1 rounded bg-blue-600 text-white px-2 py-0.5">
+                    <span class="flex items-center gap-1 rounded bg-primary-600 text-white px-2 py-0.5">
                       <span>{{ stringify(item)}}</span>
                       <button role="button" @click="remove(item)">
                         <XIcon class="h-4 w-4"/>
@@ -65,11 +65,11 @@
                 @click="() => autoHide && hideOptions()"
             >
               <slot v-bind="{item, active, selected, stringify}">
-                <li class="relative cursor-default select-none py-2 pl-3 pr-9 focus:outline-none" :class="active ? 'bg-blue-600 text-white' : 'text-gray-900'">
+                <li class="relative cursor-default select-none py-2 pl-3 pr-9 focus:outline-none" :class="active ? 'bg-primary-600 text-white' : 'text-gray-900'">
                   <span class="block" :class="{ 'truncate': !active, 'font-semibold': selected, 'font-normal': !selected }">
                     {{ stringify(item) }}
                   </span>
-                  <span v-if="selected" class="absolute inset-y-0 right-0 flex items-center pr-4" :class="{ 'text-white': active, 'text-blue-600': !active }">
+                  <span v-if="selected" class="absolute inset-y-0 right-0 flex items-center pr-4" :class="{ 'text-white': active, 'text-primary-600': !active }">
                     <CheckIcon class="h-5 w-5" />
                   </span>
                 </li>
