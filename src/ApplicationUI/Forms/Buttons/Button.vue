@@ -133,7 +133,7 @@ const themeClasses = computed(() => {
       'text-white',
       'bg-primary-700',
       'dark:bg-primary-900',
-      'enabled:hover:bg-primary-700',
+      'enabled:hover:bg-primary-800',
       'enabled:focus:ring-primary-500',
     ],
     danger: [
@@ -149,6 +149,15 @@ const themeClasses = computed(() => {
       'enabled:focus:ring-primary-500',
     ],
   };
+
+  if ('button' !== props.as) {
+    for (const theme of Object.keys(themes)) {
+      const themeClasses = themes[theme];
+        for (const index in themeClasses) {
+          themeClasses[index] = themeClasses[index].replaceAll('enabled:', '');
+        }
+    }
+  }
 
   return themes[props.theme] ?? themes.default;
 });
