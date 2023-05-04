@@ -78,7 +78,7 @@ const props = defineProps({
   },
 });
 
-const baseClasses = ref(['disabled:opacity-80', 'disabled:cursor-default']);
+const baseClasses = ref(['group', 'disabled:opacity-80', 'disabled:cursor-default']);
 
 const flexClasses = computed(() => {
   if (props.noFlex) {
@@ -132,7 +132,6 @@ const themeClasses = computed(() => {
     primary: [
       'text-white',
       'bg-primary-700',
-      'dark:bg-primary-900',
       'enabled:hover:bg-primary-800',
       'enabled:focus:ring-primary-500',
     ],

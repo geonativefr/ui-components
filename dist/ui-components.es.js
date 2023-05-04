@@ -174,7 +174,7 @@ const it = /* @__PURE__ */ Se(nt, [["render", rt]]), ut = { key: 2 }, Cn = {
     }
   },
   setup(e) {
-    const t = e, o = j(["disabled:opacity-80", "disabled:cursor-default"]), s = z(() => t.noFlex ? [] : ["flex", "items-center", "justify-center", "gap-2"]), r = z(() => t.noPadding ? [] : ["py-2", "px-4"]), d = z(() => t.noBorder ? [] : ["border"]), x = z(() => t.noShadow ? [] : ["shadow-sm"]), B = z(() => t.noRound ? [] : ["rounded-md"]), b = z(() => t.noRing ? [] : ["focus:outline-none", "focus:ring-2", "focus:ring-offset-2"]), I = z(() => [t.iconRight ? "-mr-1 order-last" : "-ml-1", "h-4 w-4 empty:hidden"]), w = z(() => {
+    const t = e, o = j(["group", "disabled:opacity-80", "disabled:cursor-default"]), s = z(() => t.noFlex ? [] : ["flex", "items-center", "justify-center", "gap-2"]), r = z(() => t.noPadding ? [] : ["py-2", "px-4"]), d = z(() => t.noBorder ? [] : ["border"]), x = z(() => t.noShadow ? [] : ["shadow-sm"]), B = z(() => t.noRound ? [] : ["rounded-md"]), b = z(() => t.noRing ? [] : ["focus:outline-none", "focus:ring-2", "focus:ring-offset-2"]), I = z(() => [t.iconRight ? "-mr-1 order-last" : "-ml-1", "h-4 w-4 empty:hidden"]), w = z(() => {
       const S = {
         default: ["enabled:hover:bg-gray-50"],
         primary: [
