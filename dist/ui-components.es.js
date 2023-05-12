@@ -174,7 +174,7 @@ const it = /* @__PURE__ */ Se(nt, [["render", rt]]), ut = { key: 2 }, Bn = {
     }
   },
   setup(e) {
-    const t = e, o = O(["group", "disabled:opacity-80", "disabled:cursor-default"]), s = _(() => t.noFlex ? [] : ["flex", "items-center", "justify-center", "gap-2"]), i = _(() => t.noPadding ? [] : ["py-2", "px-4"]), d = _(() => t.noBorder ? [] : ["border"]), v = _(() => t.noShadow ? [] : ["shadow-sm"]), $ = _(() => t.noRound ? [] : ["rounded-md"]), g = _(() => t.noRing ? [] : ["focus:outline-none", "focus:ring-2", "focus:ring-offset-2"]), q = _(() => [t.iconRight ? "-mr-1 order-last" : "-ml-1", "h-4 w-4 empty:hidden"]), x = _(() => {
+    const t = e, o = O(["group", "disabled:opacity-80", "disabled:cursor-default"]), s = _(() => t.noFlex ? [] : ["inline-flex", "items-center", "justify-center", "gap-2"]), i = _(() => t.noPadding ? [] : ["py-2", "px-4"]), d = _(() => t.noBorder ? [] : ["border"]), v = _(() => t.noShadow ? [] : ["shadow-sm"]), $ = _(() => t.noRound ? [] : ["rounded-md"]), g = _(() => t.noRing ? [] : ["focus:outline-none", "focus:ring-2", "focus:ring-offset-2"]), q = _(() => [t.iconRight ? "-mr-1 order-last" : "-ml-1", "h-4 w-4 empty:hidden"]), x = _(() => {
       const V = {
         default: ["enabled:hover:bg-gray-50"],
         primary: [

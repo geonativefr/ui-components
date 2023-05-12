@@ -84,7 +84,7 @@ const flexClasses = computed(() => {
   if (props.noFlex) {
     return [];
   }
-  return ['flex', 'items-center', 'justify-center', 'gap-2'];
+  return ['inline-flex', 'items-center', 'justify-center', 'gap-2'];
 });
 
 const paddingClasses = computed(() => {
