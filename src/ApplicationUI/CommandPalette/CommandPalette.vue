@@ -19,7 +19,12 @@
                   </svg>
                 </slot>
                 <slot name="input" v-bind="{query}">
-                  <ComboboxInput class="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm" :placeholder="placeholder" @change="onInput($event.target.value)" />
+                  <ComboboxInput
+                    class="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
+                    style="box-shadow: none"
+                    :placeholder="placeholder"
+                    @change="onInput($event.target.value)"
+                  />
                 </slot>
               </div>
 

@@ -1203,6 +1203,7 @@ const An = /* @__PURE__ */ Se(Ht, [["render", Kt]]), Tn = {
                             f(y.$slots, "input", P(N({ query: d.value })), () => [
                               w(n(ye), {
                                 class: "h-12 w-full border-0 bg-transparent pl-11 pr-4 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm",
+                                style: { "box-shadow": "none" },
                                 placeholder: e.placeholder,
                                 onChange: z[0] || (z[0] = (k) => E(k.target.value))
                               }, null, 8, ["placeholder"])
