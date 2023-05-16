@@ -1,5 +1,5 @@
 import { openBlock as i, createElementBlock as g, normalizeClass as k, createElementVNode as l, createBlock as C, unref as n, renderSlot as f, createVNode as v, createCommentVNode as L, ref as j, computed as z, resolveDynamicComponent as ie, withCtx as p, toDisplayString as H, toRefs as W, reactive as ue, watch as q, onMounted as le, nextTick as Z, withKeys as be, createTextVNode as de, Fragment as X, renderList as ee, normalizeProps as P, guardReactiveProps as N, mergeProps as G, withDirectives as ce, vShow as ve, useAttrs as qe, withModifiers as re, Transition as Ie, normalizeStyle as Me, Teleport as Ae } from "vue";
-import { CheckCircleIcon as Ve, ExclamationIcon as Te, XCircleIcon as Fe, InformationCircleIcon as ze, XIcon as te, SelectorIcon as xe, CheckIcon as we } from "@heroicons/vue/solid";
+import { CheckCircleIcon as Ve, ExclamationIcon as Fe, XCircleIcon as Te, InformationCircleIcon as ze, XIcon as te, SelectorIcon as xe, CheckIcon as we } from "@heroicons/vue/solid";
 import { get as u, templateRef as ne, onClickOutside as _e, set as h, syncRef as Y, refThrottled as Oe, asyncComputed as Le, whenever as he, useMounted as je, useMediaQuery as fe, refAutoReset as He, useMemory as Re } from "@vueuse/core";
 import { Combobox as pe, ComboboxLabel as $e, ComboboxInput as ye, ComboboxOptions as me, ComboboxOption as ge, Switch as Pe, TransitionRoot as ke, Dialog as Ce, TransitionChild as ae, DialogPanel as Be, DialogTitle as Ke, Menu as De, MenuButton as Ee, MenuItems as Ue } from "@headlessui/vue";
 import { vElementHover as Ne } from "@vueuse/components";
@@ -40,11 +40,11 @@ const We = { class: "flex" }, Je = {
             key: 0,
             class: k(["h-5 w-5 text-green-400"]),
             "aria-hidden": "true"
-          })) : s("warning") ? (i(), C(n(Te), {
+          })) : s("warning") ? (i(), C(n(Fe), {
             key: 1,
             class: k(["h-5 w-5 text-yellow-400"]),
             "aria-hidden": "true"
-          })) : s("danger") ? (i(), C(n(Fe), {
+          })) : s("danger") ? (i(), C(n(Te), {
             key: 2,
             class: k(["h-5 w-5 text-red-400"]),
             "aria-hidden": "true"
@@ -148,17 +148,9 @@ const it = /* @__PURE__ */ Se(nt, [["render", rt]]), ut = { key: 2 }, Cn = {
       default: "default",
       validator: (e) => ["default", "primary", "danger", "cancel"].includes(e)
     },
-    icon: {
-      type: String,
-      default: void 0
-    },
     iconRight: {
       type: Boolean,
       default: !1
-    },
-    iconType: {
-      type: String,
-      default: "solid"
     },
     loading: {
       type: Boolean,
@@ -203,7 +195,7 @@ const it = /* @__PURE__ */ Se(nt, [["render", rt]]), ut = { key: 2 }, Cn = {
             E[K] = E[K].replaceAll("enabled:", "");
         }
       return S[t.theme] ?? S.default;
-    }), T = z(() => [
+    }), F = z(() => [
       ...u(o),
       ...u(s),
       ...u(r),
@@ -216,7 +208,7 @@ const it = /* @__PURE__ */ Se(nt, [["render", rt]]), ut = { key: 2 }, Cn = {
     return (S, O) => (i(), C(ie(e.as), {
       disabled: e.disabled || e.loading,
       type: n(A),
-      class: k(n(T))
+      class: k(n(F))
     }, {
       default: p(() => [
         e.loading ? (i(), C(it, {
@@ -306,7 +298,7 @@ const it = /* @__PURE__ */ Se(nt, [["render", rt]]), ut = { key: 2 }, Cn = {
   },
   emits: ["update:modelValue", "update:query", "clear"],
   setup(e, { emit: t }) {
-    const o = e, s = j(!1), r = () => h(s, !u(s)), { items: d, excludeSelected: x, modelValue: B, query: b } = W(o), I = o.stringify ?? ((c) => (c == null ? void 0 : c.name) ?? c ?? ""), w = o.uniqueKey ?? ((c) => (c == null ? void 0 : c.id) ?? c), T = ue([]), M = j(u(b)), A = j([]), S = z(() => T.filter((c) => u(A).map(w).includes(w(c)))), O = o.filter ?? (async (c, V) => u(V).filter((a) => I(a).toLowerCase().includes(c.toLowerCase()))), E = z(() => u(d).filter((c) => !u(A).map(w).includes(w(c)))), K = j(u(d)), D = ne("input"), y = () => h(s, !0), F = () => h(s, !1), _ = () => u(D).$el.focus();
+    const o = e, s = j(!1), r = () => h(s, !u(s)), { items: d, excludeSelected: x, modelValue: B, query: b } = W(o), I = o.stringify ?? ((c) => (c == null ? void 0 : c.name) ?? c ?? ""), w = o.uniqueKey ?? ((c) => (c == null ? void 0 : c.id) ?? c), F = ue([]), M = j(u(b)), A = j([]), S = z(() => F.filter((c) => u(A).map(w).includes(w(c)))), O = o.filter ?? (async (c, V) => u(V).filter((a) => I(a).toLowerCase().includes(c.toLowerCase()))), E = z(() => u(d).filter((c) => !u(A).map(w).includes(w(c)))), K = j(u(d)), D = ne("input"), y = () => h(s, !0), T = () => h(s, !1), _ = () => u(D).$el.focus();
     function R(c) {
       c.value === "" && u(M) !== "" && (c.value = u(M));
     }
@@ -317,17 +309,17 @@ const it = /* @__PURE__ */ Se(nt, [["render", rt]]), ut = { key: 2 }, Cn = {
       h(A, u(A).filter((V) => w(V) !== w(c))), await Z(), _();
     }
     const Q = ne("container");
-    return _e(Q, () => F()), q(d, (c) => {
+    return _e(Q, () => T()), q(d, (c) => {
       c.forEach((V) => {
-        T.findIndex((a) => w(a) === w(V)) === -1 && T.push(V);
+        F.findIndex((a) => w(a) === w(V)) === -1 && F.push(V);
       });
     }, { immediate: !0 }), q(B, (c) => h(A, c), { immediate: !0 }), q(A, (c) => t("update:modelValue", c)), q(A, () => h(M, "")), q(M, (c) => t("update:query", c)), q(M, async (c) => {
       const V = await O(u(c), u(x) ? u(E) : u(d));
       h(K, u(V) ?? []);
-    }), q(b, (c) => h(M, c != null ? `${c}` : "")), Y(d, K, { direction: "ltr" }), q(M, (c) => u(D).$el.value = c), q(A, () => o.autoHide && F()), q(M, () => y()), le(() => Z().then(() => u(D).$el.value = u(M))), le(() => o.autofocus && _()), (c, V) => (i(), g("div", {
+    }), q(b, (c) => h(M, c != null ? `${c}` : "")), Y(d, K, { direction: "ltr" }), q(M, (c) => u(D).$el.value = c), q(A, () => o.autoHide && T()), q(M, () => y()), le(() => Z().then(() => u(D).$el.value = u(M))), le(() => o.autofocus && _()), (c, V) => (i(), g("div", {
       ref_key: "container",
       ref: Q,
-      onKeydown: be(F, ["esc"]),
+      onKeydown: be(T, ["esc"]),
       onKeyup: V[4] || (V[4] = ({ code: a }) => ["ArrowUp", "ArrowDown"].includes(a) && y())
     }, [
       v(n(pe), {
@@ -417,7 +409,7 @@ const it = /* @__PURE__ */ Se(nt, [["render", rt]]), ut = { key: 2 }, Cn = {
                     key: n(w)(a),
                     value: n(w)(a),
                     disabled: e.disabled.includes(n(w)(a)),
-                    onClick: V[2] || (V[2] = () => e.autoHide && F())
+                    onClick: V[2] || (V[2] = () => e.autoHide && T())
                   }, {
                     default: p(({ active: m, selected: $ }) => [
                       f(c.$slots, "default", P(N({ item: a, active: m, selected: $, stringify: n(I) })), () => [
@@ -527,26 +519,26 @@ const it = /* @__PURE__ */ Se(nt, [["render", rt]]), ut = { key: 2 }, Cn = {
       } catch (m) {
         return console.debug("Unable to stringify item", a, m), "";
       }
-    }, T = o.uniqueKey ?? ((a) => (a == null ? void 0 : a.id) ?? a), M = ue([]);
+    }, F = o.uniqueKey ?? ((a) => (a == null ? void 0 : a.id) ?? a), M = ue([]);
     function A(a) {
-      return M.find((m) => T(m) === a);
+      return M.find((m) => F(m) === a);
     }
-    const S = j(u(b)), O = j(), E = o.filter ?? (async (a, m) => u(m).filter(($) => w($).toLowerCase().includes(a.toLowerCase()))), K = z(() => u(d).filter((a) => T(a) !== T(u(B)))), D = j(u(d)), y = (a) => a != null ? w(a) : u(S), F = ne("input"), _ = () => h(s, !0), R = () => h(s, !1), U = () => u(F).$el.focus();
+    const S = j(u(b)), O = j(), E = o.filter ?? (async (a, m) => u(m).filter(($) => w($).toLowerCase().includes(a.toLowerCase()))), K = z(() => u(d).filter((a) => F(a) !== F(u(B)))), D = j(u(d)), y = (a) => a != null ? w(a) : u(S), T = ne("input"), _ = () => h(s, !0), R = () => h(s, !1), U = () => u(T).$el.focus();
     function J(a) {
       a.value === "" && u(S) !== "" && (a.value = u(S));
     }
     async function Q() {
       h(O, void 0), h(S, ""), await Z(), U(), t("clear");
     }
-    const c = (a) => u(O) != null && T(a) === T(u(O)), V = ne("container");
+    const c = (a) => u(O) != null && F(a) === F(u(O)), V = ne("container");
     return _e(V, () => R()), q(d, (a) => {
       a.forEach((m) => {
-        M.findIndex(($) => T($) === T(m)) === -1 && M.push(m);
+        M.findIndex(($) => F($) === F(m)) === -1 && M.push(m);
       });
     }, { immediate: !0 }), q(M, async () => {
-      u(O) == null && o.modelValue != null && (h(O, A(T(o.modelValue))), await Z(), R());
+      u(O) == null && o.modelValue != null && (h(O, A(F(o.modelValue))), await Z(), R());
     }, { immediate: !0 }), q(B, (a) => h(O, A(a)), { immediate: !0 }), q(O, (a) => {
-      T(a) !== T(o.modelValue) && t("update:modelValue", T(a));
+      F(a) !== F(o.modelValue) && t("update:modelValue", F(a));
     }), q(O, (a) => {
       a == null ? h(S, "") : h(S, w(a));
     }), q(S, (a) => t("update:query", a)), q(S, async (a) => {
@@ -575,7 +567,7 @@ const it = /* @__PURE__ */ Se(nt, [["render", rt]]), ut = { key: 2 }, Cn = {
           l("div", wt, [
             v(n(ye), G({
               ref_key: "input",
-              ref: F,
+              ref: T,
               "display-value": y,
               autocomplete: "off"
             }, e.inputAttrs, {
@@ -614,9 +606,9 @@ const it = /* @__PURE__ */ Se(nt, [["render", rt]]), ut = { key: 2 }, Cn = {
               }, {
                 default: p(() => [
                   (i(!0), g(X, null, ee(D.value, ($) => (i(), C(n(ge), {
-                    key: n(T)($),
+                    key: n(F)($),
                     value: $,
-                    disabled: e.disabled.includes(n(T)($)),
+                    disabled: e.disabled.includes(n(F)($)),
                     onClick: m[2] || (m[2] = () => e.autoHide && R())
                   }, {
                     default: p(({ active: oe }) => [
@@ -825,7 +817,7 @@ const it = /* @__PURE__ */ Se(nt, [["render", rt]]), ut = { key: 2 }, Cn = {
       [n(Ne), o]
     ]);
   }
-}, Vt = /* @__PURE__ */ l("div", { class: "fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" }, null, -1), Tt = { class: "flex items-end sm:items-center justify-center min-h-full p-4 text-center sm:p-0" }, Ft = {
+}, Vt = /* @__PURE__ */ l("div", { class: "fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" }, null, -1), Ft = { class: "flex items-end sm:items-center justify-center min-h-full p-4 text-center sm:p-0" }, Tt = {
   __name: "Modal",
   props: {
     open: {
@@ -872,7 +864,7 @@ const it = /* @__PURE__ */ Se(nt, [["render", rt]]), ut = { key: 2 }, Cn = {
               class: "fixed z-10 inset-0 overflow-y-auto",
               onSubmit: B[0] || (B[0] = re((...b) => x.submit && x.submit(...b), ["prevent"]))
             }, [
-              l("div", Tt, [
+              l("div", Ft, [
                 v(n(ae), {
                   as: "template",
                   enter: "ease-out duration-300",
@@ -969,7 +961,7 @@ const it = /* @__PURE__ */ Se(nt, [["render", rt]]), ut = { key: 2 }, Cn = {
     async function B() {
       await (o.onReset ?? ((I) => t("reset", { form: u(I), visible: r })))({ form: u(d), visible: r }), o.hideOnReset && h(r, !1);
     }
-    return Y(s, r, { direction: "ltr" }), (b, I) => (i(), C(Ft, { open: r.value }, {
+    return Y(s, r, { direction: "ltr" }), (b, I) => (i(), C(Tt, { open: r.value }, {
       default: p(() => [
         l("form", {
           ref_key: "FormHTMLElement",
@@ -1084,18 +1076,18 @@ const Mn = /* @__PURE__ */ Se(Ht, [["render", Pt]]), An = {
   setup(e, { emit: t }) {
     const o = e, { open: s, query: r } = W(o), d = j(u(r)), x = Oe(d, o.delayBetweenRequests), B = j(!0), b = j(!1);
     Y(s, B, { direction: "ltr" }), Y(r, d, { direction: "ltr" });
-    const I = async (y, F, _) => y === "" && o.prompt ? [] : F.filter((R) => _(R).toLowerCase().includes(y.toLowerCase())), w = o.filter ?? I, T = async function(y, F, _) {
+    const I = async (y, T, _) => y === "" && o.prompt ? [] : T.filter((R) => _(R).toLowerCase().includes(y.toLowerCase())), w = o.filter ?? I, F = async function(y, T, _) {
       h(b, !0);
       try {
-        return await w(y, F, _);
+        return await w(y, T, _);
       } finally {
         h(b, !1);
       }
-    }, M = Le(() => T(u(x), o.items, A), o.items), A = o.stringify ?? ((y) => y == null ? void 0 : y.name), S = o.groupGetter ?? (() => {
+    }, M = Le(() => F(u(x), o.items, A), o.items), A = o.stringify ?? ((y) => y == null ? void 0 : y.name), S = o.groupGetter ?? (() => {
     }), O = z(
-      () => M.value.reduce((y, F) => {
-        let _ = S(F);
-        return { ...y, [_]: [...y[_] || [], F] };
+      () => M.value.reduce((y, T) => {
+        let _ = S(T);
+        return { ...y, [_]: [...y[_] || [], T] };
       }, {})
     );
     function E(y) {
@@ -1108,17 +1100,17 @@ const Mn = /* @__PURE__ */ Se(Ht, [["render", Pt]]), An = {
     function D() {
       t("close"), t("update:open", !1), h(B, !1);
     }
-    return (y, F) => (i(), C(n(ke), {
+    return (y, T) => (i(), C(n(ke), {
       show: B.value,
       as: "template",
-      onAfterLeave: F[2] || (F[2] = (_) => d.value = ""),
+      onAfterLeave: T[2] || (T[2] = (_) => d.value = ""),
       appear: ""
     }, {
       default: p(() => [
         v(n(Ce), {
           as: "div",
           class: "relative z-10",
-          onClose: F[1] || (F[1] = (_) => D())
+          onClose: T[1] || (T[1] = (_) => D())
         }, {
           default: p(() => [
             v(n(ae), {
@@ -1159,7 +1151,7 @@ const Mn = /* @__PURE__ */ Se(Ht, [["render", Pt]]), An = {
                                 class: "h-12 w-full border-0 bg-transparent pl-11 pr-4 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm",
                                 style: { "box-shadow": "none" },
                                 placeholder: e.placeholder,
-                                onChange: F[0] || (F[0] = (_) => E(_.target.value))
+                                onChange: T[0] || (T[0] = (_) => E(_.target.value))
                               }, null, 8, ["placeholder"])
                             ])
                           ]),
@@ -1229,7 +1221,7 @@ const Mn = /* @__PURE__ */ Se(Ht, [["render", Pt]]), An = {
   }
 }, Zt = { class: "sr-only" }, en = /* @__PURE__ */ l("path", { d: "M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" }, null, -1), tn = [
   en
-], Tn = {
+], Fn = {
   __name: "ContextualMenu",
   props: {
     iconClasses: {
@@ -1283,7 +1275,7 @@ const Mn = /* @__PURE__ */ Se(Ht, [["render", Pt]]), An = {
       _: 3
     }));
   }
-}, Fn = {
+}, Tn = {
   __name: "Blink",
   props: {
     condition: {
@@ -1445,16 +1437,16 @@ const Mn = /* @__PURE__ */ Se(Ht, [["render", Pt]]), An = {
 };
 export {
   kn as Alert,
-  Fn as Blink,
+  Tn as Blink,
   Cn as Button,
   Bn as ComboBox,
   Vn as CommandPalette,
-  Tn as ContextualMenu,
+  Fn as ContextualMenu,
   Kn as DebugBreakpoint,
   Dn as DebugMemory,
   zn as GeneratedAvatar,
   qn as HoverableElement,
-  Ft as Modal,
+  Tt as Modal,
   In as Prompt,
   Mn as PromptIcon,
   An as PromptTitle,

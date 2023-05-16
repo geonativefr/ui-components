@@ -52,17 +52,9 @@ const props = defineProps({
     default: 'default',
     validator: (value) => ['default', 'primary', 'danger', 'cancel'].includes(value),
   },
-  icon: {
-    type: String,
-    default: undefined,
-  },
   iconRight: {
     type: Boolean,
     default: false,
-  },
-  iconType: {
-    type: String,
-    default: 'solid',
   },
   loading: {
     type: Boolean,
