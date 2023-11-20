@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-import { defineProps, ref } from 'vue';
+import { ref } from 'vue';
 import { vElementHover } from '@vueuse/components';
 
 defineProps({
