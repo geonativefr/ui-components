@@ -59,7 +59,7 @@
 <script setup>
 import { Combobox, ComboboxInput, ComboboxLabel, ComboboxOption, ComboboxOptions } from '@headlessui/vue';
 import { CheckIcon, SelectorIcon, XIcon } from '@heroicons/vue/solid';
-import { get, onClickOutside, set, syncRef, templateRef } from '@vueuse/core';
+import { asyncComputed, get, onClickOutside, set, templateRef } from '@vueuse/core';
 import { computed, nextTick, onMounted, reactive, ref, toRefs, watch } from 'vue';
 
 // eslint-disable-next-line no-undef
@@ -143,9 +143,9 @@ function getItemByUniqueKey(id) {
 
 const query = ref(get(inputQuery));
 const selectedItem = ref();
-const filter = props.filter ?? ((query, items) => get(items).filter((item) => stringify(item).toLowerCase().includes(query.toLowerCase())));
+const filter = props.filter ?? (async (query, items) => get(items).filter((item) => stringify(item).toLowerCase().includes(query.toLowerCase())));
 const filteredItems = computed(() => get(items).filter(item => uniqueKey(item) !== uniqueKey(get(modelValue))));
-const availableItems = computed(() => filter(get(query), get(excludeSelected) ? get(filteredItems) : get(items)));
+const availableItems = asyncComputed(() => filter(get(query), get(excludeSelected) ? get(filteredItems) : get(items)), []);
 const displayValueFn = (item) => null != item ? stringify(item) : get(query);
 const input = templateRef('input');
 const showOptions = () => set(open, true);
