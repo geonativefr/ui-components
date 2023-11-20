@@ -8,7 +8,7 @@
 </template>
 
 <script setup>
-import ComboBox from '../src/ApplicationUI/Forms/ComboBoxes/ComboBox.vue';
+import { ComboBox } from '../src/index.js';
 import { computed, ref } from 'vue';
 
 const items = [{id: 1, name: 'foo'}, {id: 2, name: 'bar'}, {id: 3, name: 'baz'}];

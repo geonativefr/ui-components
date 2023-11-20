@@ -138,14 +138,14 @@ const stringify = (item) => {
 const uniqueKey = props.uniqueKey ?? ((item) => item?.id ?? item);
 const cachedItems = reactive([]);
 function getItemByUniqueKey(id) {
-  return cachedItems.find(item => uniqueKey(item) === id);
+  return cachedItems.find(item => uniqueKey(item) === id) || null;
 }
 
 const query = ref(get(inputQuery));
 const selectedItem = ref();
-const filter = props.filter ?? (async (query, items) => get(items).filter((item) => stringify(item).toLowerCase().includes(query.toLowerCase())));
+const filter = props.filter ?? ((query, items) => get(items).filter((item) => stringify(item).toLowerCase().includes(query.toLowerCase())));
 const filteredItems = computed(() => get(items).filter(item => uniqueKey(item) !== uniqueKey(get(modelValue))));
-const availableItems = ref(get(items));
+const availableItems = computed(() => filter(get(query), get(excludeSelected) ? get(filteredItems) : get(items)));
 const displayValueFn = (item) => null != item ? stringify(item) : get(query);
 const input = templateRef('input');
 const showOptions = () => set(open, true);
@@ -159,7 +159,7 @@ function onBlur(target) {
 }
 
 async function clear() {
-  set(selectedItem, undefined);
+  set(selectedItem, null);
   set(query, '');
   await nextTick();
   focus();
@@ -199,13 +199,8 @@ watch(selectedItem, item => {
   }
 });
 watch(query, query => emit('update:query', query));
-watch(query, async query => {
-  const results = await filter(get(query), get(excludeSelected) ? get(filteredItems) : get(items));
-  set(availableItems, get(results) ?? []);
-});
 watch(inputQuery, (value) => set(query, null != value ? `${value}` : ''));
 watch(selectedItem, () => props.autoHide && hideOptions());
 watch(query, () => showOptions());
-syncRef(items, availableItems, {direction: 'ltr'});
 onMounted(() => props.autofocus && focus());
 </script>
