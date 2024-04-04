@@ -7,7 +7,12 @@
       </svg>
     </MenuButton>
     <transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
-      <MenuItems class="mx-3 origin-top-right absolute right-7 top-0 w-48 mt-1 rounded-md shadow-lg z-10 bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-200 focus:outline-none">
+      <MenuItems
+          :class="[
+              fromBottom ? 'bottom-0' : 'top-0',
+              fromLeft ? 'left-7' : 'right-7',
+              'mx-3 origin-top-right absolute w-48 mt-1 rounded-md shadow-lg z-10 bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-200 focus:outline-none'
+              ]">
         <slot />
       </MenuItems>
     </transition>
@@ -25,6 +30,14 @@ const props = defineProps({
   srOnly: {
     type: String,
     default: 'Open',
+  },
+  fromBottom: {
+    type: Boolean,
+    default: false,
+  },
+  fromLeft: {
+    type: Boolean,
+    default: false,
   },
 });
 
