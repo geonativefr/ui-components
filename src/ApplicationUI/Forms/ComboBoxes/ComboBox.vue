@@ -10,6 +10,7 @@
       :exclude-selected="excludeSelected"
       :clearable="clearable"
       :label="label"
+      :static="static"
       v-bind="$attrs"
   >
     <template #label>
@@ -36,6 +37,7 @@
       :exclude-selected="excludeSelected"
       :clearable="clearable"
       :label="label"
+      :static="static"
       v-bind="$attrs"
   >
     <template #label>
@@ -89,6 +91,10 @@ const props = defineProps({
   label: {
     type: String,
     default: undefined,
+  },
+  static: {
+    type: Boolean,
+    default: undefined, // undefined will be considered as !autoHide
   },
 });
 </script>

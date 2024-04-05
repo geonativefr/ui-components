@@ -28,7 +28,7 @@
 
         <div v-show="open" class="absolute mt-1 w-full rounded-md bg-white shadow-lg z-10">
           <ComboboxOptions
-              :static="!autoHide"
+              :static="undefined !== static ? static : !autoHide"
               class="shadow-xs max-h-60 overflow-auto rounded-md py-1 text-base leading-6 focus:outline-none sm:text-sm sm:leading-5"
           >
             <ComboboxOption
@@ -117,6 +117,10 @@ const props = defineProps({
   autofocus: {
     type: Boolean,
     default: false,
+  },
+  static: {
+    type: Boolean,
+    default: undefined, // undefined will be considered as !autoHide
   },
 });
 const open = ref(false);
