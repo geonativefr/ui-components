@@ -13,7 +13,7 @@
           :class="[
               fromBottom ? 'bottom-0' : 'top-0',
               fromLeft ? 'left-7' : 'right-7',
-              'mx-3 origin-top-right absolute w-48 mt-1 rounded-md shadow-lg z-10 bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-200 focus:outline-none'
+              'mx-3 origin-top-right absolute min-w-48 w-auto mt-1 rounded-md shadow-lg z-10 bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-200 focus:outline-none'
               ]">
         <slot />
       </MenuItems>
