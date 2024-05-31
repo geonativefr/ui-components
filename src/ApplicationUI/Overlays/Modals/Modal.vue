@@ -23,7 +23,7 @@
                 'max-w-lg w-full'
             ]">
               <button v-if="!hideCloseIcon" type="button" class="absolute top-0 right-0 p-3 focus:outline-none" @click="close">
-                <XIcon class="h-5 w-5 text-gray-800 hover:text-black" />
+                <XMarkIcon class="h-5 w-5 text-gray-800 hover:text-black" />
               </button>
               <slot />
             </DialogPanel>
@@ -38,7 +38,8 @@
 import { ref, toRefs } from 'vue';
 import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from '@headlessui/vue';
 import { syncRef } from '@vueuse/core';
-import { XIcon } from '@heroicons/vue/solid';
+import { XMarkIcon } from '@heroicons/vue/24/solid';
+
 
 const emit = defineEmits(['submit', 'reset', 'close']);
 
