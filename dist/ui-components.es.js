@@ -1258,7 +1258,7 @@ const Mn = /* @__PURE__ */ qe(Ht, [["render", Pt]]), An = {
         }, {
           default: y(() => [
             a("span", Zt, H(e.srOnly), 1),
-            f(s.$slots, "icon", P(D({ iconClasses: n(o), disabled: e.disabled })), () => [
+            f(s.$slots, "icon", P(D({ iconClasses: n(o) })), () => [
               (i(), m("svg", {
                 xmlns: "http://www.w3.org/2000/svg",
                 viewBox: "0 0 20 20",
