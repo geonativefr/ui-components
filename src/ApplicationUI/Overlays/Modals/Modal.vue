@@ -40,7 +40,6 @@ import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from '@headlessu
 import { syncRef } from '@vueuse/core';
 import { XMarkIcon } from '@heroicons/vue/24/solid';
 
-
 const emit = defineEmits(['submit', 'reset', 'close']);
 
 const props = defineProps({
