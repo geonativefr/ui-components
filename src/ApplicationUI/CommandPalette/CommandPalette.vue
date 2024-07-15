@@ -11,12 +11,7 @@
             <Combobox @update:modelValue="onSelect">
               <div class="relative">
                 <slot name="search-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"
-                       class="pointer-events-none absolute top-3.5 left-4 h-5 w-5 text-gray-400">
-                    <path fill-rule="evenodd"
-                          d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"
-                          clip-rule="evenodd"></path>
-                  </svg>
+                  <MagnifyingGlassIcon class="pointer-events-none absolute top-3.5 left-4 h-5 w-5 text-gray-400" />
                 </slot>
                 <slot name="input" v-bind="{query}">
                   <ComboboxInput
@@ -93,6 +88,7 @@ import {
   TransitionChild,
   TransitionRoot,
 } from '@headlessui/vue';
+import { MagnifyingGlassIcon } from '@heroicons/vue/24/solid';
 import { asyncComputed, get, refDebounced, refThrottled, set, syncRef } from '@vueuse/core';
 import { computed, ref, toRefs, watch } from 'vue';
 
