@@ -19,10 +19,10 @@
 
         <div class="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
           <button v-if="clearable" type="button" @click="clear">
-            <XIcon v-if="null != modelValue" name="x" class="h-5 w-5 text-gray-300" aria-hidden="true"/>
+            <XMarkIcon v-if="null != modelValue" name="x" class="h-5 w-5 text-gray-300" aria-hidden="true"/>
           </button>
           <button type="button" @click="toggle">
-            <SelectorIcon class="h-5 w-5 text-gray-400" aria-hidden="true"/>
+            <ChevronUpDownIcon class="h-5 w-5 text-gray-400" aria-hidden="true"/>
           </button>
         </div>
 
@@ -58,7 +58,7 @@
 
 <script setup>
 import { Combobox, ComboboxInput, ComboboxLabel, ComboboxOption, ComboboxOptions } from '@headlessui/vue';
-import { CheckIcon, SelectorIcon, XIcon } from '@heroicons/vue/solid';
+import { CheckIcon, ChevronUpDownIcon, XMarkIcon } from '@heroicons/vue/24/solid';
 import { asyncComputed, get, onClickOutside, set, templateRef } from '@vueuse/core';
 import { computed, nextTick, onMounted, reactive, ref, toRefs, watch } from 'vue';
 
