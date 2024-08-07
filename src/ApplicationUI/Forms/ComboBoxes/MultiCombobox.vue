@@ -22,7 +22,7 @@
                     <span class="flex items-center gap-1 rounded bg-primary-600 text-white px-2 py-0.5">
                       <span>{{ stringify(item)}}</span>
                       <button role="button" @click="remove(item)">
-                        <XIcon class="h-4 w-4"/>
+                        <XMarkIcon class="h-4 w-4"/>
                       </button>
                     </span>
                   </slot>
