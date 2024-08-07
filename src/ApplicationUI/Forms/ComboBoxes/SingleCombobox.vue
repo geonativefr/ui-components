@@ -59,7 +59,7 @@
 <script setup>
 import { Combobox, ComboboxInput, ComboboxLabel, ComboboxOption, ComboboxOptions } from '@headlessui/vue';
 import { CheckIcon, ChevronUpDownIcon, XMarkIcon } from '@heroicons/vue/24/solid';
-import { asyncComputed, get, onClickOutside, set, templateRef } from '@vueuse/core';
+import { get, onClickOutside, set, syncRef, templateRef } from '@vueuse/core';
 import { computed, nextTick, onMounted, reactive, ref, toRefs, watch } from 'vue';
 
 // eslint-disable-next-line no-undef
@@ -145,7 +145,7 @@ const query = ref(get(inputQuery));
 const selectedItem = ref();
 const filter = props.filter ?? (async (query, items) => get(items).filter((item) => stringify(item).toLowerCase().includes(query.toLowerCase())));
 const filteredItems = computed(() => get(items).filter(item => uniqueKey(item) !== uniqueKey(get(modelValue))));
-const availableItems = asyncComputed(() => filter(get(query), get(excludeSelected) ? get(filteredItems) : get(items)), []);
+const availableItems = ref(get(items));
 const displayValueFn = (item) => null != item ? stringify(item) : get(query);
 const input = templateRef('input');
 const showOptions = () => set(open, true);
@@ -199,8 +199,13 @@ watch(selectedItem, item => {
   }
 });
 watch(query, query => emit('update:query', query));
+watch(query, async query => {
+  const results = await filter(get(query), get(excludeSelected) ? get(filteredItems) : get(items));
+  set(availableItems, get(results) ?? []);
+});
 watch(inputQuery, (value) => set(query, null != value ? `${value}` : ''));
 watch(selectedItem, () => props.autoHide && hideOptions());
 watch(query, () => showOptions());
+syncRef(items, availableItems, {direction: 'ltr'});
 onMounted(() => props.autofocus && focus());
 </script>
