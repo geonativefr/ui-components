@@ -37,6 +37,6 @@ Then, inside your project:
 
 ```bash
 yarn link @geonative/ui-components # Will override your node_modules dependency to use your local copy
-yarn dev # Will watch for changes in your project + in ui-components
+yarn dev --force # Will watch for changes in your project + in ui-components
 yarn unlink @geonative/ui-components # Once you're done
 ```
