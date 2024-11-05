@@ -1,5 +1,9 @@
 <template>
-  <div ref="container" @keydown.esc="hideOptions" @keyup="({code}) => ['ArrowUp', 'ArrowDown'].includes(code) && showOptions()">
+  <div
+    ref="container"
+    @keydown.esc="hideOptions"
+    @keyup="({ code }) => ['ArrowUp', 'ArrowDown'].includes(code) && showOptions()"
+  >
     <Combobox as="div" v-model="selectedItem">
       <slot name="label">
         <ComboboxLabel class="block text-sm font-medium text-gray-700 mb-1 empty:hidden">{{ label }}</ComboboxLabel>
@@ -7,44 +11,56 @@
 
       <div class="relative">
         <ComboboxInput
-            ref="input"
-            :display-value="displayValueFn"
-            autocomplete="off"
-            v-bind="inputAttrs"
-            class="w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 shadow-sm focus:outline-none focus:ring-1 sm:text-sm"
-            @focus="showOptions"
-            @blur="onBlur($event.target)"
-            @change="query = $event.target.value"
+          ref="input"
+          :display-value="displayValueFn"
+          autocomplete="off"
+          v-bind="inputAttrs"
+          class="w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 shadow-sm focus:outline-none focus:ring-1 sm:text-sm"
+          @focus="showOptions"
+          @blur="onBlur($event.target)"
+          @change="query = $event.target.value"
         />
 
         <div class="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
           <button v-if="clearable" type="button" @click="clear">
-            <XMarkIcon v-if="null != modelValue" name="x" class="h-5 w-5 text-gray-300" aria-hidden="true"/>
+            <XMarkIcon v-if="null != modelValue" name="x" class="h-5 w-5 text-gray-300" aria-hidden="true" />
           </button>
           <button type="button" @click="toggle">
-            <ChevronUpDownIcon class="h-5 w-5 text-gray-400" aria-hidden="true"/>
+            <ChevronUpDownIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
           </button>
         </div>
 
         <div v-show="open" class="absolute mt-1 w-full rounded-md bg-white shadow-lg z-10">
           <ComboboxOptions
-              :static="!autoHide"
-              class="shadow-xs max-h-60 overflow-auto rounded-md py-1 text-base leading-6 focus:outline-none sm:text-sm sm:leading-5"
+            :static="!autoHide"
+            class="shadow-xs max-h-60 overflow-auto rounded-md py-1 text-base leading-6 focus:outline-none sm:text-sm sm:leading-5"
           >
             <ComboboxOption
-                v-for="item of availableItems"
-                :key="uniqueKey(item)"
-                :value="item"
-                :disabled="disabled.includes(uniqueKey(item))"
-                v-slot="{ active }"
-                @click="() => autoHide && hideOptions()"
+              v-for="item of availableItems"
+              :key="uniqueKey(item)"
+              :value="item"
+              :disabled="disabled.includes(uniqueKey(item))"
+              v-slot="{ active }"
+              @click="() => autoHide && hideOptions()"
             >
               <slot v-bind="{ item, active, selected: isSelected(item), stringify }">
-                <li :class="['relative cursor-pointer select-none py-2 pl-3 pr-9', active ? 'bg-indigo-600 text-white' : 'text-gray-900']">
-                  <span :class="['block', !active && 'truncate', isSelected(item) && 'font-semibold']">{{ stringify(item) }}</span>
-                  <span v-if="isSelected(item)"
-                        :class="['absolute inset-y-0 right-0 flex items-center pr-4', active ? 'text-white' : 'text-indigo-600']">
-                    <CheckIcon class="h-5 w-5" aria-hidden="true"/>
+                <li
+                  :class="[
+                    'relative cursor-pointer select-none py-2 pl-3 pr-9',
+                    active ? 'bg-indigo-600 text-white' : 'text-gray-900',
+                  ]"
+                >
+                  <span :class="['block', !active && 'truncate', isSelected(item) && 'font-semibold']">{{
+                    stringify(item)
+                  }}</span>
+                  <span
+                    v-if="isSelected(item)"
+                    :class="[
+                      'absolute inset-y-0 right-0 flex items-center pr-4',
+                      active ? 'text-white' : 'text-indigo-600',
+                    ]"
+                  >
+                    <CheckIcon class="h-5 w-5" aria-hidden="true" />
                   </span>
                 </li>
               </slot>
@@ -108,7 +124,7 @@ const props = defineProps({
   },
   disabled: {
     type: Array, // Choices that are not selectable.
-    default: () => ([]),
+    default: () => [],
   },
   autoHide: {
     type: Boolean, // Hide choices after picking one.
@@ -121,7 +137,7 @@ const props = defineProps({
 });
 const open = ref(false);
 const toggle = () => set(open, !get(open));
-const {items, excludeSelected, modelValue, query: inputQuery} = toRefs(props);
+const { items, excludeSelected, modelValue, query: inputQuery } = toRefs(props);
 const stringifyFn = props.stringify ?? ((item) => item?.name ?? item ?? undefined);
 const stringify = (item) => {
   try {
@@ -138,15 +154,17 @@ const stringify = (item) => {
 const uniqueKey = props.uniqueKey ?? ((item) => item?.id ?? item);
 const cachedItems = reactive([]);
 function getItemByUniqueKey(id) {
-  return cachedItems.find(item => uniqueKey(item) === id) || null;
+  return cachedItems.find((item) => uniqueKey(item) === id) || null;
 }
 
 const query = ref(get(inputQuery));
 const selectedItem = ref();
-const filter = props.filter ?? (async (query, items) => get(items).filter((item) => stringify(item).toLowerCase().includes(query.toLowerCase())));
-const filteredItems = computed(() => get(items).filter(item => uniqueKey(item) !== uniqueKey(get(modelValue))));
+const filter =
+  props.filter ??
+  (async (query, items) => get(items).filter((item) => stringify(item).toLowerCase().includes(query.toLowerCase())));
+const filteredItems = computed(() => get(items).filter((item) => uniqueKey(item) !== uniqueKey(get(modelValue))));
 const availableItems = ref(get(items));
-const displayValueFn = (item) => null != item ? stringify(item) : get(query);
+const displayValueFn = (item) => (null != item ? stringify(item) : get(query));
 const input = templateRef('input');
 const showOptions = () => set(open, true);
 const hideOptions = () => set(open, false);
@@ -166,46 +184,54 @@ async function clear() {
   emit('clear');
 }
 
-const isSelected = item => null != get(selectedItem) && uniqueKey(item) === uniqueKey(get(selectedItem));
+const isSelected = (item) => null != get(selectedItem) && uniqueKey(item) === uniqueKey(get(selectedItem));
 
 const container = templateRef('container');
 onClickOutside(container, () => hideOptions());
 
-watch(items, (items) => {
-  items.forEach(item => {
-    if (-1 === cachedItems.findIndex(cachedItem => uniqueKey(cachedItem) === uniqueKey(item))) {
-      cachedItems.push(item);
+watch(
+  items,
+  (items) => {
+    items.forEach((item) => {
+      if (-1 === cachedItems.findIndex((cachedItem) => uniqueKey(cachedItem) === uniqueKey(item))) {
+        cachedItems.push(item);
+      }
+    });
+  },
+  { immediate: true }
+);
+watch(
+  cachedItems,
+  async () => {
+    if (null == get(selectedItem) && null != props.modelValue) {
+      set(selectedItem, getItemByUniqueKey(uniqueKey(props.modelValue)));
+      await nextTick();
+      hideOptions();
     }
-  });
-}, {immediate: true});
-watch(cachedItems, async () => {
-  if (null == get(selectedItem) && null != props.modelValue) {
-    set(selectedItem, getItemByUniqueKey(uniqueKey(props.modelValue)));
-    await nextTick();
-    hideOptions();
-  }
-}, {immediate: true});
-watch(modelValue, id => set(selectedItem, getItemByUniqueKey(id)), {immediate: true});
-watch(selectedItem, item => {
+  },
+  { immediate: true }
+);
+watch(modelValue, (id) => set(selectedItem, getItemByUniqueKey(id)), { immediate: true });
+watch(selectedItem, (item) => {
   if (uniqueKey(item) !== uniqueKey(props.modelValue)) {
     emit('update:modelValue', uniqueKey(item));
   }
 });
-watch(selectedItem, item => {
+watch(selectedItem, (item) => {
   if (null == item) {
     set(query, '');
   } else {
     set(query, stringify(item));
   }
 });
-watch(query, query => emit('update:query', query));
-watch(query, async query => {
+watch(query, (query) => emit('update:query', query));
+watch(query, async (query) => {
   const results = await filter(get(query), get(excludeSelected) ? get(filteredItems) : get(items));
   set(availableItems, get(results) ?? []);
 });
 watch(inputQuery, (value) => set(query, null != value ? `${value}` : ''));
 watch(selectedItem, () => props.autoHide && hideOptions());
 watch(query, () => showOptions());
-syncRef(items, availableItems, {direction: 'ltr'});
+syncRef(items, availableItems, { direction: 'ltr' });
 onMounted(() => props.autofocus && focus());
 </script>

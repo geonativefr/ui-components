@@ -1,11 +1,11 @@
 <template>
   <Component :is="as" :disabled="disabled || loading" :type="type" :class="classes">
-    <SpinnerIcon v-if="loading" :class="iconClasses"/>
+    <SpinnerIcon v-if="loading" :class="iconClasses" />
     <span v-else :class="iconClasses">
-      <slot name="icon"/>
+      <slot name="icon" />
     </span>
     <span v-if="loading">{{ loadingText }}</span>
-    <slot v-else/>
+    <slot v-else />
   </Component>
 </template>
 
@@ -121,18 +121,8 @@ const iconClasses = computed(() => {
 const themeClasses = computed(() => {
   const themes = {
     default: ['enabled:hover:bg-gray-50'],
-    primary: [
-      'text-white',
-      'bg-primary-700',
-      'enabled:hover:bg-primary-800',
-      'enabled:focus:ring-primary-500',
-    ],
-    danger: [
-      'text-white',
-      'bg-red-600',
-      'enabled:hover:bg-red-700',
-      'enabled:focus:ring-red-500',
-    ],
+    primary: ['text-white', 'bg-primary-700', 'enabled:hover:bg-primary-800', 'enabled:focus:ring-primary-500'],
+    danger: ['text-white', 'bg-red-600', 'enabled:hover:bg-red-700', 'enabled:focus:ring-red-500'],
     cancel: [
       'text-gray-700',
       'bg-white',
@@ -144,9 +134,9 @@ const themeClasses = computed(() => {
   if ('button' !== props.as) {
     for (const theme of Object.keys(themes)) {
       const themeClasses = themes[theme];
-        for (const index in themeClasses) {
-          themeClasses[index] = themeClasses[index].replaceAll('enabled:', '');
-        }
+      for (const index in themeClasses) {
+        themeClasses[index] = themeClasses[index].replaceAll('enabled:', '');
+      }
     }
   }
 
@@ -165,5 +155,5 @@ const classes = computed(() => [
 ]);
 
 const loadingText = computed(() => props.loadingText ?? 'Please wait...');
-const type = computed(() => ('button' === props.as ? props.type ?? 'button' : undefined));
+const type = computed(() => ('button' === props.as ? (props.type ?? 'button') : undefined));
 </script>

@@ -23,7 +23,7 @@ const props = defineProps({
 const shouldBlink = computed(() => true === props.condition);
 const shouldNotBlink = computed(() => false === props.condition);
 const invisible = ref(false);
-const toggle = () => invisible.value = !invisible.value;
+const toggle = () => (invisible.value = !invisible.value);
 const timer = ref();
 const blink = () => {
   clearInterval(get(timer));
@@ -35,8 +35,8 @@ const blink = () => {
 const stop = () => {
   clearInterval(get(timer));
   set(invisible, false);
-}
+};
 
-whenever(shouldBlink, blink, {immediate: true});
-whenever(shouldNotBlink, stop, {immediate: true});
+whenever(shouldBlink, blink, { immediate: true });
+whenever(shouldNotBlink, stop, { immediate: true });
 </script>

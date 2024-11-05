@@ -1,5 +1,5 @@
 <template>
-  <slot v-if="isMounted"/>
+  <slot v-if="isMounted" />
 </template>
 
 <script setup>

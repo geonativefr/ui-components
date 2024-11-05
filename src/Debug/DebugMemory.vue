@@ -11,9 +11,7 @@
       <div class="text-right">{{ size(memory.jsHeapSizeLimit) }}</div>
     </template>
   </div>
-  <div v-else class="text-xs italic text-gray-600">
-    Performance memory API not supported
-  </div>
+  <div v-else class="text-xs italic text-gray-600">Performance memory API not supported</div>
 </template>
 
 <script setup>
@@ -23,5 +21,5 @@ const size = (v) => {
   const kb = v / 1024 / 1024;
   return `${kb.toFixed(2)} MB`;
 };
-const {isSupported, memory} = useMemory();
+const { isSupported, memory } = useMemory();
 </script>
