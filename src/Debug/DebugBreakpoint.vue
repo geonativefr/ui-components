@@ -1,5 +1,8 @@
 <template>
-  <div v-if="show" class="absolute inset-0 h-screen w-screen bg-white bg-opacity-75 text-black z-500 flex items-center overflow-hidden">
+  <div
+    v-if="show"
+    class="absolute inset-0 h-screen w-screen bg-white bg-opacity-75 text-black z-500 flex items-center overflow-hidden"
+  >
     <div class="mx-auto text-5xl uppercase">{{ currentBreakpoint }}</div>
   </div>
 </template>

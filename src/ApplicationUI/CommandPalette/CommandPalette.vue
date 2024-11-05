@@ -1,19 +1,37 @@
 <template>
   <TransitionRoot :show="shown" as="template" @after-leave="query = ''" appear>
     <Dialog as="div" class="relative z-10" @close="close()">
-      <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0" enter-to="opacity-100" leave="ease-in duration-200" leave-from="opacity-100" leave-to="opacity-0">
+      <TransitionChild
+        as="template"
+        enter="ease-out duration-300"
+        enter-from="opacity-0"
+        enter-to="opacity-100"
+        leave="ease-in duration-200"
+        leave-from="opacity-100"
+        leave-to="opacity-0"
+      >
         <div class="fixed inset-0 bg-gray-500 bg-opacity-25 transition-opacity" />
       </TransitionChild>
 
       <div class="fixed inset-0 z-10 overflow-y-auto p-12 sm:p-6 md:p-20">
-        <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0 scale-95" enter-to="opacity-100 scale-100" leave="ease-in duration-200" leave-from="opacity-100 scale-100" leave-to="opacity-0 scale-95">
-          <DialogPanel class="mx-auto max-w-xl transform overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black ring-opacity-5 transition-all">
+        <TransitionChild
+          as="template"
+          enter="ease-out duration-300"
+          enter-from="opacity-0 scale-95"
+          enter-to="opacity-100 scale-100"
+          leave="ease-in duration-200"
+          leave-from="opacity-100 scale-100"
+          leave-to="opacity-0 scale-95"
+        >
+          <DialogPanel
+            class="mx-auto max-w-xl transform overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black ring-opacity-5 transition-all"
+          >
             <Combobox @update:modelValue="onSelect">
               <div class="relative">
                 <slot name="search-icon">
                   <MagnifyingGlassIcon class="pointer-events-none absolute top-3.5 left-4 h-5 w-5 text-gray-400" />
                 </slot>
-                <slot name="input" v-bind="{query}">
+                <slot name="input" v-bind="{ query }">
                   <ComboboxInput
                     class="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-gray-800 placeholder-gray-400 focus:ring-0 sm:text-sm"
                     style="box-shadow: none"
@@ -24,31 +42,44 @@
               </div>
 
               <template v-if="enableLoader && isLoading">
-                <slot name="loader" v-bind="{query, isLoading}">
+                <slot name="loader" v-bind="{ query, isLoading }">
                   <div class="border-t border-gray-100 py-4 px-6 text-center text-sm italic text-gray-500 sm:px-14">
                     <slot name="loader-inner">Loading, please wait...</slot>
                   </div>
                 </slot>
               </template>
 
-              <template v-else-if="prompt && (query === '')">
-                <slot name="prompt" v-bind="{query, isLoading}">
+              <template v-else-if="prompt && query === ''">
+                <slot name="prompt" v-bind="{ query, isLoading }">
                   <div class="border-t border-gray-100 py-14 px-6 text-center text-sm sm:px-14">
                     <slot name="prompt-inner" />
                   </div>
                 </slot>
               </template>
 
-              <ComboboxOptions v-else-if="!prompt || (filteredItems.length > 0)" static class="max-h-80 scroll-pt-11 scroll-pb-2 space-y-2 overflow-y-auto pb-2 empty:hidden">
+              <ComboboxOptions
+                v-else-if="!prompt || filteredItems.length > 0"
+                static
+                class="max-h-80 scroll-pt-11 scroll-pb-2 space-y-2 overflow-y-auto pb-2 empty:hidden"
+              >
                 <li v-for="[group, items] in Object.entries(groups)" :key="group">
-                  <slot name="group" v-bind="{group, items, query}">
-                    <h2 v-if="'undefined' !== group" class="bg-gray-100 py-2.5 px-4 text-xs font-semibold text-gray-900">
+                  <slot name="group" v-bind="{ group, items, query }">
+                    <h2
+                      v-if="'undefined' !== group"
+                      class="bg-gray-100 py-2.5 px-4 text-xs font-semibold text-gray-900"
+                    >
                       {{ group }}
                     </h2>
                   </slot>
                   <ul class="mt-2 text-sm text-gray-800">
-                    <ComboboxOption v-for="(item, index) in items" :key="item.id" :value="item" as="template" v-slot="{ active }">
-                      <slot v-bind="{group, item, items, index, active, stringify, query}">
+                    <ComboboxOption
+                      v-for="(item, index) in items"
+                      :key="item.id"
+                      :value="item"
+                      as="template"
+                      v-slot="{ active }"
+                    >
+                      <slot v-bind="{ group, item, items, index, active, stringify, query }">
                         <li :class="['cursor-pointer select-none px-4 py-2', active && 'bg-indigo-600 text-white']">
                           {{ stringify(item) }}
                         </li>
@@ -59,7 +90,7 @@
               </ComboboxOptions>
 
               <template v-else-if="query !== '' && filteredItems.length === 0">
-                <slot name="empty-state" v-bind="{query, isLoading}">
+                <slot name="empty-state" v-bind="{ query, isLoading }">
                   <div class="border-t border-gray-100 py-14 px-6 text-center text-sm sm:px-14">
                     <slot name="empty-state-inner">
                       <p class="mt-4 font-semibold text-gray-900">No results found</p>
@@ -68,7 +99,6 @@
                   </div>
                 </slot>
               </template>
-
             </Combobox>
           </DialogPanel>
         </TransitionChild>
@@ -104,7 +134,7 @@ const props = defineProps({
   },
   items: {
     type: Array,
-    default: () => ([]),
+    default: () => [],
   },
   groupGetter: {
     type: Function,
@@ -136,13 +166,13 @@ const props = defineProps({
   },
 });
 
-const {open, query: theirQuery} = toRefs(props);
+const { open, query: theirQuery } = toRefs(props);
 const query = ref(get(theirQuery));
 const debouncedQuery = refThrottled(query, props.delayBetweenRequests);
 const shown = ref(true);
 const isLoading = ref(false);
-syncRef(open, shown, {direction: 'ltr'});
-syncRef(theirQuery, query, {direction: 'ltr'});
+syncRef(open, shown, { direction: 'ltr' });
+syncRef(theirQuery, query, { direction: 'ltr' });
 
 const defaultFilter = async (query, items, stringify) => {
   if (query === '' && props.prompt) {
@@ -163,10 +193,10 @@ const filteredItems = asyncComputed(() => filterWrapper(get(debouncedQuery), pro
 const stringify = props.stringify ?? ((item) => item?.name);
 const groupGetter = props.groupGetter ?? (() => undefined);
 const groups = computed(() =>
-    filteredItems.value.reduce((groups, item) => {
-      let group = groupGetter(item);
-      return {...groups, [group]: [...(groups[group] || []), item]};
-    }, {}),
+  filteredItems.value.reduce((groups, item) => {
+    let group = groupGetter(item);
+    return { ...groups, [group]: [...(groups[group] || []), item] };
+  }, {})
 );
 
 function onInput(value) {
