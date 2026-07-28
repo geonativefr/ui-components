@@ -1,5 +1,5 @@
 <template>
-  <span class="inline-flex items-center justify-center rounded-full p-4" :style="{backgroundColor}">
+  <span class="inline-flex items-center justify-center rounded-full p-4" :style="{ backgroundColor }">
     <span class="text-xs font-medium leading-none text-white">{{ text }}</span>
   </span>
 </template>
@@ -19,6 +19,6 @@ const props = defineProps({
   },
 });
 
-const {id} = toRefs(props);
+const { id } = toRefs(props);
 const backgroundColor = computed(() => stringToColor(md5(id.value.toLowerCase())));
 </script>

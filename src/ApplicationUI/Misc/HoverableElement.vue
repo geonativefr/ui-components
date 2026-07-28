@@ -1,6 +1,6 @@
 <template as="section">
   <Component :is="as" v-element-hover="onHover">
-    <slot :isHovered="isHovered"/>
+    <slot :isHovered="isHovered" />
   </Component>
 </template>
 

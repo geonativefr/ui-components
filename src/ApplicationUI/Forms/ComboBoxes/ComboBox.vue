@@ -1,49 +1,49 @@
 <template>
   <MultiCombobox
-      v-if="Array.isArray(modelValue)"
-      :items="items"
-      :model-value="modelValue"
-      :stringify="stringify"
-      :unique-key="uniqueKey"
-      :filter="filter"
-      :input-attrs="inputAttrs"
-      :exclude-selected="excludeSelected"
-      :clearable="clearable"
-      :label="label"
-      v-bind="$attrs"
+    v-if="Array.isArray(modelValue)"
+    :items="items"
+    :model-value="modelValue"
+    :stringify="stringify"
+    :unique-key="uniqueKey"
+    :filter="filter"
+    :input-attrs="inputAttrs"
+    :exclude-selected="excludeSelected"
+    :clearable="clearable"
+    :label="label"
+    v-bind="$attrs"
   >
     <template #label>
       <slot name="label" />
     </template>
 
-    <template #selected-items="{item, stringify, remove}">
-      <slot name="selected-items" v-bind="{item, stringify, remove}" />
+    <template #selected-items="{ item, stringify, remove }">
+      <slot name="selected-items" v-bind="{ item, stringify, remove }" />
     </template>
 
-    <template #default="{item, active, selected, stringify}">
-      <slot v-bind="{item, active, selected, stringify}" />
+    <template #default="{ item, active, selected, stringify }">
+      <slot v-bind="{ item, active, selected, stringify }" />
     </template>
   </MultiCombobox>
 
   <SingleCombobox
-      v-else
-      :items="items"
-      :model-value="modelValue"
-      :stringify="stringify"
-      :unique-key="uniqueKey"
-      :filter="filter"
-      :input-attrs="inputAttrs"
-      :exclude-selected="excludeSelected"
-      :clearable="clearable"
-      :label="label"
-      v-bind="$attrs"
+    v-else
+    :items="items"
+    :model-value="modelValue"
+    :stringify="stringify"
+    :unique-key="uniqueKey"
+    :filter="filter"
+    :input-attrs="inputAttrs"
+    :exclude-selected="excludeSelected"
+    :clearable="clearable"
+    :label="label"
+    v-bind="$attrs"
   >
     <template #label>
       <slot name="label" />
     </template>
 
-    <template #default="{item, active, selected, stringify}">
-      <slot v-bind="{item, active, selected, stringify}" />
+    <template #default="{ item, active, selected, stringify }">
+      <slot v-bind="{ item, active, selected, stringify }" />
     </template>
   </SingleCombobox>
 </template>

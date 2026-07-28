@@ -1,6 +1,6 @@
 <template>
   <DialogTitle :as="tag" class="mb-2 text-center text-lg leading-6 font-medium text-gray-900">
-    <slot/>
+    <slot />
   </DialogTitle>
 </template>
 
